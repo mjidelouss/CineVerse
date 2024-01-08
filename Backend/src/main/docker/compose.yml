@@ -1,0 +1,19 @@
+name: taskflow
+services:
+  mysql:
+    container_name: mysql
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=cineverse'
+      - 'MYSQL_ALLOW_EMPTY_PASSWORD=yes'
+    ports:
+      - '3306:3306'
+
+  sonar:
+    container_name: sonarqube
+    image: sonarqube:10.3.0-community
+    environment:
+      - SONAR_FORCEAUTHENTICATION=false
+    ports:
+      - 127.0.0.1:9001:9000
+      - 127.0.0.1:9000:9000
