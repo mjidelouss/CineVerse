@@ -1,4 +1,7 @@
 package com.cine.verse.Mapper;
 
-public class ReviewMapper {
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface ReviewMapper {
 }

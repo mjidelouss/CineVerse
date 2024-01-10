@@ -1,4 +1,7 @@
 package com.cine.verse.Mapper;
 
-public class WatchListMapper {
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface WatchListMapper {
 }
