@@ -19,7 +19,7 @@ public class List {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private AppUser appUser;
 
     @Column(nullable = false)
     private String title;

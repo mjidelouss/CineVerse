@@ -20,7 +20,7 @@ public class WatchList {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private AppUser appUser;
 
     @ManyToOne
     @JoinColumn(name = "movies_id", nullable = false)

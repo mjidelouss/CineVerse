@@ -18,7 +18,7 @@ public class Like {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private AppUser appUser;
 
     @ManyToOne
     @JoinColumn(name = "review_id", nullable = false)
