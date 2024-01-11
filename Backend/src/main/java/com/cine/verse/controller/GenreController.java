@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/v1/")
 @RequiredArgsConstructor
 public class GenreController {
+
     private final GenreService genreService;
 
     @GetMapping("/all")
