@@ -20,7 +20,7 @@ public class MovieList {
 
     @ManyToOne
     @JoinColumn(name = "list_id", nullable = false)
-    private List list;
+    private MyList myList;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)

@@ -44,6 +44,6 @@ public class AppUser {
     private Set<WatchList> watchLists;
 
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
-    private Set<List> lists;
+    private Set<MyList> myLists;
 }
 

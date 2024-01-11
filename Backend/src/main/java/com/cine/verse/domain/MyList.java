@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "lists")
-public class List {
+public class MyList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,6 @@ public class List {
     @Column(nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "list", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "myList", cascade = CascadeType.ALL)
     private Set<MovieList> movieLists;
 }
