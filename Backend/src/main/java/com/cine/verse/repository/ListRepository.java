@@ -1,4 +1,10 @@
 package com.cine.verse.repository;
 
-public interface ListRepository {
+import com.cine.verse.domain.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ListRepository extends JpaRepository<List, Long> {
+
 }
