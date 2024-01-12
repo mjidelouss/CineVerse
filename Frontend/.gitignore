@@ -1,0 +1,77 @@
+# Node.js
+node_modules/
+.angular/
+
+# Angular specific
+/dist/
+/e2e/*.log
+/e2e/*.json
+/e2e/*.screenshot
+/e2e/*.png
+/e2e/**/*.png
+/e2e/*.xml
+/e2e/**/*.xml
+
+# Angular local environment files
+/src/environments/*.local.ts
+
+# TypeScript
+*.tsbuildinfo
+*.tsmetadata
+*.map
+
+# Angular service worker
+ngsw-config.json
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Dependency directories
+/jspm_packages/
+/bower_components/
+
+# Debug
+/debug/
+/*.suo
+/*.ntvs*
+/*.njsproj
+/*.sln
+*.sw?
+
+# Visual Studio Code
+.vscode/
+.idea/
+
+# Test files
+/coverage/
+/*.config.js
+
+# Yarn
+yarn-error.log
+.yarn-integrity
+
+# Angular CLI
+.angular-cli.json
+/angular.json
+/angular-cli.json
+
+# Compiled output
+/dist
+/dist-server
+/dist-test
+/node_modules
+/app/.dist
+
+# environments
+/src/environments/*.ts
+!/src/environments/*.prod.ts
+
+# OS generated files
+.DS_Store
+Thumbs.db
