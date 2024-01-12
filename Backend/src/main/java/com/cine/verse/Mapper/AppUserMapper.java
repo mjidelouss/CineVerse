@@ -5,7 +5,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AppUserMapper {
-    AppUser loginVMToAppUser(LoginVM loginVM);
 
-    UserVM AppUserToUserVM(AppUser appUser);
 }

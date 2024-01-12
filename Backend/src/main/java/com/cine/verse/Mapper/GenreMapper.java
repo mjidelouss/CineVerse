@@ -1,5 +1,7 @@
 package com.cine.verse.Mapper;
 
+import com.cine.verse.Dto.request.GenreRequest;
+import com.cine.verse.Dto.response.GenreResponse;
 import com.cine.verse.domain.Genre;
 import org.mapstruct.Mapper;
 
