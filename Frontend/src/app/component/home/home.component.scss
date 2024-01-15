@@ -1,0 +1,36 @@
+.navbar-brand {
+  font-weight: bold;
+  color: #ffffff;
+}
+.hero-section {
+  background-image: url('../../../assets/images/img/darth.jpg');
+  background-size: cover;
+  height: 500px;
+  color: #ffffff;
+  padding: 100px 0;
+}
+
+.movie-card {
+  height: 270px;
+  width: 210px;
+  margin-top: 10px;
+}
+
+.movie-poster {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border: 3px solid black;
+}
+
+.banner-card {
+  height: 150px;
+  width: 95.5%;
+  margin-top: 10px;
+}
+
+.banner-poster {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

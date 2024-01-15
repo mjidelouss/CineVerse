@@ -3,8 +3,8 @@ import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
  
   {
-    path: '/task',
-    title: 'Tasks',
+    path: '/home',
+    title: '',
     icon: '',
     class: '',
     extralink: false,
@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/user',
-    title: 'Users',
+    title: '',
     icon: '',
     class: '',
     extralink: false,

@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { FullComponent } from './layouts/full/full.component';
+import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 
 
 import { NavigationComponent } from './shared/header/navigation.component';
@@ -27,6 +28,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 @NgModule({
@@ -52,6 +57,8 @@ import { entityConfig } from './entity-metadata';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     EntityDataModule.forRoot(entityConfig),
+    FontAwesomeModule,
+    MatIconModule
   ],
   providers: [
     {
@@ -59,6 +66,7 @@ import { entityConfig } from './entity-metadata';
       useClass: PathLocationStrategy
     },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
