@@ -1,5 +1,7 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.request.LikeRequest;
+import com.cine.verse.Mapper.LikeMapper;
 import com.cine.verse.domain.Like;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.LikeService;
@@ -16,6 +18,7 @@ import java.util.List;
 public class LikeController {
 
     private final LikeService likeService;
+    private final LikeMapper likeMapper;
 
     @GetMapping("/all")
     public ResponseEntity getLikes() {
@@ -39,7 +42,7 @@ public class LikeController {
 
     @PostMapping("")
     public ResponseEntity addLike(@RequestBody @Valid LikeRequest likeRequest) {
-        Like like = LikeMapper.mapMemberRequestToMember(likeRequest);
+        Like like = likeMapper.likeRequestToLike(likeRequest);
         Like like1 = likeService.addLike(like);
         if(like1 == null) {
             return ResponseMessage.badRequest("Failed To Create Like");
@@ -50,7 +53,7 @@ public class LikeController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateLike(@RequestBody @Valid LikeRequest likeRequest, @PathVariable Long id) {
-        Like like = LikeMapper.mapMemberRequestToMember(likeRequest);
+        Like like = likeMapper.likeRequestToLike(likeRequest);
         Like like1 = likeService.updateLike(like, id);
         if (like1 == null) {
             return ResponseMessage.badRequest("Like Not Updated");

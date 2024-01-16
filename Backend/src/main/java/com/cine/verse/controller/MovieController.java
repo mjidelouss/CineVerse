@@ -1,9 +1,9 @@
 package com.cine.verse.controller;
 
-import com.cine.verse.domain.Like;
+import com.cine.verse.Dto.request.MovieRequest;
+import com.cine.verse.Mapper.MovieMapper;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.response.ResponseMessage;
-import com.cine.verse.service.LikeService;
 import com.cine.verse.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,7 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+    private final MovieMapper movieMapper;
 
     @GetMapping("/all")
     public ResponseEntity getMovies() {
@@ -41,7 +42,7 @@ public class MovieController {
 
     @PostMapping("")
     public ResponseEntity addMovie(@RequestBody @Valid MovieRequest movieRequest) {
-        Movie movie = MovieMapper.mapMemberRequestToMember(movieRequest);
+        Movie movie = movieMapper.movieRequestToMovie(movieRequest);
         Movie movie1 = movieService.addMovie(movie);
         if(movie1 == null) {
             return ResponseMessage.badRequest("Failed To Create Movie");
@@ -51,8 +52,8 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateMovie(@RequestBody @Valid movieRequest movieRequest, @PathVariable Long id) {
-        Movie movie = MovieMapper.mapMemberRequestToMember(movieRequest);
+    public ResponseEntity updateMovie(@RequestBody @Valid MovieRequest movieRequest, @PathVariable Long id) {
+        Movie movie = movieMapper.movieRequestToMovie(movieRequest);
         Movie movie1 = movieService.updateMovie(movie, id);
         if (movie1 == null) {
             return ResponseMessage.badRequest("Movie Not Updated");

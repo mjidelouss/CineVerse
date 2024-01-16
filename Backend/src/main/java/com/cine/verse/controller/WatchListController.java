@@ -1,5 +1,7 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.request.WatchListRequest;
+import com.cine.verse.Mapper.WatchListMapper;
 import com.cine.verse.domain.Like;
 import com.cine.verse.domain.WatchList;
 import com.cine.verse.response.ResponseMessage;
@@ -18,6 +20,7 @@ import java.util.List;
 public class WatchListController {
 
     private final WatchListService watchListService;
+    private final WatchListMapper watchListMapper;
 
     @GetMapping("/all")
     public ResponseEntity getWatchLists() {
@@ -41,7 +44,7 @@ public class WatchListController {
 
     @PostMapping("")
     public ResponseEntity addWatchList(@RequestBody @Valid WatchListRequest watchListRequest) {
-        WatchList watchList = WatchListMapper.mapMemberRequestToMember(watchListRequest);
+        WatchList watchList = watchListMapper.watchListRequestToWatchList(watchListRequest);
         WatchList watchList1 = watchListService.addWatchList(watchList);
         if(watchList1 == null) {
             return ResponseMessage.badRequest("Failed To Create WatchList");
@@ -52,7 +55,7 @@ public class WatchListController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateWatchList(@RequestBody @Valid WatchListRequest watchListRequest, @PathVariable Long id) {
-        WatchList watchList = WatchListMapper.mapMemberRequestToMember(watchListRequest);
+        WatchList watchList = watchListMapper.watchListRequestToWatchList(watchListRequest);
         WatchList watchList1 = watchListService.updateWatchList(watchList, id);
         if (watchList1 == null) {
             return ResponseMessage.badRequest("WatchList Not Updated");

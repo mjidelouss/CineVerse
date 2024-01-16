@@ -1,9 +1,9 @@
 package com.cine.verse.controller;
 
-import com.cine.verse.domain.Like;
+import com.cine.verse.Dto.request.ReviewRequest;
+import com.cine.verse.Mapper.ReviewMapper;
 import com.cine.verse.domain.Review;
 import com.cine.verse.response.ResponseMessage;
-import com.cine.verse.service.LikeService;
 import com.cine.verse.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,7 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final ReviewMapper reviewMapper;
 
     @GetMapping("/all")
     public ResponseEntity getReviews() {
@@ -41,7 +42,7 @@ public class ReviewController {
 
     @PostMapping("")
     public ResponseEntity addReview(@RequestBody @Valid ReviewRequest reviewRequest) {
-        Review review = ReviewMapper.mapMemberRequestToMember(reviewRequest);
+        Review review = reviewMapper.reviewRequestToReview(reviewRequest);
         Review review1 = reviewService.addReview(review);
         if(review1 == null) {
             return ResponseMessage.badRequest("Failed To Create Review");
@@ -52,7 +53,7 @@ public class ReviewController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateReview(@RequestBody @Valid ReviewRequest reviewRequest, @PathVariable Long id) {
-        Review review = ReviewMapper.mapMemberRequestToMember(reviewRequest);
+        Review review = reviewMapper.reviewRequestToReview(reviewRequest);
         Review review1 = reviewService.updateReview(review, id);
         if (review1 == null) {
             return ResponseMessage.badRequest("Review Not Updated");

@@ -1,5 +1,7 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.request.GenreRequest;
+import com.cine.verse.Mapper.GenreMapper;
 import com.cine.verse.domain.Genre;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.GenreService;
@@ -16,6 +18,7 @@ import java.util.List;
 public class GenreController {
 
     private final GenreService genreService;
+    private final GenreMapper genreMapper;
 
     @GetMapping("/all")
     public ResponseEntity getGenres() {
@@ -39,7 +42,7 @@ public class GenreController {
 
     @PostMapping("")
     public ResponseEntity addGenre(@RequestBody @Valid GenreRequest genreRequest) {
-        Genre genre = GenreMapper.mapMemberRequestToMember(genreRequest);
+        Genre genre = genreMapper.genreRequestToGenre(genreRequest);
         Genre genre1 = genreService.addGenre(genre);
         if(genre1 == null) {
             return ResponseMessage.badRequest("Failed To Create Genre");
@@ -60,7 +63,7 @@ public class GenreController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateGenre(@RequestBody @Valid GenreRequest genreRequest, @PathVariable Long id) {
-        Genre genre = GenreMapper.mapMemberRequestToMember(genreRequest);
+        Genre genre = genreMapper.genreRequestToGenre(genreRequest);
         Genre genre1 = genreService.updateGenre(genre, id);
         if (genre1 == null) {
             return ResponseMessage.badRequest("Genre Not Updated");

@@ -1,5 +1,7 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.request.MyListRequest;
+import com.cine.verse.Mapper.MyListMapper;
 import com.cine.verse.domain.MyList;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MyListService;
@@ -16,6 +18,7 @@ import java.util.List;
 public class MyListController {
 
     private final MyListService myListService;
+    private final MyListMapper myListMapper;
 
     @GetMapping("/all")
     public ResponseEntity getMyLists() {
@@ -39,7 +42,7 @@ public class MyListController {
 
     @PostMapping("")
     public ResponseEntity addMyList(@RequestBody @Valid MyListRequest myListRequest) {
-        MyList list = MyListMapper.mapMemberRequestToMember(myListRequest);
+        MyList list = myListMapper.myListRequestToMyList(myListRequest);
         MyList list1 = myListService.addMyList(list);
         if(list1 == null) {
             return ResponseMessage.badRequest("Failed To Create List");
@@ -50,7 +53,7 @@ public class MyListController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateMyList(@RequestBody @Valid MyListRequest myListRequest, @PathVariable Long id) {
-        MyList list = MyListMapper.mapMemberRequestToMember(myListRequest);
+        MyList list = myListMapper.myListRequestToMyList(myListRequest);
         MyList list1 = myListService.updateMyList(list, id);
         if (list1 == null) {
             return ResponseMessage.badRequest("List Not Updated");

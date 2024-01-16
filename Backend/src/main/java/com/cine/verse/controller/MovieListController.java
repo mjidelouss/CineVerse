@@ -1,5 +1,7 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.request.MovieListRequest;
+import com.cine.verse.Mapper.MovieListMapper;
 import com.cine.verse.domain.MovieList;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MovieListService;
@@ -16,6 +18,7 @@ import java.util.List;
 public class MovieListController {
 
     private final MovieListService movieListService;
+    private final MovieListMapper movieListMapper;
 
     @GetMapping("/all")
     public ResponseEntity getMovieLists() {
@@ -39,7 +42,7 @@ public class MovieListController {
 
     @PostMapping("")
     public ResponseEntity addMovieList(@RequestBody @Valid MovieListRequest movieListRequest) {
-        MovieList movieList = MovieListMapper.mapMemberRequestToMember(movieListRequest);
+        MovieList movieList = movieListMapper.movieListRequestToMovieList(movieListRequest);
         MovieList movieList1 = movieListService.addMovieList(movieList);
         if(movieList1 == null) {
             return ResponseMessage.badRequest("Failed To Create Movie List");
@@ -50,7 +53,7 @@ public class MovieListController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateMovieList(@RequestBody @Valid MovieListRequest movieListRequest, @PathVariable Long id) {
-        MovieList movieList = MovieListMapper.mapMemberRequestToMember(movieListRequest);
+        MovieList movieList = movieListMapper.movieListRequestToMovieList(movieListRequest);
         MovieList movieList1 = movieListService.updateMovieList(movieList, id);
         if (movieList1 == null) {
             return ResponseMessage.badRequest("Movie List Not Updated");
