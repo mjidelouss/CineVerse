@@ -38,4 +38,33 @@
 .card-cineverse {
   height: 140px;
   width: 390px;
+  background-color: rgb(255, 248, 254);
+}
+
+.overlay {
+  position: relative;
+  width: 100vw;
+  height: 30vh;
+  overflow: hidden;
+}
+
+.overlay-img1,
+.overlay-img2,
+.overlay-img3 {
+  position: absolute;
+  transform: translateX(-50%);
+  height: 240px;
+  width: 210px;
+}
+
+.overlay-img1 {
+  left: 5%; 
+}
+.overlay-img2 {
+  left: 12%; 
+  z-index: 10;
+}
+.overlay-img3 {
+  left: 17.9%; 
+  z-index: 10;
 }
