@@ -10,6 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
+import { UserHomeComponent } from './user-home/user-home.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -28,7 +31,10 @@ import { MatIconModule } from '@angular/material/icon';
     DashboardComponent,
     HomeComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    UserHomeComponent,
+    SignUpComponent,
+    LoginComponent
   ],
 })
 export class ComponentsModule { }

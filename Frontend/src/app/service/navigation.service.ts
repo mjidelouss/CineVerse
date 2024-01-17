@@ -10,4 +10,12 @@ export class NavigationService {
   navigateToHome() {
     this.router.navigateByUrl('/home');
   }
+
+  navigateToLogin() {
+    this.router.navigateByUrl('/login');
+  }
+
+  navigateToSignUp() {
+    this.router.navigateByUrl('/sign-up')
+  }
 }
