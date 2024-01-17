@@ -18,4 +18,8 @@ export class NavigationService {
   navigateToSignUp() {
     this.router.navigateByUrl('/sign-up')
   }
+
+  navigateToUserHome() {
+    this.router.navigateByUrl('/user-home')
+  }
 }

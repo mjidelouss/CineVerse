@@ -1,0 +1,70 @@
+.navbar-brand {
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .movie-card {
+    height: 270px;
+    width: 210px;
+    margin-top: 10px;
+  }
+
+  .movie-card2 {
+    height: 270px;
+    width: 220px;
+    margin-top: 10px;
+  }
+  
+  .movie-poster {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: 3px solid black;
+  }
+  
+  .banner-card {
+    height: 150px;
+    width: 95.5%;
+    margin-top: 10px;
+  }
+
+  .banner2-card {
+    height: 300px;
+    width: 95.5%;
+    margin-top: 10px;
+  }
+  
+  .banner-poster {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .overlay {
+    position: relative;
+    width: 100vw;
+    height: 30vh;
+    overflow: hidden;
+  }
+  
+  .overlay-img1,
+  .overlay-img2,
+  .overlay-img3 {
+    position: absolute;
+    transform: translateX(-50%);
+    height: 240px;
+    width: 210px;
+  }
+  
+  .overlay-img1 {
+    left: 5%; 
+  }
+  .overlay-img2 {
+    left: 12%; 
+    z-index: 10;
+  }
+  .overlay-img3 {
+    left: 17.9%; 
+    z-index: 10;
+  }
+  

@@ -11,6 +11,6 @@ export class AppComponent {
   constructor(private navigationService: NavigationService) {}
 
   ngOnInit() {
-    this.navigationService.navigateToSignUp();
+    this.navigationService.navigateToUserHome();
   }
 }

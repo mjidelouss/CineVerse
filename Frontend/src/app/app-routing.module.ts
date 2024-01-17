@@ -5,6 +5,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
 import { SignUpComponent } from './component/sign-up/sign-up.component';
+import { UserHomeComponent } from './component/user-home/user-home.component';
 
 export const Approutes: Routes = [
   {
@@ -37,6 +38,10 @@ export const Approutes: Routes = [
   {
     path: 'sign-up',
     component: SignUpComponent
+  },
+  {
+    path: 'user-home',
+    component: UserHomeComponent
   },
   {
     path: '**',
