@@ -13,6 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { MovieComponent } from './movie/movie.component';
+import { ProfileComponent } from './profile/profile.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 
 
@@ -34,7 +37,10 @@ import { LoginComponent } from './login/login.component';
     FooterComponent,
     UserHomeComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    MovieComponent,
+    ProfileComponent,
+    WatchlistComponent
   ],
 })
 export class ComponentsModule { }

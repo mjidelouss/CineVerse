@@ -6,6 +6,9 @@ import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
 import { SignUpComponent } from './component/sign-up/sign-up.component';
 import { UserHomeComponent } from './component/user-home/user-home.component';
+import { ProfileComponent } from './component/profile/profile.component';
+import { WatchlistComponent } from './component/watchlist/watchlist.component';
+import { MovieComponent } from './component/movie/movie.component';
 
 export const Approutes: Routes = [
   {
@@ -42,6 +45,18 @@ export const Approutes: Routes = [
   {
     path: 'user-home',
     component: UserHomeComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  },
+  {
+    path: 'watchlist',
+    component: WatchlistComponent
+  },
+  {
+    path: 'movie',
+    component: MovieComponent
   },
   {
     path: '**',

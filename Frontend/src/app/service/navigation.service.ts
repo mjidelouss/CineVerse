@@ -22,4 +22,16 @@ export class NavigationService {
   navigateToUserHome() {
     this.router.navigateByUrl('/user-home')
   }
+
+  navigateToProfile() {
+    this.router.navigateByUrl('/profile')
+  }
+
+  navigateToWatchlist() {
+    this.router.navigateByUrl('/watchlist')
+  }
+
+  navigateToMovie() {
+    this.router.navigateByUrl('/movie')
+  }
 }

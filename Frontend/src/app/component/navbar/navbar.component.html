@@ -1,1 +1,57 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container">
+        <a class="navbar-brand fw-bolder">CINE <span class="" style="color: hsl(6, 100%, 42%)">VERSE</span></a>
+        <div class="" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" ngbDropdown placement="bottom-end">
+                    <a
+                      ngbDropdownToggle
+                      class="nav-link waves-effect waves-dark pro-pic"
+                      href="javascript:void(0)"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="../../../assets/images/users/user1.jpg"
+                        alt="user"
+                        class="rounded-circle"
+                        width="31"
+                      />
+                      <span class="ms-2 fw-bold">MJID_ELOUSSE </span>
+                    </a>
+                    <div class="dropdown-menu-right" ngbDropdownMenu>
+                      <a class="dropdown-item" href="#"> Profile</a>
+                      <a class="dropdown-item" href="#"> Movies</a>
+                      <a class="dropdown-item" href="#"> Diary</a>
+                      <a class="dropdown-item" href="#"> Likes</a>
+                      <a class="dropdown-item" href="#"> Watchlist</a>
+                      <a class="dropdown-item" href="#"> Settings</a>
+                      <a class="dropdown-item text-danger opacity-75" href="#"> Logout</a>
+                    </div>
+                  </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link text-white" href="#">Movies</a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link text-white" href="#">Lists</a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link text-white" href="#">Members</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Search Bar -->
+        <div class="container w-50">
+            <div class="input-group">
+                <input type="text" class="form-control rounded-pill" placeholder="Search movies...">
+                <div class="input-group-append">
+                    <button class="btn btn-black text-white" type="button">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</nav>

@@ -11,6 +11,8 @@ export class AppComponent {
   constructor(private navigationService: NavigationService) {}
 
   ngOnInit() {
-    this.navigationService.navigateToUserHome();
+    this.navigationService.navigateToMovie();
   }
+
+
 }
