@@ -1,0 +1,17 @@
+.item {
+    border: 2px solid rgb(46, 38, 61);
+    padding-top: 1%;
+}
+
+.movie-card {
+    height: 230px;
+    width: 188px;
+    margin-top: 7px;
+  }
+  
+  .movie-poster {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: 3px solid rgb(46, 38, 61);
+  }

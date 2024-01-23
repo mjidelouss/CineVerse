@@ -1,1 +1,169 @@
-<p>pofile-movies works!</p>
+<div class="bg-black">
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- WatchList -->
+    <div class="container">
+        <div class="item mt-4 mb-4">
+            <div class="ms-3 d-flex justify-content-evenly">
+                <p class=""><a class="text-white opacity-75 fs-5" href="#">Profile</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Movies</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Diary</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Reviews</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Watchlist</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Lists</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Likes</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Options -->
+    <div class="container mt-5 mb-5">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="genreFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Genre:</label>
+                <select class="form-control" id="genreFilter">
+                    <option value="">All Genres</option>
+                    <option value="action">Action</option>
+                    <option value="drama">Drama</option>
+                    <option value="comedy">Comedy</option>
+                    <!-- Add more genres as needed -->
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="decadeFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Decade:</label>
+                <select class="form-control" id="decadeFilter">
+                    <option value="">All Decades</option>
+                    <option value="1980s">1980s</option>
+                    <option value="1990s">1990s</option>
+                    <option value="2000s">2000s</option>
+                    <!-- Add more decades as needed -->
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="sortFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Sort by:</label>
+                <select class="form-control" id="sortFilter">
+                    <option value="date">Date</option>
+                    <option value="rating">Rating</option>
+                    <!-- Add more sorting options as needed -->
+                </select>
+            </div>
+        </div>
+
+        <!-- Movies - Reviews - Lists -->
+        <div class="mt-5">
+            <p class=""><a class="text-white opacity-75 fs-5 fw-bold" href="#">Watched</a></p>
+            <hr class="text-white">
+        </div>
+
+        <!-- Watchlist Movies -->
+        <div class="row" id="itemContainer">
+            <!-- Movies Cards Section -->
+            <!-- Card 1 -->
+            <div class="col-lg-2 col-md-4 card bg-black movie-card">
+                <img src="../../../assets/images/img/oppen.png" class="card-img-top movie-poster rounded" alt="Movie 1">
+                <div class="row">
+                    <div class="col text-center">
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                    </div>
+                  </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-lg-2 col-md-4 card bg-black movie-card">
+                <img src="../../../assets/images/img/us.jpeg" class="card-img-top movie-poster rounded" alt="Movie 2">
+                <div class="row">
+                    <div class="col text-center">
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                    </div>
+                  </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-lg-2 col-md-4 card bg-black movie-card">
+                <img src="../../../assets/images/img/star-wars-poster.jpg" class="card-img-top movie-poster rounded" alt="Movie 3">
+                <div class="row">
+                    <div class="col text-center">
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                    </div>
+                  </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-lg-2 col-md-4 card bg-black movie-card">
+                <img src="../../../assets/images/img/batman.png" class="card-img-top movie-poster rounded"
+                    alt="Movie 4">
+                    <div class="row">
+                        <div class="col text-center">
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                        </div>
+                      </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-lg-2 col-md-4 card bg-black movie-card">
+                <img src="../../../assets/images/img/moonlight.jpeg" class="card-img-top movie-poster rounded"
+                    alt="Movie 5">
+                    <div class="row">
+                        <div class="col text-center">
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                        </div>
+                      </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-lg-2 col-md-4 card bg-black movie-card">
+                <img src="../../../assets/images/img/potter.jpg" class="card-img-top movie-poster rounded"
+                    alt="Movie 6">
+                    <div class="row">
+                        <div class="col text-center">
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                          <mat-icon class="">star</mat-icon>
+                        </div>
+                      </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="col-lg-2 col-md-4 card bg-black movie-card">
+                <img src="../../../assets/images/img/star-wars-poster.jpg" class="card-img-top movie-poster rounded" alt="Movie 3">
+                <div class="row">
+                    <div class="col text-center">
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                      <mat-icon class="">star</mat-icon>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Footer Section -->
+    <hr class="text-muted mt-4">
+    <app-footer></app-footer>
+</div>
