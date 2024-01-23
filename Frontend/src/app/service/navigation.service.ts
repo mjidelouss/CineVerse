@@ -34,4 +34,24 @@ export class NavigationService {
   navigateToMovie() {
     this.router.navigateByUrl('/movie')
   }
+
+  navigateToLikes() {
+    this.router.navigateByUrl('/likes');
+  }
+
+  navigateToDiary() {
+    this.router.navigateByUrl('/diary');
+  }
+
+  navigateToProfileMovies() {
+    this.router.navigateByUrl('/profile-movies');
+  }
+
+  navigateToProfileLists() {
+    this.router.navigateByUrl('/profile-lists');
+  }
+
+  navigateToProfileReviews() {
+    this.router.navigateByUrl('/profile-reviews');
+  }
 }

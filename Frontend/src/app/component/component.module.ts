@@ -16,6 +16,11 @@ import { LoginComponent } from './login/login.component';
 import { MovieComponent } from './movie/movie.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { PofileMoviesComponent } from './pofile-movies/pofile-movies.component';
+import { PofileListsComponent } from './pofile-lists/pofile-lists.component';
+import { PofileReviewsComponent } from './pofile-reviews/pofile-reviews.component';
+import { LikesComponent } from './likes/likes.component';
+import { DiaryComponent } from './diary/diary.component';
 
 
 
@@ -40,7 +45,12 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
     LoginComponent,
     MovieComponent,
     ProfileComponent,
-    WatchlistComponent
+    WatchlistComponent,
+    PofileMoviesComponent,
+    PofileListsComponent,
+    PofileReviewsComponent,
+    LikesComponent,
+    DiaryComponent
   ],
 })
 export class ComponentsModule { }
