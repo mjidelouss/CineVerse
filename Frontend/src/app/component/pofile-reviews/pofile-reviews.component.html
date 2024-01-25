@@ -1,1 +1,105 @@
-<p>pofile-reviews works!</p>
+<div class="bg-black">
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    <!-- WatchList -->
+    <div class="container">
+        <div class="item mt-4 mb-4">
+            <div class="ms-3 d-flex justify-content-evenly">
+                <p class=""><a class="text-white opacity-75 fs-5" href="#">Profile</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Movies</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Diary</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Reviews</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Watchlist</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Lists</a></p>
+                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Likes</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Options -->
+    <div class="container mt-5 mb-5">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="genreFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Genre:</label>
+                <select class="form-control" id="genreFilter">
+                    <option value="">All Genres</option>
+                    <option value="action">Action</option>
+                    <option value="drama">Drama</option>
+                    <option value="comedy">Comedy</option>
+                    <!-- Add more genres as needed -->
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="decadeFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Decade:</label>
+                <select class="form-control" id="decadeFilter">
+                    <option value="">All Decades</option>
+                    <option value="1980s">1980s</option>
+                    <option value="1990s">1990s</option>
+                    <option value="2000s">2000s</option>
+                    <!-- Add more decades as needed -->
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="sortFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Sort by:</label>
+                <select class="form-control" id="sortFilter">
+                    <option value="date">Date</option>
+                    <option value="rating">Rating</option>
+                    <!-- Add more sorting options as needed -->
+                </select>
+            </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="mt-5">
+            <p class=""><a class="text-white opacity-75 fs-5 fw-bold" href="#">Reviews</a></p>
+            <hr class="text-white">
+        </div>
+
+        <div class="row" id="itemContainer">
+            <!-- Reviews Cards Section -->
+                  <div class="col-md-2">
+                    <img src="../../../assets/images/img/oppen.png" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
+                  </div>
+                  <div class="col-md-10 bg-dark">
+                    <div class="card mb-3 bg-dark">
+                      <div class="card-body">
+                        <h2 class="card-title text-white">Oppenheimer (2023)</h2>
+                        <span class="badge bg-warning text-dark mt-1">★★½</span>
+                        <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
+                        <div class="d-flex">
+                            <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
+                            <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <br>
+            
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="../../../assets/images/img/potter.jpg" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
+                  </div>
+                  <div class="col-md-10 bg-dark">
+                    <div class="card mb-3 bg-dark">
+                      <div class="card-body">
+                        <h2 class="card-title text-white">Harry Potter (2001)</h2>
+                        <span class="badge bg-warning text-dark mt-1">★★½</span>
+                        <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
+                        <div class="d-flex">
+                            <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
+                            <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+
+    </div>
+    <!-- Footer Section -->
+    <hr class="text-muted mt-4">
+    <app-footer></app-footer>
+</div>
