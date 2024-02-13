@@ -1,0 +1,55 @@
+time.icon {
+  font-size: 1em;
+  display: block;
+  position: relative;
+  width: 7em;
+  height: 7em;
+  background-color: #fff;
+  border-radius: 0.6em;
+  box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+  overflow: hidden;
+  text-align: center; /* Center the text */
+}
+
+time.icon * {
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+time.icon strong {
+  position: absolute;
+  top: 0;
+  padding: 0.01em 0;
+  color: #fff;
+  background-color: rgb(46, 38, 61);
+  border-bottom: 1px dashed rgb(46, 38, 33);
+  box-shadow: 0 2px 0 #3e3d3d;
+}
+
+time.icon em {
+  position: absolute;
+  text-align: center;
+  bottom: 5px;
+  color: rgb(46, 38, 61);
+}
+
+time.icon span {
+  font-size: 2.8em;
+  letter-spacing: -0.05em;
+  padding-top: 1em;
+  color: #2f2f2f;
+}
+
+.movie {
+  height: 103px;
+  width: 75px;
+}
+
+.item {
+  border: 2px solid rgb(46, 38, 61);
+  padding-top: 1%;
+}
