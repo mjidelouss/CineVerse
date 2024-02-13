@@ -21,6 +21,8 @@ import { PofileListsComponent } from './pofile-lists/pofile-lists.component';
 import { PofileReviewsComponent } from './pofile-reviews/pofile-reviews.component';
 import { LikesComponent } from './likes/likes.component';
 import { DiaryComponent } from './diary/diary.component';
+import { SettingsComponent } from './settings/settings.component';
+import { MembersComponent } from './members/members.component';
 
 
 
@@ -50,7 +52,9 @@ import { DiaryComponent } from './diary/diary.component';
     PofileListsComponent,
     PofileReviewsComponent,
     LikesComponent,
-    DiaryComponent
+    DiaryComponent,
+    SettingsComponent,
+    MembersComponent
   ],
 })
 export class ComponentsModule { }

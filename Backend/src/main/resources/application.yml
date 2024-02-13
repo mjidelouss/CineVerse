@@ -1,1 +1,25 @@
-databaseChangeLog:
+spring:
+  liquibase:
+    enabled: 'true'
+    change-log: db/master.yml
+  docker:
+    compose:
+      enabled: 'true'
+      file: src/main/docker/compose.yml
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/cineverse
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8080
+application:
+  security:
+    jwt:
+      secret-key: 586B633834416E396D7436753879382F423F4428482B4C6250655367566B5970
+      expiration: 900000 #  15 min in ms
+      cookie-name: jwt-cookie
+      refresh-token:
+        expiration: 1296000000 # 15 days in ms
+        cookie-name: refresh-jwt-cookie

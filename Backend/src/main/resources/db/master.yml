@@ -1,18 +1,1 @@
-token:
-  signing:
-    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
-
-spring:
-  liquibase:
-    enabled: 'true'
-    change-log: db/master.yml
-  docker:
-    compose:
-      enabled: 'true'
-      file: src/main/docker/compose.yml
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/cineverse
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+databaseChangeLog:
