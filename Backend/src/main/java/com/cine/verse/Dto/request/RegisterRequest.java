@@ -1,6 +1,7 @@
 package com.cine.verse.Dto.request;
 
 import com.cine.verse.enums.Role;
+import com.cine.verse.validation.StrongPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
