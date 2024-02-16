@@ -1,9 +1,36 @@
 .cascading-right {
     margin-right: -50px;
-  }
+}
+.dark-mode {
+  background-color: #1a1a1a; /* Dark background color */
+  color: #ffffff; /* Light text color */
+}
+.dark-mode-card {
+  background: hsla(0, 0%, 10%, 0.55); /* Dark background color with transparency */
+  backdrop-filter: blur(30px); /* Apply blur effect to the background */
+}
 
-  @media (max-width: 991.98px) {
+.dark-mode-card .form-outline input,
+.dark-mode-card .form-check-input,
+.dark-mode-card .btn {
+  color: #ffffff; /* Light text color for form inputs and buttons */
+}
+
+.dark-mode-card .form-outline,
+.dark-mode-card .form-check-input,
+.dark-mode-card .btn-info {
+  border-color: #666; /* Darken borders and button color */
+}
+
+.dark-mode-card .form-check-input:checked {
+  background-color: #28a745; /* Darken checkbox background color */
+}
+
+/* Add more styles for dark mode as needed */
+
+
+@media (max-width: 991.98px) {
     .cascading-right {
       margin-right: 0;
     }
-  }
+}
