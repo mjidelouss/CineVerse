@@ -8,6 +8,37 @@ background: #eee;
 .h-custom {
 height: calc(100% - 73px);
 }
+
+.dark-mode {
+  background-color: #1a1a1a; /* Dark background color */
+  color: #ffffff; /* Light text color */
+}
+
+.dark-mode .img-fluid {
+  filter: brightness(90%); /* Darken the image */
+}
+
+.dark-mode .divider:before,
+.dark-mode .divider:after {
+  background: #444; /* Darken the divider color */
+}
+
+.dark-mode .form-outline,
+.dark-mode .form-check-input,
+.dark-mode .btn-success {
+  border-color: #666; /* Darken borders and button color */
+}
+
+.dark-mode .form-outline input,
+.dark-mode .form-check-input,
+.dark-mode .btn {
+  color: #ffffff; /* Light text color for form inputs and buttons */
+}
+
+.dark-mode .btn-success:hover {
+  background-color: #28a745; /* Darken button hover color */
+}
+
 @media (max-width: 450px) {
 .h-custom {
 height: 100%;

@@ -1,5 +1,8 @@
 package com.cine.verse.service.impl;
 
+import com.cine.verse.Dto.request.AuthenticationRequest;
+import com.cine.verse.Dto.request.RegisterRequest;
+import com.cine.verse.Dto.response.AuthenticationResponse;
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.enums.TokenType;
 import com.cine.verse.repository.AppUserRepository;

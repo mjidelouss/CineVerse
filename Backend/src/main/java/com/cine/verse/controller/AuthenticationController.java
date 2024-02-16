@@ -1,5 +1,10 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.request.AuthenticationRequest;
+import com.cine.verse.Dto.request.RefreshTokenRequest;
+import com.cine.verse.Dto.request.RegisterRequest;
+import com.cine.verse.Dto.response.AuthenticationResponse;
+import com.cine.verse.Dto.response.RefreshTokenResponse;
 import com.cine.verse.service.AuthenticationService;
 import com.cine.verse.service.JwtService;
 import com.cine.verse.service.RefreshTokenService;
@@ -12,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -37,19 +41,6 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    @Operation(
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "200"
-                    ),
-                    @ApiResponse(
-                            description = "Unauthorized",
-                            responseCode = "401",
-                            content = {@Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")}
-                    )
-            }
-    )
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         AuthenticationResponse authenticationResponse = authenticationService.authenticate(request);
         ResponseCookie jwtCookie = jwtService.generateJwtCookie(authenticationResponse.getAccessToken());
