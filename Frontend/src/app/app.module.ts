@@ -13,7 +13,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { FullComponent } from './layouts/full/full.component';
-import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 
 
 import { NavigationComponent } from './shared/header/navigation.component';

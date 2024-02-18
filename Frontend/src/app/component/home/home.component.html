@@ -33,16 +33,16 @@
           </div>
         </div>
       </div>
-      
+
     </div>
   </nav>
 
 <!-- Hero Section -->
 <section class="hero-section text-white text-center d-flex flex-column align-items-center justify-content-center">
-</section> 
+</section>
 
 <div class="container text-center">
-    <p class="text-white fw-bold display-4">Track films you’ve watched.<br> those you want to see.<br>Tell your friends what’s good.</p>
+    <p class="head-text fw-bold display-4">Track films you’ve watched.<br> those you want to see.<br>Tell your friends what’s good.</p>
     <button class="btn btn-success fs-6 mb-4">Begin Your Adventure</button>
 </div>
 
@@ -50,35 +50,67 @@
 <div class="container text-center">
     <div class="row justify-content-center">
         <!-- Card 1 -->
-        <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                <img src="../../../assets/images/img/oppen.png" class="card-img-top movie-poster rounded" alt="Movie 1">
+      <div class="col-lg-2 col-md-4 movie-card position-relative">
+        <img src="../../../assets/images/img/oppen.png" class="card-img-top movie-poster rounded" alt="Movie 1">
+        <div class="movie-overlay">
+          <mat-icon class="text-light">visibility</mat-icon>
+          <mat-icon class="text-light">favorite_border</mat-icon>
+          <mat-icon class="text-light">more_vert</mat-icon>
         </div>
+      </div>
 
-        <!-- Card 2 -->
+
+
+      <!-- Card 2 -->
         <div class="col-lg-2 col-md-4 card bg-black movie-card">
                 <img src="../../../assets/images/img/us.jpeg" class="card-img-top movie-poster rounded" alt="Movie 2">
+          <div class="movie-overlay">
+            <mat-icon class="text-light">visibility</mat-icon>
+            <mat-icon class="text-light">favorite_border</mat-icon>
+            <mat-icon class="text-light">more_vert</mat-icon>
+          </div>
         </div>
 
         <!-- Card 3 -->
         <div class="col-lg-2 col-md-4 card bg-black movie-card">
                 <img src="../../../assets/images/img/star-wars-poster.jpg" class="card-img-top movie-poster rounded" alt="Movie 3">
+          <div class="movie-overlay">
+            <mat-icon class="text-light">visibility</mat-icon>
+            <mat-icon class="text-light">favorite_border</mat-icon>
+            <mat-icon class="text-light">more_vert</mat-icon>
+          </div>
         </div>
 
         <!-- Card 4 -->
         <div class="col-lg-2 col-md-4 card bg-black movie-card">
                 <img src="../../../assets/images/img/batman.png" class="card-img-top movie-poster rounded" alt="Movie 4">
+          <div class="movie-overlay">
+            <mat-icon class="text-light">visibility</mat-icon>
+            <mat-icon class="text-light">favorite_border</mat-icon>
+            <mat-icon class="text-light">more_vert</mat-icon>
+          </div>
         </div>
 
         <!-- Card 5 -->
         <div class="col-lg-2 col-md-4 card bg-black movie-card">
                 <img src="../../../assets/images/img/moonlight.jpeg" class="card-img-top movie-poster rounded" alt="Movie 5">
+          <div class="movie-overlay">
+            <mat-icon class="text-light">visibility</mat-icon>
+            <mat-icon class="text-light">favorite_border</mat-icon>
+            <mat-icon class="text-light">more_vert</mat-icon>
+          </div>
         </div>
 
         <!-- Card 6 -->
         <div class="col-lg-2 col-md-4 card bg-black movie-card">
                 <img src="../../../assets/images/img/potter.jpg" class="card-img-top movie-poster rounded" alt="Movie 6">
+          <div class="movie-overlay">
+            <mat-icon class="text-light">visibility</mat-icon>
+            <mat-icon class="text-light">favorite_border</mat-icon>
+            <mat-icon class="text-light">more_vert</mat-icon>
+          </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -87,7 +119,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-2 col-md-4 card banner-card bg-black">
                 <img src="../../../assets/images/img/banner.png" class="card-img-top banner-poster rounded" alt="Banner">
-        </div>        
+        </div>
     </div>
 </div>
 
@@ -103,7 +135,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Card 2 -->
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="card-cineverse card rounded">
@@ -133,12 +165,12 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Card 5 -->
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="card-cineverse card rounded">
           <div class="card-body d-flex">
-            <span><mat-icon class="text-black">book</mat-icon></span>
+            <span><mat-icon class="text-white-50">book</mat-icon></span>
             <p class="card-text ms-4 fs-6">Keep a diary of your film watching to track your favorite movies, and reflect on your cinematic journey</p>
           </div>
         </div>
@@ -156,7 +188,7 @@
 
     </div>
   </div>
-  
+
   <!-- Centered Text Div -->
   <div class="container text-center">
     <div class="my-5">
@@ -170,11 +202,16 @@
     <div class="row">
       <h1 class="fw-bolder text-white">Popular Reviews This Week</h1>
       <hr class="text-white">
-      <div class="col-md-2">
-        <img src="../../../assets/images/img/oppen.png" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
+      <div class="movie-card col-md-2">
+        <img src="../../../assets/images/img/oppen.png" class="movie-poster img-fluid bg-white" alt="Movie Poster">
+        <div class="movie-overlay">
+          <mat-icon class="text-light">visibility</mat-icon>
+          <mat-icon class="text-light">favorite_border</mat-icon>
+          <mat-icon class="text-light">more_vert</mat-icon>
+        </div>
       </div>
-      <div class="col-md-10 bg-dark">
-        <div class="card mb-3 bg-dark">
+      <div class="col-md-10 bag">
+        <div class="card mb-3 bag">
           <div class="card-body">
             <h2 class="card-title text-white">Oppenheimer (2023)</h2>
             <div class="d-flex">
@@ -193,11 +230,16 @@
     </div>
 <br>
     <div class="row">
-      <div class="col-md-2">
-        <img src="../../../assets/images/img/potter.jpg" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
+      <div class="movie-card col-md-2">
+        <img src="../../../assets/images/img/potter.jpg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
+        <div class="movie-overlay">
+          <mat-icon class="text-light">visibility</mat-icon>
+          <mat-icon class="text-light">favorite_border</mat-icon>
+          <mat-icon class="text-light">more_vert</mat-icon>
+        </div>
       </div>
-      <div class="col-md-10 bg-dark">
-        <div class="card mb-3 bg-dark">
+      <div class="col-md-10 bag">
+        <div class="card mb-3 bag">
           <div class="card-body">
             <h2 class="card-title text-white">Harry Potter (2001)</h2>
             <div class="d-flex">
@@ -216,11 +258,16 @@
     </div>
 <br>
     <div class="row">
-      <div class="col-md-2">
-        <img src="../../../assets/images/img/moonlight.jpeg" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
+      <div class="movie-card col-md-2">
+        <img src="../../../assets/images/img/moonlight.jpeg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
+        <div class="movie-overlay">
+          <mat-icon class="text-light">visibility</mat-icon>
+          <mat-icon class="text-light">favorite_border</mat-icon>
+          <mat-icon class="text-light">more_vert</mat-icon>
+        </div>
       </div>
-      <div class="col-md-10 bg-dark">
-        <div class="card mb-3 bg-dark">
+      <div class="col-md-10 bag">
+        <div class="card mb-3 bag">
           <div class="card-body">
             <h2 class="card-title text-white">Moonlight (2019)</h2>
             <div class="d-flex">
@@ -239,11 +286,16 @@
     </div>
     <br>
     <div class="row">
-      <div class="col-md-2">
-        <img src="../../../assets/images/img/star-wars-poster.jpg" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
+      <div class="movie-card col-md-2">
+        <img src="../../../assets/images/img/star-wars-poster.jpg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
+        <div class="movie-overlay">
+          <mat-icon class="text-light">visibility</mat-icon>
+          <mat-icon class="text-light">favorite_border</mat-icon>
+          <mat-icon class="text-light">more_vert</mat-icon>
+        </div>
       </div>
-      <div class="col-md-10 bg-dark">
-        <div class="card mb-3 bg-dark">
+      <div class="col-md-10 bag">
+        <div class="card mb-3 bag">
           <div class="card-body">
             <h2 class="card-title text-white">Star Wars (2020)</h2>
             <div class="d-flex">
@@ -262,11 +314,16 @@
     </div>
     <br>
     <div class="row">
-      <div class="col-md-2">
-        <img src="../../../assets/images/img/us.jpeg" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
+      <div class="movie-card col-md-2">
+        <img src="../../../assets/images/img/us.jpeg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
+        <div class="movie-overlay">
+          <mat-icon class="text-light">visibility</mat-icon>
+          <mat-icon class="text-light">favorite_border</mat-icon>
+          <mat-icon class="text-light">more_vert</mat-icon>
+        </div>
       </div>
-      <div class="col-md-10 bg-dark">
-        <div class="card mb-3 bg-dark">
+      <div class="col-md-10 bag">
+        <div class="card mb-3 bag">
           <div class="card-body">
             <h2 class="card-title text-white">Us (2018)</h2>
             <div class="d-flex">
@@ -284,7 +341,7 @@
       </div>
     </div>
   </div>
-  
+
 <!-- Popular Lists -->
 <div class="container mt-4">
   <div class="row">
@@ -298,7 +355,7 @@
           <img src="../../../assets/images/img/moonlight.jpeg" class="card-img-top overlay-img2" alt="Movie 1">
           <img src="../../../assets/images/img/star-wars-poster.jpg" class="card-img-top overlay-img3" alt="Movie 1">
         </div>
-        <div class="card-body bg-dark">
+        <div class="card-body bag">
           <h3 class="card-title text-white">Feeling Lost in Your 20's</h3>
           <div class="d-flex">
             <img src="../../../assets/images/users/user3.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
@@ -318,7 +375,7 @@
           <img src="../../../assets/images/img/potter.jpg" class="card-img-top overlay-img2" alt="Movie 1">
           <img src="../../../assets/images/img/us.jpeg" class="card-img-top overlay-img3" alt="Movie 1">
         </div>
-        <div class="card-body bg-dark">
+        <div class="card-body bag">
           <h3 class="card-title text-white">im just a Man in the world</h3>
           <div class="d-flex">
             <img src="../../../assets/images/users/user2.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
@@ -338,7 +395,7 @@
           <img src="../../../assets/images/img/moonlight.jpeg" class="card-img-top overlay-img2" alt="Movie 1">
           <img src="../../../assets/images/img/batman.png" class="card-img-top overlay-img3" alt="Movie 1">
         </div>
-        <div class="card-body bg-dark">
+        <div class="card-body bag">
           <h3 class="card-title text-white">Movies everyone should watch</h3>
           <div class="d-flex">
             <img src="../../../assets/images/users/user1.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
@@ -352,7 +409,7 @@
     </div>
   </div>
 </div>
-  
+
   <!-- Footer Section -->
   <app-footer></app-footer>
   </div>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Honk&family=Poppins:wght@300;400;500;600&display=swap');
 .navbar-brand {
   font-weight: bold;
   color: #ffffff;
@@ -12,9 +13,10 @@
 }
 
 .movie-card {
-  height: 270px;
+  height: 280px;
   width: 210px;
-  margin-top: 10px;
+  position: relative;
+  overflow: hidden; /* Ensure icons stay at the bottom even if image size changes */
 }
 
 .movie-poster {
@@ -22,6 +24,29 @@
   width: 100%;
   object-fit: cover;
   border: 3px solid black;
+  transition: transform 0.3s ease; /* Add transition for smoother animation */
+}
+
+.movie-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s ease; /* Add transition for opacity */
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+}
+
+.movie-card:hover .movie-poster {
+  transform: scale(1.05); /* Increase scale on hover */
 }
 
 .banner-card {
@@ -36,10 +61,20 @@
   object-fit: cover;
 }
 
+.head-text {
+  color: whitesmoke;
+  font-family: 'Honk', sans-serif;
+}
+
 .card-cineverse {
   height: 140px;
   width: 390px;
-  background-color: rgb(255, 248, 254);
+  background-color: rgba(32, 29, 29, 0.98);
+  color: whitesmoke;
+}
+
+.bag {
+  background-color: rgba(32, 29, 29, 0.98);
 }
 
 .overlay {
@@ -49,6 +84,11 @@
   overflow: hidden;
 }
 
+.overlay:hover {
+  transform: scale(1.002); /* Slightly scale up on hover */
+  transition: transform 0.3s ease;
+}
+
 .overlay-img1,
 .overlay-img2,
 .overlay-img3 {
@@ -56,16 +96,24 @@
   transform: translateX(-50%);
   height: 240px;
   width: 210px;
+  transition: opacity 0.3s ease;
+}
+
+.overlay:hover .overlay-img1,
+.overlay:hover .overlay-img2,
+.overlay:hover .overlay-img3 {
+  opacity: 1;
+  border: 1.5px solid floralwhite;
 }
 
 .overlay-img1 {
-  left: 5%; 
+  left: 5%;
 }
 .overlay-img2 {
-  left: 12%; 
+  left: 12%;
   z-index: 10;
 }
 .overlay-img3 {
-  left: 17.9%; 
+  left: 17.9%;
   z-index: 10;
 }
