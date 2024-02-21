@@ -17,7 +17,7 @@ public class MyList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer listId;
+    private Long listId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

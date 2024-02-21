@@ -14,4 +14,6 @@ public interface MovieService {
     Movie updateMovie(Movie movie, Long id);
 
     void deleteMovie(Long id);
+
+    int syncMovies();
 }

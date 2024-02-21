@@ -23,3 +23,6 @@ application:
       refresh-token:
         expiration: 1296000000 # 15 days in ms
         cookie-name: refresh-jwt-cookie
+tmdb:
+  api:
+    key: "86cdb246bc2dfde7b16fa94055f4d2f5"

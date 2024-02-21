@@ -1,7 +1,7 @@
-name: taskflow
+name: cineverse
 services:
   mysql:
-    container_name: mysql
+    container_name: mysql_cineverse
     image: 'mysql:latest'
     environment:
       - 'MYSQL_DATABASE=cineverse'
@@ -10,7 +10,7 @@ services:
       - '3306:3306'
 
   sonar:
-    container_name: sonarqube
+    container_name: sonarqube_cineverse
     image: sonarqube:10.3.0-community
     environment:
       - SONAR_FORCEAUTHENTICATION=false

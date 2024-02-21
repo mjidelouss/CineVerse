@@ -19,7 +19,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reviewId;
+    private Long reviewId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -36,7 +36,6 @@ public class Review {
     private Integer rating;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate timestamp;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
