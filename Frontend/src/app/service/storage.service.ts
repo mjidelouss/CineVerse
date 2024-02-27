@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import {User} from "../models/user";
 
 const USER_KEY = 'authenticated-user';
+
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
+
   constructor() { }
 
   saveUser(user : User){
