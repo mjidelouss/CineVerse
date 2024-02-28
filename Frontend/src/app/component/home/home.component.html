@@ -48,72 +48,19 @@
 </div>
 
 <!-- Movies Cards Section -->
-<div class="container text-center">
-    <div class="row justify-content-center">
-        <!-- Card 1 -->
-      <div class="col-lg-2 col-md-4 movie-card position-relative">
-        <img src="../../../assets/images/img/oppen.png" class="card-img-top movie-poster rounded" alt="Movie 1">
-        <div class="movie-overlay">
-          <mat-icon class="text-light">visibility</mat-icon>
-          <mat-icon class="text-light">favorite_border</mat-icon>
-          <mat-icon class="text-light">more_vert</mat-icon>
+    <div class="container text-center">
+      <div class="row justify-content-center">
+        <!-- Loop through trendingMovies array -->
+        <div *ngFor="let movie of trendingMovies" class="col-lg-2 col-md-4 movie-card position-relative">
+          <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie {{ movie.title }}">
+          <div class="movie-overlay">
+            <mat-icon class="text-light">visibility</mat-icon>
+            <mat-icon class="text-light">favorite_border</mat-icon>
+            <mat-icon class="text-light">more_vert</mat-icon>
+          </div>
         </div>
       </div>
-
-
-
-      <!-- Card 2 -->
-        <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                <img src="../../../assets/images/img/us.jpeg" class="card-img-top movie-poster rounded" alt="Movie 2">
-          <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                <img src="../../../assets/images/img/star-wars-poster.jpg" class="card-img-top movie-poster rounded" alt="Movie 3">
-          <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                <img src="../../../assets/images/img/batman.png" class="card-img-top movie-poster rounded" alt="Movie 4">
-          <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                <img src="../../../assets/images/img/moonlight.jpeg" class="card-img-top movie-poster rounded" alt="Movie 5">
-          <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                <img src="../../../assets/images/img/potter.jpg" class="card-img-top movie-poster rounded" alt="Movie 6">
-          <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
-          </div>
-        </div>
-
     </div>
-</div>
 
 <!-- 2023 Banner Section -->
 <div class="container text-center">

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-
+import {Router} from "@angular/router";
+import {MovieService} from "../../service/movie.service";
+import {Movie} from "../../models/movie";
 
 
 @Component({
@@ -9,5 +11,42 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  trendingMovies: Movie[] = [];
 
+  constructor(private movieService: MovieService, private router: Router) {}
+
+  ngOnInit() {
+    this.getTrendingMovies();
+  }
+
+  getTrendingMovies() {
+    this.movieService
+      .getTrendingMovies()
+      .subscribe(
+        (response) => {
+          this.trendingMovies = [];
+          for (let i = 0; i < response.data.length; i++) {
+            const dbMovie = response.data[i];
+            let movie: Movie = {
+              id: dbMovie.id,
+              title: dbMovie.title || 'N/A',
+              year: dbMovie.year || 'N/A',
+              director: dbMovie.director || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
+              overview: dbMovie.overview || 'N/A',
+              genre: dbMovie.genre || 'N/A'
+            };
+            this.trendingMovies.push(movie);
+          }
+        },
+        (error) => {
+          console.error('Error fetching Trending Movies:', error);
+        }
+      );
+  }
+
+
+  viewMovie(competition: any) {
+    this.router.navigate(['/movie-details'], { state: { competition } });
+  }
 }
