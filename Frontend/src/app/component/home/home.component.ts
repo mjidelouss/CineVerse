@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {MovieService} from "../../service/movie.service";
 import {Movie} from "../../models/movie";
@@ -9,7 +9,7 @@ import {Movie} from "../../models/movie";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
   trendingMovies: Movie[] = [];
 
