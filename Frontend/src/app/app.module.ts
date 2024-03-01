@@ -6,8 +6,8 @@ import {
 } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Routes, RouterModule } from '@angular/router';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -30,6 +30,8 @@ import { entityConfig } from './entity-metadata';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import {HttpInterceptor} from "./helpers/http.interceptor";
+import {JwtInterceptor} from "./helpers/jwt.interceptor";
 
 
 
@@ -60,6 +62,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy
