@@ -1,5 +1,7 @@
 package com.cine.verse.service;
 
+import com.cine.verse.Dto.response.MovieCredits;
+import com.cine.verse.Dto.response.MovieDetailsTrailer;
 import com.cine.verse.domain.Movie;
 
 import java.util.List;
@@ -16,4 +18,8 @@ public interface MovieService {
     void deleteMovie(Long id);
 
     int syncMovies();
+
+    List<Movie> getTrendingMovies();
+    MovieCredits getMovieCredits(Long movieId);
+    MovieDetailsTrailer getMovieDetailsTrailer(Long movieId);
 }

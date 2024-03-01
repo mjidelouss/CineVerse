@@ -24,7 +24,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserDetailsService userDetailsService; /** implementation is provided in config.ApplicationSecurityConfig */
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -33,21 +33,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
-
-        // try to get JWT in cookie or in Authorization Header
-        String jwt = jwtService.getJwtFromCookies(request);
+        String jwt = "";
         final String authHeader = request.getHeader("Authorization");
 
-        if((jwt == null && (authHeader ==  null || !authHeader.startsWith("Bearer "))) || request.getRequestURI().contains("/auth")){
+        if((authHeader ==  null) || request.getRequestURI().contains("/auth")){
             filterChain.doFilter(request, response);
             return;
         }
 
         // If the JWT is not in the cookies but in the "Authorization" header
-        if (jwt == null && authHeader.startsWith("Bearer ")) {
+        if (authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7); // after "Bearer "
         }
-
 
         final String userEmail =jwtService.extractUserName(jwt);
         /*

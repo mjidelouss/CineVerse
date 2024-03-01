@@ -1,6 +1,7 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.MovieRequest;
+import com.cine.verse.Dto.response.MovieResponse;
 import com.cine.verse.Mapper.MovieMapper;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.response.ResponseMessage;
@@ -30,13 +31,26 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/trending")
+    public ResponseEntity getTrendingMovies() {
+        List<Movie> movies = movieService.getTrendingMovies();
+        if (movies.isEmpty()) {
+            return ResponseMessage.notFound("Trending Movies Not Found");
+        } else {
+            return ResponseMessage.ok("Successfully gotten Trending Movies", movies);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getMovieById(@PathVariable Long id) {
-        Movie movie = movieService.getMovieById(id);
-        if (movie == null) {
+        MovieResponse movieResponse = new MovieResponse();
+        movieResponse.setMovieCredits(movieService.getMovieCredits(id));
+        movieResponse.setMovieDetailsTrailer(movieService.getMovieDetailsTrailer(id));
+        //Movie movie = movieService.getMovieById(id);
+        if (movieResponse == null) {
             return ResponseMessage.notFound("Movie Not Found");
         } else {
-            return ResponseMessage.ok("Success", movie);
+            return ResponseMessage.ok("Success", movieResponse);
         }
     }
 
