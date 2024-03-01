@@ -6,32 +6,50 @@
           <div class="card cascading-right dark-mode-card">
             <div class="card-body p-5 shadow-5 text-center shadow">
               <h2 class="fw-bold mb-5 text-white">Sign up now</h2>
-              <form>
+              <div class="alert alert-danger" *ngIf="errorMessage">
+                <p>{{ errorMessage }}</p>
+              </div>
+              <form #formRegister="ngForm" (ngSubmit)="onSubmitRegister(formRegister)">
                 <div class="row">
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="form3Example1" class="form-control" />
-                      <label class="form-label mt-1" for="form3Example1">First name</label>
+                      <label class="form-label mt-1" for="firstname">First name</label>
+                      <input type="text" id="firstname" class="form-control" placeholder="First Name" ngModel #firstname="ngModel" name="firstname" required/>
+                      <div *ngIf="firstname.errors && formRegister.submitted" class="text-danger">
+                        First Name is required!
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <input type="text" id="form3Example2" class="form-control" />
-                      <label class="form-label mt-1" for="form3Example2">Last name</label>
+                      <label class="form-label mt-1" for="lastname">Last name</label>
+                      <input type="text" id="lastname" placeholder="Last Name" ngModel #lastname="ngModel" name="lastname" required class="form-control" />
+                      <div *ngIf="lastname.errors && formRegister.submitted" class="text-danger">
+                        Last Name is required!
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3" class="form-control" />
-                  <label class="form-label mt-1" for="form3Example3">Email address</label>
+                  <label class="form-label mt-1" for="email">Email address</label>
+                  <input type="email" id="email" placeholder="Email Address" ngModel #email="ngModel" name="email" required email class="form-control" />
+                  <div *ngIf="email.errors && formRegister.submitted" class="text-danger">
+                    Email is required!
+                  </div>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4" class="form-control" />
-                  <label class="form-label mt-1" for="form3Example4">Password</label>
+                  <label class="form-label mt-1" for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password" ngModel #password="ngModel" name="password" required minlength="6"/>
+                  <div *ngIf="password.errors && formRegister.submitted" class="text-danger">
+                    <div *ngIf="password.errors['required']">Password is required</div>
+                    <div *ngIf="password.errors['minlength']">
+                      Password must be at least 6 characters
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Checkbox -->

@@ -9,6 +9,8 @@ export interface AuthResponseData {
   id : number,
   email : string,
   roles : string[],
+  access_token: string,
+  refresh_token: string
 }
 
 @Injectable({
@@ -41,6 +43,8 @@ export class AuthService {
       }),
       tap(
         user => {
+          const accessToken = user.access_token;
+          const refreshToken = user.refresh_token;
           const extractedUser : User = {
             email: user.email,
             id: user.id,
@@ -50,37 +54,11 @@ export class AuthService {
             }
           }
           this.storageService.saveUser(extractedUser);
+          this.storageService.saveJwtToken(accessToken, refreshToken);
           this.AuthenticatedUser$.next(extractedUser);
         }
       )
     );
-  }
-
-  autoLogin() {
-    const userData = this.storageService.getSavedUser();
-    if (!userData) {
-      return;
-    }
-    this.AuthenticatedUser$.next(userData);
-  }
-
-  logout(){
-    this.http.request('post','http://localhost:8080/api/v1/auth/logout',{
-      withCredentials: true
-    }).subscribe({
-      next: () => {
-        this.storageService.clean();
-        this.AuthenticatedUser$.next(null);
-        this.router.navigate(['/login']);
-      }
-    })
-
-  }
-
-  refreshToken(){
-    return this.http.request('post', 'http://localhost:8080/api/v1/auth/refresh-token-cookie', {
-      withCredentials: true
-    })
   }
 
   register(firstname: string, lastname: string, email: string, password: string, role: string) {
@@ -96,6 +74,8 @@ export class AuthService {
       }),
       tap(
         user => {
+          const accessToken = user.access_token;
+          const refreshToken = user.refresh_token;
           const extractedUser : User = {
             email: user.email,
             id: user.id,
@@ -105,10 +85,36 @@ export class AuthService {
             }
           }
           this.storageService.saveUser(extractedUser);
+          this.storageService.saveJwtToken(accessToken, refreshToken);
           this.AuthenticatedUser$.next(extractedUser);
         }
       )
     );
+  }
+
+  autoLogin() {
+    const userData = this.storageService.getSavedUser();
+    if (!userData) {
+      return;
+    }
+    this.AuthenticatedUser$.next(userData);
+  }
+
+  logout(){
+    console.log("LOGOUT")
+    this.http.request('post','http://localhost:8080/api/v1/auth/logout').subscribe({
+      next: () => {
+        this.storageService.clean();
+        this.AuthenticatedUser$.next(null);
+        this.router.navigate(['/login']);
+      }
+    })
+
+  }
+
+  refreshToken() {
+    const refreshToken = localStorage.getItem("refresh-token");
+    return this.http.post('http://localhost:8080/api/v1/auth/refresh-token', refreshToken);
   }
 
 }

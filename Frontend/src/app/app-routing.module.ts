@@ -14,6 +14,7 @@ import { DiaryComponent } from './component/diary/diary.component';
 import { PofileListsComponent } from './component/pofile-lists/pofile-lists.component';
 import { PofileMoviesComponent } from './component/pofile-movies/pofile-movies.component';
 import { PofileReviewsComponent } from './component/pofile-reviews/pofile-reviews.component';
+import {ForbiddenComponent} from "./component/forbidden/forbidden.component";
 
 export const Approutes: Routes = [
   {
@@ -34,6 +35,10 @@ export const Approutes: Routes = [
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       },
     ]
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent
   },
   {
     path: 'home',
