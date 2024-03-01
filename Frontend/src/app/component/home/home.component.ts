@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit{
     this.getTrendingMovies();
   }
 
+  onMovieClick(movieId: number): void {
+    this.router.navigate(['/movie', movieId]);
+  }
   getTrendingMovies() {
     this.movieService
       .getTrendingMovies()

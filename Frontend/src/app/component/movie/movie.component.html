@@ -2,8 +2,7 @@
   <!-- Navbar -->
   <app-navbar></app-navbar>
   <!-- Movie Poster -->
-  <section class="hero-section text-white text-center d-flex flex-column align-items-center justify-content-center">
-  </section>
+  <section class="hero-section text-white text-center d-flex flex-column align-items-center justify-content-center" [style.background-image]="getSanitizedBackground()"></section>
   <!-- Movie Details -->
   <div class="container">
     <div class="row mt-3">
@@ -27,7 +26,7 @@
           <div class="">
             <h1 class="text-white fw-bold">Star Wars <span class="text-muted">(2020)</span></h1>
             <img src="../../../assets/images/users/user1.jpg" alt="user" class="rounded-circle" width="31" />
-            <span class="ms-2 mt-2 fw-bold text-muted">Micheal Ponres </span>
+            <span class="ms-2 mt-2 fw-bold text-muted">{{ movieCredits.director }}</span>
           </div>
           <div class="d-flex mt-4">
             <p class=""><a class="text-success fs-5" href="#">Cast</a></p>
@@ -35,17 +34,8 @@
             <p class="ms-3"><a class="text-success fs-5" href="#">Genre</a></p>
             <p class="ms-3"><a class="text-success fs-5" href="#">Details</a></p>
           </div>
-          <div class="d-flex" style="flex-wrap: wrap;">
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
-            <div class="tag">Jamie Foxx</div>
+          <div *ngFor="let cast of movieCredits.cast" class="d-flex" style="flex-wrap: wrap;">
+            <div class="tag">{{ cast }}</div>
           </div>
           <div class="d-flex mt-3">
             <div class="">
@@ -250,4 +240,4 @@
   <!-- Footer Section -->
   <hr class="text-muted">
   <app-footer></app-footer>
-</div>
+ </div>

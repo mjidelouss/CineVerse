@@ -60,7 +60,7 @@ export const Approutes: Routes = [
     component: WatchlistComponent
   },
   {
-    path: 'movie',
+    path: 'movie/:id',
     component: MovieComponent
   },
   {
