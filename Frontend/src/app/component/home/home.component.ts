@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {MovieService} from "../../service/movie.service";
 import {Movie} from "../../models/movie";
+import {TrendingMovie} from "../../models/trendingMovie";
 
 
 @Component({
@@ -11,7 +12,7 @@ import {Movie} from "../../models/movie";
 })
 export class HomeComponent implements OnInit{
 
-  trendingMovies: Movie[] = [];
+  trendingMovies: TrendingMovie[] = [];
 
   constructor(private movieService: MovieService, private router: Router) {}
 
@@ -30,14 +31,13 @@ export class HomeComponent implements OnInit{
           this.trendingMovies = [];
           for (let i = 0; i < response.data.length; i++) {
             const dbMovie = response.data[i];
-            let movie: Movie = {
+            let movie: TrendingMovie = {
               id: dbMovie.id,
               title: dbMovie.title || 'N/A',
               year: dbMovie.year || 'N/A',
               director: dbMovie.director || 'N/A',
               image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
               overview: dbMovie.overview || 'N/A',
-              genre: dbMovie.genre || 'N/A'
             };
             this.trendingMovies.push(movie);
           }

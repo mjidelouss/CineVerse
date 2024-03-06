@@ -1,4 +1,5 @@
 export interface MovieCredits {
+  id: number,
   cast: string[],
   director: string,
   assistantDirector: string,

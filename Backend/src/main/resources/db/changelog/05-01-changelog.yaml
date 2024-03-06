@@ -1,13 +1,12 @@
 databaseChangeLog:
   - changeSet:
-      id: 1708438618150-1
+      id: 1709646751270-1
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
-                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -19,9 +18,12 @@ databaseChangeLog:
                     nullable: false
                   name: name
                   type: VARCHAR(255)
+              - column:
+                  name: movie_id
+                  type: BIGINT
             tableName: genres
   - changeSet:
-      id: 1708438618150-2
+      id: 1709646751270-2
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -45,7 +47,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: likes
   - changeSet:
-      id: 1708438618150-3
+      id: 1709646751270-3
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -69,7 +71,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: lists
   - changeSet:
-      id: 1708438618150-4
+      id: 1709646751270-4
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -95,14 +97,13 @@ databaseChangeLog:
                   type: BIGINT
             tableName: movie_lists
   - changeSet:
-      id: 1708438618150-5
+      id: 1709646751270-5
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
-                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -126,16 +127,26 @@ databaseChangeLog:
                   name: image
                   type: VARCHAR(255)
               - column:
+                  name: movie_background
+                  type: VARCHAR(255)
+              - column:
+                  name: language
+                  type: VARCHAR(255)
+              - column:
+                  name: budget
+                  type: BIGINT
+              - column:
+                  name: trailer
+                  type: VARCHAR(255)
+              - column:
+                  name: movie_data
+                  type: json
+              - column:
                   name: overview
                   type: TEXT
-              - column:
-                  constraints:
-                    nullable: false
-                  name: genre_id
-                  type: BIGINT
             tableName: movies
   - changeSet:
-      id: 1708438618150-6
+      id: 1709646751270-6
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -169,7 +180,7 @@ databaseChangeLog:
                   type: BOOLEAN
             tableName: refresh_token
   - changeSet:
-      id: 1708438618150-7
+      id: 1709646751270-7
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -208,7 +219,7 @@ databaseChangeLog:
                   type: DATE
             tableName: reviews
   - changeSet:
-      id: 1708438618150-8
+      id: 1709646751270-8
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -248,7 +259,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: users
   - changeSet:
-      id: 1708438618150-9
+      id: 1709646751270-9
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -277,7 +288,7 @@ databaseChangeLog:
                   type: DATE
             tableName: watch_lists
   - changeSet:
-      id: 1708438618150-10
+      id: 1709646751270-10
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -286,7 +297,18 @@ databaseChangeLog:
             constraintName: uc_refreshtoken_token
             tableName: refresh_token
   - changeSet:
-      id: 1708438618150-11
+      id: 1709646751270-11
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: movie_id
+            baseTableName: genres
+            constraintName: FK_GENRES_ON_MOVIE
+            referencedColumnNames: id
+            referencedTableName: movies
+  - changeSet:
+      id: 1709646751270-12
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -297,7 +319,7 @@ databaseChangeLog:
             referencedColumnNames: review_id
             referencedTableName: reviews
   - changeSet:
-      id: 1708438618150-12
+      id: 1709646751270-13
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -308,7 +330,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1708438618150-13
+      id: 1709646751270-14
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -319,18 +341,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1708438618150-14
-      author: lordo (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: genre_id
-            baseTableName: movies
-            constraintName: FK_MOVIES_ON_GENRE
-            referencedColumnNames: id
-            referencedTableName: genres
-  - changeSet:
-      id: 1708438618150-15
+      id: 1709646751270-15
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -341,7 +352,7 @@ databaseChangeLog:
             referencedColumnNames: list_id
             referencedTableName: lists
   - changeSet:
-      id: 1708438618150-16
+      id: 1709646751270-16
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -352,7 +363,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: movies
   - changeSet:
-      id: 1708438618150-17
+      id: 1709646751270-17
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -363,7 +374,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1708438618150-18
+      id: 1709646751270-18
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -374,7 +385,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: movies
   - changeSet:
-      id: 1708438618150-19
+      id: 1709646751270-19
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -385,7 +396,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1708438618150-20
+      id: 1709646751270-20
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -396,7 +407,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: movies
   - changeSet:
-      id: 1708438618150-21
+      id: 1709646751270-21
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
