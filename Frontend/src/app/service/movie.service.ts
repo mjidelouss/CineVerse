@@ -19,6 +19,9 @@ export class MovieService {
     return this.http.get<any>(`http://127.0.0.1:8080/api/v1/movie/${id}`);
   }
 
+  getSimilarMovies(id: number) {
+    return this.http.get<any>(`http://127.0.0.1:8080/api/v1/movie/similar/${id}`);
+  }
   getMovies(pageIndex: number, pageSize: number): Observable<any> {
     const params = new HttpParams().set('page', pageIndex.toString()).set('size', pageSize.toString());
     return this.http.get<any>(this.apiUrl, { params });

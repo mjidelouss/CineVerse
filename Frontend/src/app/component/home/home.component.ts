@@ -29,8 +29,8 @@ export class HomeComponent implements OnInit{
       .subscribe(
         (response) => {
           this.trendingMovies = [];
-          for (let i = 0; i < response.data.length; i++) {
-            const dbMovie = response.data[i];
+          for (const element of response.data) {
+            const dbMovie = element;
             let movie: TrendingMovie = {
               id: dbMovie.id,
               title: dbMovie.title || 'N/A',

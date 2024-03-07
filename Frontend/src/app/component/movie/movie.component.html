@@ -52,7 +52,11 @@
                 class="btn btn-warning ms-2 d-flex"><span><mat-icon>playlist_add</mat-icon></span><span class="ms-1"
                   style="margin-top: 2px;"> Add to List</span></button>
             </div>
-             qdd
+            <div class="ms-2">
+              <a class="btn btn-danger w-100 d-flex justify-content-center" (click)="open(content)"><span
+                  class=""><mat-icon>play_circle_filled</mat-icon></span><span class="ms-1" style="margin-top: 2px;">
+                  Trailer</span></a>
+            </div>
           </div>
           <!-- Latest Reviews -->
           <div class="container mt-4">
@@ -175,62 +179,42 @@
         <!-- Container 3: Icons -->
         <div class="container">
           <div class="row">
-            <div class="col text-center p-1 item">
+            <div class="col text-center p-1 item visible-icon" (mouseover)="onIconHover('visibility')" (click)="onIconClick('visibility')">
               <mat-icon class="">visibility</mat-icon>
               <p class="text-center text-white">Watched</p>
             </div>
-            <div class="col text-center p-1 ms-1 item">
+            <div class="col text-center p-1 ms-1 item love-icon" (mouseover)="onIconHover('favorite')" (click)="onIconClick('favorite')">
               <mat-icon class="">favorite</mat-icon>
               <p class="text-center text-white">Like</p>
             </div>
-            <div class="col text-center p-1 ms-1 item">
+            <div class="col text-center p-1 ms-1 item watch-icon" (mouseover)="onIconHover('watch_later')" (click)="onIconClick('watch_later')">
               <mat-icon class="">watch_later</mat-icon>
               <p class="text-center text-white">Watchlist</p>
             </div>
           </div>
-          <h2 class="text-center text-white mt-2">Rate</h2>
-          <div class="row">
-            <div class="col text-center item p-1">
-              <mat-icon class="">star</mat-icon>
-              <mat-icon class="">star</mat-icon>
-              <mat-icon class="">star</mat-icon>
-              <mat-icon class="">star</mat-icon>
-              <mat-icon class="">star</mat-icon>
+          <div class="row mt-2">
+            <div class="col text-center item p-1" (mouseleave)="resetStars()">
+              <mat-icon class="star" [ngClass]="{'star-hover': hoverStar >= 1, 'star-selected': selectedStar >= 1}" (click)="rateMovie(1)">star</mat-icon>
+              <mat-icon class="star" [ngClass]="{'star-hover': hoverStar >= 2, 'star-selected': selectedStar >= 2}" (click)="rateMovie(2)">star</mat-icon>
+              <mat-icon class="star" [ngClass]="{'star-hover': hoverStar >= 3, 'star-selected': selectedStar >= 3}" (click)="rateMovie(3)">star</mat-icon>
+              <mat-icon class="star" [ngClass]="{'star-hover': hoverStar >= 4, 'star-selected': selectedStar >= 4}" (click)="rateMovie(4)">star</mat-icon>
+              <mat-icon class="star" [ngClass]="{'star-hover': hoverStar >= 5, 'star-selected': selectedStar >= 5}" (click)="rateMovie(5)">star</mat-icon>
             </div>
           </div>
+
           <h2 class="text-white text-center mt-3">Similar Movies</h2>
           <hr class="text-white">
           <div class="row">
-            <!-- Card 1 -->
-            <div class="col-lg-2 col-md-4 card bg-black film-card">
-              <img src="../../../assets/images/img/oppen.png" class="card-img-top film-poster rounded" alt="film 1">
-            </div>
-
-            <!-- Card 2 -->
-            <div class="col-lg-2 col-md-4 card bg-black film-card">
-              <img src="../../../assets/images/img/us.jpeg" class="card-img-top film-poster rounded" alt="film 2">
-            </div>
-
-            <!-- Card 3 -->
-            <div class="col-lg-2 col-md-4 card bg-black film-card">
-              <img src="../../../assets/images/img/star-wars-poster.jpg" class="card-img-top film-poster rounded"
-                alt="film 3">
-            </div>
-
-            <!-- Card 4 -->
-            <div class="col-lg-2 col-md-4 card bg-black film-card">
-              <img src="../../../assets/images/img/batman.png" class="card-img-top film-poster rounded" alt="film 4">
-            </div>
-
-            <!-- Card 5 -->
-            <div class="col-lg-2 col-md-4 card bg-black film-card">
-              <img src="../../../assets/images/img/moonlight.jpeg" class="card-img-top film-poster rounded"
-                alt="film 5">
-            </div>
-
-            <!-- Card 6 -->
-            <div class="col-lg-2 col-md-4 card bg-black film-card">
-              <img src="../../../assets/images/img/potter.jpg" class="card-img-top film-poster rounded" alt="film 6">
+            <!-- Loop through similarMovies array -->
+            <div *ngFor="let movie of similarMovies" class="col-lg-2 col-md-4 card bg-black film-card">
+              <div (click)="onMovieClick(movie.id)">
+                <img [src]="movie.image" class="card-img-top film-poster rounded" alt="Movie {{ movie.title }}">
+                <div class="film-overlay">
+                  <mat-icon class="text-light">visibility</mat-icon>
+                  <mat-icon class="text-light">favorite_border</mat-icon>
+                  <mat-icon class="text-light">more_vert</mat-icon>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -238,7 +222,15 @@
     </div>
   </div>
 
+  <!-- Trailer-Modal -->
+  <ng-template #content let-modal>
+    <div class="iframe-container">
+      <iframe [src]="getSanitizedTrailer()" title="Trailer" allowfullscreen></iframe>
+    </div>
+  </ng-template>
+  <pre>{{ closeResult }}</pre>
+
   <!-- Footer Section -->
   <hr class="text-muted">
   <app-footer></app-footer>
- </div>
+</div>

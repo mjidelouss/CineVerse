@@ -32,6 +32,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import {HttpInterceptor} from "./helpers/http.interceptor";
 import {JwtInterceptor} from "./helpers/jwt.interceptor";
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -42,7 +45,10 @@ import {JwtInterceptor} from "./helpers/jwt.interceptor";
   ],
   imports: [
     CommonModule,
+    MatButtonModule,
     BrowserModule,
+    MatDividerModule,
+    FlexLayoutModule,
     MatDialogModule,
     DataTablesModule,
     BrowserAnimationsModule,

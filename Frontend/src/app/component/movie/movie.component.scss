@@ -43,8 +43,46 @@
   transform: scale(1.05); /* Increase scale on hover */
 }
 
+.iframe-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: 900px;
+  height: 500px;
+}
+
+iframe {
+  width: 850px;
+  height: 510px;
+}
+
 .item {
-    border: 2px solid rgb(46, 38, 61);
+  border: 2px solid rgb(46, 38, 61);
+  cursor: pointer;
+}
+
+.star:hover {
+  color: yellow;
+}
+
+.star-hover {
+  color: yellow;
+}
+
+.star-selected {
+  color: yellow;
+}
+
+.visible-icon:hover {
+  color: #2a9d2a;
+}
+
+.love-icon:hover {
+  color: #ea3939;
+}
+
+.watch-icon:hover {
+  color: #6868f8;
 }
 
 .head {
@@ -68,12 +106,39 @@
     background: #283038;
 }
 
+.film-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s ease; /* Add transition for opacity */
+}
+
+.film-card:hover .film-overlay {
+  opacity: 1;
+}
+
+.film-card:hover .film-poster {
+  transform: scale(1.05); /* Increase scale on hover */
+}
+
 .film-card {
-    height: 210px;
-    width: 150px;
+  height: 210px;
+  width: 150px;
+  position: relative;
+  overflow: hidden;
 }
 
 .film-poster {
-    object-fit: cover;
-    border: 3px solid #283038;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border: 3px solid #283038;
+  transition: transform 0.3s ease;
 }

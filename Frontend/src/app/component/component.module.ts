@@ -24,21 +24,25 @@ import { DiaryComponent } from './diary/diary.component';
 import { SettingsComponent } from './settings/settings.component';
 import { MembersComponent } from './members/members.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(ComponentsRoutes),
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule,
-    MatIconModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(ComponentsRoutes),
+        FormsModule,
+        ReactiveFormsModule,
+        NgbModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDialogModule
+    ],
   declarations: [
 
-  
+
     DashboardComponent,
     HomeComponent,
     NavbarComponent,
@@ -56,7 +60,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     DiaryComponent,
     SettingsComponent,
     MembersComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
   ],
 })
 export class ComponentsModule { }
