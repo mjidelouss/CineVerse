@@ -1,4 +1,4 @@
-package com.cine.verse.Mapper;
+package com.cine.verse.mappers;
 
 import com.cine.verse.Dto.request.MovieListRequest;
 import com.cine.verse.Dto.response.MovieListResponse;

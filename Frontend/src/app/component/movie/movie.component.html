@@ -179,19 +179,20 @@
         <!-- Container 3: Icons -->
         <div class="container">
           <div class="row">
-            <div class="col text-center p-1 item visible-icon" (mouseover)="onIconHover('visibility')" (click)="onIconClick('visibility')">
+            <div class="col text-center p-1 item visible-icon" (click)="onIconClick('visibility')" [class.green-icon]="clickedIcon === 'visibility'">
               <mat-icon class="">visibility</mat-icon>
               <p class="text-center text-white">Watched</p>
             </div>
-            <div class="col text-center p-1 ms-1 item love-icon" (mouseover)="onIconHover('favorite')" (click)="onIconClick('favorite')">
+            <div class="col text-center p-1 ms-1 item love-icon" (click)="onIconClick('favorite')" [class.red-icon]="clickedIcon === 'favorite'">
               <mat-icon class="">favorite</mat-icon>
               <p class="text-center text-white">Like</p>
             </div>
-            <div class="col text-center p-1 ms-1 item watch-icon" (mouseover)="onIconHover('watch_later')" (click)="onIconClick('watch_later')">
+            <div class="col text-center p-1 ms-1 item watch-icon" (click)="onIconClick('watch_later')" [class.blue-icon]="clickedIcon === 'watch_later'">
               <mat-icon class="">watch_later</mat-icon>
               <p class="text-center text-white">Watchlist</p>
             </div>
           </div>
+
           <div class="row mt-2">
             <div class="col text-center item p-1" (mouseleave)="resetStars()">
               <mat-icon class="star" [ngClass]="{'star-hover': hoverStar >= 1, 'star-selected': selectedStar >= 1}" (click)="rateMovie(1)">star</mat-icon>

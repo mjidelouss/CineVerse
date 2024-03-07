@@ -8,6 +8,10 @@ import {MatDialog} from "@angular/material/dialog";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {SimilarMovie} from "../../models/similarMovie";
 import {TrendingMovie} from "../../models/trendingMovie";
+import {ReviewService} from "../../service/review.service";
+import {Review} from "../../models/review";
+import {Subscription} from "rxjs";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-movie',
@@ -17,6 +21,7 @@ import {TrendingMovie} from "../../models/trendingMovie";
 export class MovieComponent implements OnInit {
 
   private modalService = inject(NgbModal);
+  AuthUserSub! : Subscription;
   closeResult = '';
   movieId!: number;
   movieCredits!: MovieCredits;
@@ -24,9 +29,13 @@ export class MovieComponent implements OnInit {
   similarMovies: SimilarMovie[] = [];
   hoverStar: number = 0;
   selectedStar: number = 0;
-  hoveredIcon: string | null = null;
+  clickedIcon: string | null = null;
+  watched!: boolean
+  review!: Review
 
-  constructor(private router: Router, public dialog: MatDialog, private sanitizer: DomSanitizer, private movieService: MovieService, private route: ActivatedRoute) {
+  constructor(private router: Router, public dialog: MatDialog,
+              private sanitizer: DomSanitizer, private movieService: MovieService,
+              private route: ActivatedRoute, private reviewService: ReviewService, private authService: AuthService) {
 
   }
 
@@ -36,6 +45,7 @@ export class MovieComponent implements OnInit {
     });
     this.getMovie(this.movieId);
     this.getSimilarMovies(this.movieId)
+    this.setReviewData()
   }
 
   resetStars() {
@@ -48,17 +58,18 @@ export class MovieComponent implements OnInit {
       this.selectedStar = 0;
     } else {
       this.selectedStar = star;
-      // TODO: Send the selected star rating to the backend
+      this.watched = true;
     }
-  }
-
-  onIconHover(icon: string): void {
-    this.hoveredIcon = icon;
+    this.review.rating = this.selectedStar
+    this.review.watched = this.watched;
+    this.reviewService.addRating(this.review)
   }
 
   onIconClick(icon: string): void {
-    // Send a message to the backend based on the clicked icon
-    console.log(`Icon clicked: ${icon}`);
+    this.clickedIcon = this.clickedIcon === icon ? null : icon;
+    if (icon === "watch_later") {
+      this.watched = true;
+    }
   }
   getMovie(movieId: number) {
     this.movieService
@@ -102,6 +113,17 @@ export class MovieComponent implements OnInit {
   getSanitizedBackground(): SafeStyle {
     const backgroundImage = `url('https://image.tmdb.org/t/p/original${this.movie.movie_background}')`;
     return this.sanitizer.bypassSecurityTrustStyle(backgroundImage);
+  }
+
+  setReviewData(): void {
+    this.review.movie = this.movie
+    this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
+      next : user => {
+        if (user) {
+          this.review.user = user;
+        }
+      }
+    })
   }
 
   getSanitizedTrailer(): SafeResourceUrl  {

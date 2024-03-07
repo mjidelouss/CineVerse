@@ -1,6 +1,5 @@
-package com.cine.verse.Mapper;
+package com.cine.verse.mappers;
 
-import com.cine.verse.domain.AppUser;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
