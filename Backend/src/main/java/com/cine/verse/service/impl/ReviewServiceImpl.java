@@ -37,6 +37,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public Review getReviewByMovieAndUser(Long movieId, Long userId) {
+        return reviewRepository.findByMovieIdAndAppUserId(movieId, userId).orElse(null);
+    }
+
+    @Override
     public Review addReview(Review review) {
         return reviewRepository.save(review);
     }

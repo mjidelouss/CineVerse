@@ -31,6 +31,16 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/{movieId}/{userId}")
+    public ResponseEntity getReviewByMovieAndUser(@PathVariable Long movieId, @PathVariable Long userId) {
+        Review review = reviewService.getReviewByMovieAndUser(movieId, userId);
+        if (review == null) {
+            return ResponseMessage.notFound("Review Not Found");
+        } else {
+            return ResponseMessage.ok("Success", review);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getReviewById(@PathVariable Long id) {
         Review review = reviewService.getReviewById(id);

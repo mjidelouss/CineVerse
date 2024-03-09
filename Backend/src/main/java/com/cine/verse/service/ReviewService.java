@@ -12,6 +12,7 @@ public interface ReviewService {
 
     Review getReviewById(Long id);
 
+    Review getReviewByMovieAndUser(Long movieId, Long userId);
     Review addReview(Review review);
 
     Review updateReview(Review review, Long id);
