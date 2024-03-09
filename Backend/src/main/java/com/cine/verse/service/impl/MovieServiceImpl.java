@@ -1,6 +1,7 @@
 package com.cine.verse.service.impl;
 
 import com.cine.verse.Dto.response.*;
+import com.cine.verse.domain.Genre;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.repository.GenreRepository;
 import com.cine.verse.repository.MovieRepository;
@@ -13,10 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -56,7 +54,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public int syncMovies() {
-        int currentPage = 101;
+        int currentPage = 1;
         int moviesSavedCount = 0;
         final int MAX_PAGES = 42562;
 
@@ -74,21 +72,23 @@ public class MovieServiceImpl implements MovieService {
                     for (TmdbMovie tmdbMovie : tmdbApiResponse.getResults()) {
                         Movie movie = new Movie();
                         movie.setId(tmdbMovie.getId());
-                        Integer parsedYear = parseYear(tmdbMovie.getRelease_date());
-                        movie.setOverview(tmdbMovie.getOverview() != null ? tmdbMovie.getOverview() : "N/A");
-                        movie.setTitle(tmdbMovie.getTitle() != null ? tmdbMovie.getTitle() : "N/A");
-                        movie.setYear(parsedYear != null ? parsedYear : 3000);
-                        movie.setImage(tmdbMovie.getPoster_path() != null ? tmdbMovie.getPoster_path() : "N/A");
-                        if (tmdbMovie.getGenre_ids() != null && !tmdbMovie.getGenre_ids().isEmpty()) {
-                            movie.setGenre(genreRepository.findById(tmdbMovie.getGenre_ids().get(0).longValue()).orElse(null));
-                        } else {
-                            movie.setGenre(genreRepository.findById(1L).orElse(null));
-                        }
 
                         // Check if the movie already exists in the database
                         Optional<Movie> existingMovie = movieRepository.findByTitleAndYear(movie.getTitle(), movie.getYear());
-
                         if (!existingMovie.isPresent()) {
+                            Integer parsedYear = parseYear(tmdbMovie.getRelease_date());
+                            movie.setOverview(tmdbMovie.getOverview() != null ? tmdbMovie.getOverview() : "N/A");
+                            movie.setTitle(tmdbMovie.getTitle() != null ? tmdbMovie.getTitle() : "N/A");
+                            movie.setYear(parsedYear != null ? parsedYear : 3000);
+                            movie.setImage(tmdbMovie.getPoster_path() != null ? tmdbMovie.getPoster_path() : "N/A");
+                            MovieDetailsTrailer movieDetailsTrailer = getMovieDetailsTrailer(tmdbMovie.getId());
+                            MovieCredits movieCredits = getMovieCredits(tmdbMovie.getId());
+                            movie.setGenres(movieDetailsTrailer.getGenres());
+                            movie.setMovie_background(movieDetailsTrailer.getMovie_background());
+                            movie.setLanguage(movieDetailsTrailer.getLanguage());
+                            movie.setBudget(movieDetailsTrailer.getBudget());
+                            movie.setTrailer(movieDetailsTrailer.getTrailer());
+                            movie.setObjectData(movieCredits);
                             movieRepository.save(movie);
                             moviesSavedCount++;
                         }
@@ -108,7 +108,7 @@ public class MovieServiceImpl implements MovieService {
 
         } while (currentPage <= MAX_PAGES);
 
-        // Log the last page number to a file or another persistent storage
+        // Log the last page number
         System.out.println("Last processed page: " + (currentPage - 1));
 
         return moviesSavedCount;
@@ -132,21 +132,23 @@ public class MovieServiceImpl implements MovieService {
 
                     Movie movie = new Movie();
                     movie.setId(tmdbMovie.getId());
-                    Integer parsedYear = parseYear(tmdbMovie.getRelease_date());
-                    movie.setOverview(tmdbMovie.getOverview() != null ? tmdbMovie.getOverview() : "N/A");
-                    movie.setTitle(tmdbMovie.getTitle() != null ? tmdbMovie.getTitle() : "N/A");
-                    movie.setYear(parsedYear != null ? parsedYear : 3000);
-                    movie.setImage(tmdbMovie.getPoster_path() != null ? tmdbMovie.getPoster_path() : "N/A");
-
-                    if (tmdbMovie.getGenre_ids() != null && !tmdbMovie.getGenre_ids().isEmpty()) {
-                        movie.setGenre(genreRepository.findById(tmdbMovie.getGenre_ids().get(0).longValue()).orElse(null));
-                    } else {
-                        movie.setGenre(genreRepository.findById(1L).orElse(null));
-                    }
-                    trendingMoviesList.add(movie);
                     // Check if the movie already exists in the database
                     Optional<Movie> existingMovie = movieRepository.findByTitleAndYear(movie.getTitle(), movie.getYear());
                     if (!existingMovie.isPresent()) {
+                        Integer parsedYear = parseYear(tmdbMovie.getRelease_date());
+                        movie.setOverview(tmdbMovie.getOverview() != null ? tmdbMovie.getOverview() : "N/A");
+                        movie.setTitle(tmdbMovie.getTitle() != null ? tmdbMovie.getTitle() : "N/A");
+                        movie.setYear(parsedYear != null ? parsedYear : 3000);
+                        movie.setImage(tmdbMovie.getPoster_path() != null ? tmdbMovie.getPoster_path() : "N/A");
+                        trendingMoviesList.add(movie);
+                        MovieDetailsTrailer movieDetailsTrailer = getMovieDetailsTrailer(tmdbMovie.getId());
+                        MovieCredits movieCredits = getMovieCredits(tmdbMovie.getId());
+                        movie.setGenres(movieDetailsTrailer.getGenres());
+                        movie.setMovie_background(movieDetailsTrailer.getMovie_background());
+                        movie.setLanguage(movieDetailsTrailer.getLanguage());
+                        movie.setBudget(movieDetailsTrailer.getBudget());
+                        movie.setTrailer(movieDetailsTrailer.getTrailer());
+                        movie.setObjectData(movieCredits);
                         movieRepository.save(movie);
                     }
                 }
@@ -172,16 +174,9 @@ public class MovieServiceImpl implements MovieService {
                 movie.setGenres(tmdbApiResponse.getGenres());
                 movie.setMovie_background(tmdbApiResponse.getBackdrop_path());
                 movie.setBudget(tmdbApiResponse.getBudget());
-                movie.setLanguage(tmdbApiResponse.getSpoken_languages().get(0).get("name"));
-                List<String> studioNames = new ArrayList<>();
-                for (Map<String, Object> company : tmdbApiResponse.getProduction_companies()) {
-                    Object nameValue = company.get("name");
-                    if (nameValue != null) {
-                        String companyName = nameValue.toString();
-                        studioNames.add(companyName);
-                    }
+                if (!tmdbApiResponse.getSpoken_languages().isEmpty()) {
+                    movie.setLanguage(tmdbApiResponse.getSpoken_languages().get(0).get("name"));
                 }
-                movie.setStudios(studioNames);
                 List<Map<String, Object>> videos = (List<Map<String, Object>>) tmdbApiResponse.getVideos().get("results");
                 for (Map<String, Object> video : videos) {
                     String type = (String) video.get("type");
@@ -294,6 +289,52 @@ public class MovieServiceImpl implements MovieService {
             }
         }
         return movieCredits;
+    }
+
+    public List<Movie> getSimilarMovies(Long movieId) {
+        List<Movie> similarMoviesList = new ArrayList<>();
+        int moviesToFetch = 6;
+
+        String apiUrl = "https://api.themoviedb.org/3/movie/" + movieId + "/recommendations?api_key=" + tmdbApiKey;
+
+        ResponseEntity<TmdbApiResponse> responseEntity = restTemplate.getForEntity(apiUrl, TmdbApiResponse.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            TmdbApiResponse tmdbApiResponse = responseEntity.getBody();
+
+            if (tmdbApiResponse != null && tmdbApiResponse.getResults() != null) {
+                for (int i = 0; i < Math.min(moviesToFetch, tmdbApiResponse.getResults().size()); i++) {
+                    TmdbMovie tmdbMovie = tmdbApiResponse.getResults().get(i);
+
+                    Movie movie = new Movie();
+                    movie.setId(tmdbMovie.getId());
+                    // Check if the movie already exists in the database
+                    Optional<Movie> existingMovie = movieRepository.findByTitleAndYear(movie.getTitle(), movie.getYear());
+                    if (!existingMovie.isPresent()) {
+                        Integer parsedYear = parseYear(tmdbMovie.getRelease_date());
+                        movie.setOverview(tmdbMovie.getOverview() != null ? tmdbMovie.getOverview() : "N/A");
+                        movie.setTitle(tmdbMovie.getTitle() != null ? tmdbMovie.getTitle() : "N/A");
+                        movie.setYear(parsedYear != null ? parsedYear : 3000);
+                        movie.setImage(tmdbMovie.getPoster_path() != null ? tmdbMovie.getPoster_path() : "N/A");
+                        similarMoviesList.add(movie);
+                        MovieDetailsTrailer movieDetailsTrailer = getMovieDetailsTrailer(tmdbMovie.getId());
+                        MovieCredits movieCredits = getMovieCredits(tmdbMovie.getId());
+                        movie.setGenres(movieDetailsTrailer.getGenres());
+                        movie.setMovie_background(movieDetailsTrailer.getMovie_background());
+                        movie.setLanguage(movieDetailsTrailer.getLanguage());
+                        movie.setBudget(movieDetailsTrailer.getBudget());
+                        movie.setTrailer(movieDetailsTrailer.getTrailer());
+                        movie.setObjectData(movieCredits);
+                        movieRepository.save(movie);
+                    }
+                }
+            } else {
+                System.err.println("Tmdb Response is Null");
+            }
+        } else {
+            System.err.println("Error fetching");
+        }
+        return similarMoviesList;
     }
 
     private Integer parseYear(String releaseDate) {

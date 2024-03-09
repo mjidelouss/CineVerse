@@ -1,7 +1,7 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.GenreRequest;
-import com.cine.verse.Mapper.GenreMapper;
+import com.cine.verse.mappers.GenreMapper;
 import com.cine.verse.domain.Genre;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.GenreService;

@@ -17,12 +17,12 @@ import java.util.Set;
 public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
-    private Set<Movie> movies;
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 }

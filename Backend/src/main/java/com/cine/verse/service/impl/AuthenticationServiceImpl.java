@@ -4,6 +4,7 @@ import com.cine.verse.Dto.request.AuthenticationRequest;
 import com.cine.verse.Dto.request.RegisterRequest;
 import com.cine.verse.Dto.response.AuthenticationResponse;
 import com.cine.verse.domain.AppUser;
+import com.cine.verse.enums.Role;
 import com.cine.verse.enums.TokenType;
 import com.cine.verse.repository.AppUserRepository;
 import com.cine.verse.service.AuthenticationService;
@@ -34,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role(Role.USER)
                 .build();
         user = userRepository.save(user);
         var jwt = jwtService.generateToken(user);

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -15,8 +16,7 @@ import java.util.List;
 public class MovieDetailsTrailer {
     private Long id;
     private String movie_background;
-    private List<String> studios;
-    private List<Genre> genres;
+    private Set<Genre> genres;
     private String Language;
     private Long budget;
     private String trailer;

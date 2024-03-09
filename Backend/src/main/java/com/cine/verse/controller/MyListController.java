@@ -1,7 +1,7 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.MyListRequest;
-import com.cine.verse.Mapper.MyListMapper;
+import com.cine.verse.mappers.MyListMapper;
 import com.cine.verse.domain.MyList;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MyListService;

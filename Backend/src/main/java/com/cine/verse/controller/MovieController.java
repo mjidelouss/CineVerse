@@ -1,8 +1,7 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.MovieRequest;
-import com.cine.verse.Dto.response.MovieResponse;
-import com.cine.verse.Mapper.MovieMapper;
+import com.cine.verse.mappers.MovieMapper;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MovieService;
@@ -41,16 +40,23 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/similar/{id}")
+    public ResponseEntity getSimilarMovies(@PathVariable Long id) {
+        List<Movie> movies = movieService.getSimilarMovies(id);
+        if (movies.isEmpty()) {
+            return ResponseMessage.notFound("Similar Movies Not Found");
+        } else {
+            return ResponseMessage.ok("Successfully gotten Similar Movies", movies);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getMovieById(@PathVariable Long id) {
-        MovieResponse movieResponse = new MovieResponse();
-        movieResponse.setMovieCredits(movieService.getMovieCredits(id));
-        movieResponse.setMovieDetailsTrailer(movieService.getMovieDetailsTrailer(id));
-        //Movie movie = movieService.getMovieById(id);
-        if (movieResponse == null) {
+        Movie movie = movieService.getMovieById(id);
+        if (movie == null) {
             return ResponseMessage.notFound("Movie Not Found");
         } else {
-            return ResponseMessage.ok("Success", movieResponse);
+            return ResponseMessage.ok("Success", movie);
         }
     }
 

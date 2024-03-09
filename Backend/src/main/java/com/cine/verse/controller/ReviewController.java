@@ -1,7 +1,8 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.ReviewRequest;
-import com.cine.verse.Mapper.ReviewMapper;
+import com.cine.verse.Dto.response.ReviewResponse;
+import com.cine.verse.mappers.ReviewMapper;
 import com.cine.verse.domain.Review;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.ReviewService;
@@ -48,6 +49,16 @@ public class ReviewController {
             return ResponseMessage.badRequest("Failed To Create Review");
         } else {
             return ResponseMessage.created("Review Created Successfully", review1);
+        }
+    }
+
+    @PostMapping(value = "rate/{num}")
+    public ResponseEntity addRating(@RequestBody @Valid ReviewRequest reviewRequest, @PathVariable Integer num) {
+        ReviewResponse response = reviewService.rateMovie(reviewRequest.getMovieId(), reviewRequest.getUserId(), num);
+        if(response == null) {
+            return ResponseMessage.badRequest("Failed To Add Rating");
+        } else {
+            return ResponseMessage.created("Rating Created Successfully", response);
         }
     }
 

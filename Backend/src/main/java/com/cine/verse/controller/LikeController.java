@@ -1,7 +1,7 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.LikeRequest;
-import com.cine.verse.Mapper.LikeMapper;
+import com.cine.verse.mappers.LikeMapper;
 import com.cine.verse.domain.Like;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.LikeService;

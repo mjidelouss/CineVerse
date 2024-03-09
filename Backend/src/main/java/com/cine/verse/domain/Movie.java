@@ -1,11 +1,14 @@
 package com.cine.verse.domain;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +20,6 @@ import java.util.Set;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -26,16 +28,24 @@ public class Movie {
     @Column(nullable = false)
     private Integer year;
 
-    private String director;
-
     private String image;
+
+    private String movie_background;
+
+    private String Language;
+
+    private Long budget;
+
+    private String trailer;
+
+    @Column(columnDefinition = "json")
+    private String movieData;
 
     @Column(name = "overview", columnDefinition = "TEXT")
     private String overview;
 
-    @ManyToOne
-    @JoinColumn(name = "genre_id", nullable = false)
-    private Genre genre;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private Set<Genre> genres;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<Review> reviews;
@@ -45,4 +55,26 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<MovieList> movieLists;
+
+    public void setObjectData(Object yourObject) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            this.movieData = objectMapper.writeValueAsString(yourObject);
+        } catch (JsonProcessingException e) {
+            // Handle the exception according to your application's needs
+            e.printStackTrace();
+        }
+    }
+
+    // Method to get the object by deserializing JSON
+    public Object getObjectData(Class<?> valueType) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(movieData, valueType);
+        } catch (JsonProcessingException e) {
+            // Handle the exception according to your application's needs
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

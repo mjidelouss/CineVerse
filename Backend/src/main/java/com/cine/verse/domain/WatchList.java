@@ -18,7 +18,7 @@ public class WatchList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long watchListId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -28,7 +28,7 @@ public class WatchList {
     @JoinColumn(name = "movies_id", nullable = false)
     private Movie movie;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDate timestamp;
 }
 

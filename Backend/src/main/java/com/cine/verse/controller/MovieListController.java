@@ -1,7 +1,7 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.MovieListRequest;
-import com.cine.verse.Mapper.MovieListMapper;
+import com.cine.verse.mappers.MovieListMapper;
 import com.cine.verse.domain.MovieList;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MovieListService;

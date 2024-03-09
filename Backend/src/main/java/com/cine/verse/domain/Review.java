@@ -19,7 +19,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reviewId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -29,13 +29,16 @@ public class Review {
     @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
-    @Column(nullable = false)
+    @Column()
     private String content;
 
-    @Column(nullable = false)
+    @Column()
     private Integer rating;
 
-    @Column(nullable = false)
+    @Column()
+    private Boolean watched;
+
+    @Column()
     private LocalDate timestamp;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)

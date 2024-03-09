@@ -1,11 +1,9 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.WatchListRequest;
-import com.cine.verse.Mapper.WatchListMapper;
-import com.cine.verse.domain.Like;
+import com.cine.verse.mappers.WatchListMapper;
 import com.cine.verse.domain.WatchList;
 import com.cine.verse.response.ResponseMessage;
-import com.cine.verse.service.LikeService;
 import com.cine.verse.service.WatchListService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
