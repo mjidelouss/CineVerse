@@ -33,18 +33,122 @@
             <img src="../../../assets/images/users/user1.jpg" alt="user" class="rounded-circle" width="31" />
             <span class="ms-2 mt-2 fw-bold text-muted">{{ movieCredits.director }}</span>
           </div>
-          <div class="d-flex mt-4">
-            <p class=""><a class="text-success fs-5" href="#">Cast</a></p>
-            <p class="ms-3"><a class="text-success fs-5" href="#">Crew</a></p>
-            <p class="ms-3"><a class="text-success fs-5" href="#">Genre</a></p>
-            <p class="ms-3"><a class="text-success fs-5" href="#">Details</a></p>
+          <div class="d-flex mt-4 mb-2">
+            <!-- Example Angular template code -->
+            <div class="tab fs-5" [class.active]="selectedTab === 'cast'" (click)="selectTab('cast')">Cast</div>
+            <div class="tab ms-3 fs-5" [class.active]="selectedTab === 'crew'" (click)="selectTab('crew')">Crew</div>
+            <div class="tab ms-3 fs-5" [class.active]="selectedTab === 'genre'" (click)="selectTab('genre')">Genre</div>
+            <div class="tab ms-3 fs-5" [class.active]="selectedTab === 'details'" (click)="selectTab('details')">Details</div>
           </div>
-          <div *ngFor="let cast of movieCredits.cast" class="d-flex" style="flex-wrap: wrap;">
-            <div class="tag">{{ cast }}</div>
+
+          <div *ngIf="selectedTab === 'cast'" class="tag-container">
+            <ng-container *ngFor="let cast of displayedCast; let last = last">
+              <div class="tag">{{ cast }}</div>
+              <div *ngIf="last && !showAllCast" class="tag show-more" (click)="toggleShowAllCast()">Show more...</div>
+              <div *ngIf="last && showAllCast" class="tag show-less" (click)="toggleShowAllCast()">Show less...</div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="selectedTab === 'crew'" class="tag-container">
+            <div class="tag-container" *ngIf="movieCredits.director">
+              <div class="crew fs-4">DIRECTOR: </div>
+              <div class="tag">
+                {{ movieCredits.director }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.assistantDirector">
+              <div class="crew fs-4">ASSISTANT DIRECTOR: </div>
+              <div class="tag">
+                {{ movieCredits.assistantDirector }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.writer">
+              <div class="crew fs-4">WRITER: </div>
+              <div class="tag">
+                {{ movieCredits.writer }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.addDirector">
+              <div class="crew fs-4">ADD. DIRECTOR: </div>
+              <div class="tag">
+                {{ movieCredits.addDirector }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.composer">
+                <div class="crew fs-4">COMPOSER: </div>
+              <div class="tag">
+                {{ movieCredits.composer }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.editor">
+              <div class="crew fs-4">EDITOR: </div>
+              <div class="tag">
+                {{ movieCredits.editor }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.cinematography">
+              <div class="crew fs-4">CINEMATOGRAPHY: </div>
+              <div class="tag">
+                {{ movieCredits.cinematography }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.costumeDesign">
+              <div class="crew fs-4">COSTUME DESIGN: </div>
+              <div class="tag">
+                {{ movieCredits.costumeDesign }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.lighting">
+              <div class="crew fs-4">LIGHTING: </div>
+              <div class="tag">
+                {{ movieCredits.lighting }}
+              </div>
+            </div>
+            <div class="tag-container" *ngIf="movieCredits.makeup">
+              <div class="crew fs-4">MAKEUP: </div>
+              <div class="tag">
+                {{ movieCredits.makeup }}
+              </div>
+            </div>
+            <ng-container *ngFor="let key of Object.keys(displayedContent.crew)">
+              <!-- Only show if the value is not null or empty -->
+              <div class="tag-container" *ngIf="displayedContent.crew[key] && displayedContent.crew[key].length > 0">
+                <div class="crew fs-4">{{ key.toUpperCase() }}: </div>
+                <div class="tag" *ngFor="let member of displayedContent.crew[key]; let lastMember = last">
+                  {{ member }}
+                  <ng-container *ngIf="!lastMember">
+                    <span>,</span>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="selectedTab === 'genre'" class="tag-container">
+            <ng-container *ngFor="let member of displayedContent.genre; let last = last">
+              <div class="tag">{{ member }}</div>
+            </ng-container>
+          </div>
+
+          <div *ngIf="selectedTab === 'details'" class="tag-container">
+            <ng-container>
+              <div class="tag-container" *ngIf="movie.language">
+                <div class="crew fs-4">LANGUAGE: </div>
+                <div class="tag">
+                  {{ movie.language }}
+                </div>
+              </div>
+              <div class="tag-container" *ngIf="movie.budget">
+                <div class="crew fs-4">BUDGET: </div>
+                <div class="tag">
+                  {{ movie.budget }}$
+                </div>
+              </div>
+            </ng-container>
           </div>
           <div class="d-flex mt-3">
             <div class="">
-              <button type="button" class="btn btn-success d-flex"><span><mat-icon> notes</mat-icon></span><span
+              <button type="button" class="btn btn-success d-flex" (click)="openReview(content2)"><span><mat-icon> notes</mat-icon></span><span
                   class="ms-1" style="margin-top: 2px;"> Review</span></button>
             </div>
             <div class="">
@@ -230,6 +334,62 @@
     </div>
   </ng-template>
   <pre>{{ closeResult }}</pre>
+
+  <!-- Review Modal -->
+  <ng-template #content2 let-modal>
+    <div class="modal-body d-flex flex-column" style="background-color: #151515;">
+      <div class="d-flex justify-content-between">
+        <h4 id="modal-review" class="ms-1 modal-title text-white fw-bold">I WATCHED...</h4>
+        <button type="button" class="btn-close bg-white" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+
+      <div class="review-container">
+        <!-- Movie Poster -->
+        <div class="d-flex">
+          <img src="https://image.tmdb.org/t/p/w500/{{movie.image}}}" width="200" height="290" class="rounded" alt="Movie {{ movie.title }}">
+          <div class="ms-3">
+            <div><strong class="fs-5 text-danger opacity-75">{{ movie.title }}</strong></div>
+            <div class="mt-2"><strong class="fs-6 text-white">({{ movie.year }})</strong></div>
+            <div class="mt-2">
+              <div class="tag-container" *ngIf="movie.language">
+                <div class="crew 2">LANGUAGE: </div>
+                <div class="tag">
+                  {{ movie.language }}
+                </div>
+              </div>
+              <div class="tag-container" *ngIf="movieCredits.director">
+                <div class="crew fs-2">DIRECTOR: </div>
+                <div class="tag">
+                  {{ movieCredits.director }}
+                </div>
+              </div>
+              <div class="tag-container" *ngIf="movieCredits.writer">
+                <div class="crew fs-2">WRITER: </div>
+                <div class="tag">
+                  {{ movieCredits.writer }}
+                </div>
+              </div>
+              <div class="tag-container" *ngIf="movieCredits.composer">
+                <div class="crew fs-2">COMPOSER: </div>
+                <div class="tag">
+                  {{ movieCredits.composer }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Textarea -->
+        <textarea [(ngModel)]="review.content" placeholder="Add your review..." class="form-control mb-2 mt-2"></textarea>
+
+        <!-- Save Review Button -->
+        <button class="btn btn-success" (click)="saveReview()">Save Review</button>
+      </div>
+    </div>
+  </ng-template>
+
+
+
 
   <!-- Footer Section -->
   <hr class="text-muted">

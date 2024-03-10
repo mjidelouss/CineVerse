@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationService } from './service/navigation.service';
+import {AuthService} from "./service/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,11 @@ import { NavigationService } from './service/navigation.service';
 })
 export class AppComponent {
   title = 'app';
-  constructor(private navigationService: NavigationService) {}
+  constructor(private navigationService: NavigationService, private authService: AuthService) {}
 
   ngOnInit() {
     //this.navigationService.navigateToHome();
+    this.authService.autoLogin();
   }
 
 

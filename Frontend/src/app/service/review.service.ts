@@ -11,9 +11,18 @@ export class ReviewService {
 
   constructor(private http: HttpClient) {}
 
-  addRating(review: any): Observable<any> {
-    const url = `${this.apiUrl}/rate`;
-    return this.http.post(url, review);
+  getReview(movieId: number, userId: number):Observable<any> {
+    const url = `${this.apiUrl}/${movieId}/${userId}`;
+    return this.http.get(url);
+  }
+  addRating(rate: any, num: number): Observable<any> {
+    const url = `${this.apiUrl}/rate/${num}`;
+    return this.http.post(url, rate);
+  }
+
+  addReview(review:any):Observable<any> {
+    console.log(review)
+    return this.http.post(this.apiUrl, review);
   }
 
 }

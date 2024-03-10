@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, TemplateRef} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {MovieService} from "../../service/movie.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Movie} from "../../models/movie";
@@ -7,18 +7,18 @@ import {DomSanitizer, SafeResourceUrl, SafeStyle} from "@angular/platform-browse
 import {MatDialog} from "@angular/material/dialog";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {SimilarMovie} from "../../models/similarMovie";
-import {TrendingMovie} from "../../models/trendingMovie";
 import {ReviewService} from "../../service/review.service";
-import {Review} from "../../models/review";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../service/auth.service";
+import {Rate} from "../../models/rate";
+import {Review} from "../../models/review";
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.scss']
 })
-export class MovieComponent implements OnInit {
+export class MovieComponent implements OnInit, OnDestroy {
 
   private modalService = inject(NgbModal);
   AuthUserSub! : Subscription;
@@ -31,25 +31,53 @@ export class MovieComponent implements OnInit {
   selectedStar: number = 0;
   clickedIcon: string | null = null;
   watched!: boolean
-  review!: Review
-
+  rate: Rate = { userId: {} as number, movieId: {} as number };
+  review: Review = { userId: {} as number, movieId: {} as number, content: '' };
+  showAllCast: boolean = false;
+  selectedTab: 'cast' | 'crew' | 'genre' | 'details' = 'cast';
+  showAllContent: { cast: boolean; crew: boolean; genre: boolean; details: boolean } = {
+    cast: false,
+    crew: false,
+    genre: false,
+    details: false
+  };
   constructor(private router: Router, public dialog: MatDialog,
               private sanitizer: DomSanitizer, private movieService: MovieService,
               private route: ActivatedRoute, private reviewService: ReviewService, private authService: AuthService) {
 
   }
-
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.movieId = +params['id'];
     });
     this.getMovie(this.movieId);
-    this.getSimilarMovies(this.movieId)
-    this.setReviewData()
+    this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
+      next: user => {
+        if (user) {
+          this.rate.userId = user.id;
+          this.review.userId = user.id;
+        }
+      }
+    });
+    this.getReview(this.movieId);
+    this.getSimilarMovies(this.movieId);
   }
+
+
 
   resetStars() {
     this.hoverStar = this.selectedStar;
+  }
+
+  saveReview() {
+    this.reviewService.addReview(this.review).subscribe(
+      (response: any) => {
+        console.log(response.data)
+      },
+      (error) => {
+        console.error("Error Adding Movie Review:", error);
+      }
+    );
   }
 
   rateMovie(star: number) {
@@ -60,9 +88,14 @@ export class MovieComponent implements OnInit {
       this.selectedStar = star;
       this.watched = true;
     }
-    this.review.rating = this.selectedStar
-    this.review.watched = this.watched;
-    this.reviewService.addRating(this.review)
+    this.reviewService.addRating(this.rate, star).subscribe(
+      (response: any) => {
+        console.log(response.data)
+      },
+      (error) => {
+        console.error("Error Rating Movie:", error);
+      }
+    );
   }
 
   onIconClick(icon: string): void {
@@ -71,6 +104,53 @@ export class MovieComponent implements OnInit {
       this.watched = true;
     }
   }
+
+  get displayedCast(): string[] {
+    return this.showAllCast ? this.movieCredits.cast : this.movieCredits.cast.slice(0, 25);
+  }
+
+  toggleShowAllCast(): void {
+    this.showAllCast = !this.showAllCast;
+  }
+  get displayedContent(): { cast: string[]; crew: { [key: string]: any }; genre: string[];} {
+    switch (this.selectedTab) {
+      case 'cast':
+        return { cast: this.showAllContent.cast ? this.movieCredits.cast : this.movieCredits.cast.slice(0, 3), crew: {}, genre: [] };
+      case 'crew':
+        // Include all crew members
+        const crewMembers = Object.entries(this.movieCredits)
+          .filter(([key, value]) => key !== 'cast' && Array.isArray(value))
+          .reduce((acc, [key, value]) => {
+            acc[key] = Array.isArray(value) ? value : [value];
+            return acc;
+          }, {} as { [key: string]: string[] });
+        return { cast: [], crew: this.showAllContent.crew ? crewMembers : crewMembers, genre: []};
+      case 'genre':
+        return { cast: [], crew: {}, genre: this.showAllContent.genre ? this.movie.genres : this.movie.genres};
+      case 'details':
+        return { cast: [], crew: {}, genre: []};
+      default:
+        return { cast: [], crew: {}, genre: []};
+    }
+  }
+
+  selectTab(tab: 'cast' | 'crew' | 'genre' | 'details'): void {
+    this.selectedTab = tab;
+    this.resetShowAllContent();
+  }
+
+  toggleShowAllContent(tab: 'cast' | 'crew' | 'genre' | 'details'): void {
+    this.showAllContent[tab] = !this.showAllContent[tab];
+  }
+
+  resetShowAllContent(): void {
+    this.showAllContent = {
+      cast: false,
+      crew: false,
+      genre: false,
+      details: false
+    };
+  }
   getMovie(movieId: number) {
     this.movieService
       .getMovieById(movieId)
@@ -78,11 +158,25 @@ export class MovieComponent implements OnInit {
         (response: any) => {
           this.movie = response.data;
           this.movieCredits = this.parseMovieData(this.movie.movieData);
+          this.rate.movieId = this.movie.id;
+          this.review.movieId = this.movie.id;
         },
         (error) => {
           console.error("Error fetching Movie Details & Credits:", error);
         }
       );
+  }
+
+  getReview(movieId: number) {
+    this.reviewService.getReview(movieId, this.rate.userId).subscribe(
+      (response: any) => {
+        this.watched = response.data.watched;
+        this.selectedStar = response.data.rating;
+      },
+      (error) => {
+        console.error("Error fetching Movie Details & Credits:", error);
+      }
+    );
   }
 
   getSimilarMovies(movieId: number) {
@@ -114,18 +208,6 @@ export class MovieComponent implements OnInit {
     const backgroundImage = `url('https://image.tmdb.org/t/p/original${this.movie.movie_background}')`;
     return this.sanitizer.bypassSecurityTrustStyle(backgroundImage);
   }
-
-  setReviewData(): void {
-    this.review.movie = this.movie
-    this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
-      next : user => {
-        if (user) {
-          this.review.user = user;
-        }
-      }
-    })
-  }
-
   getSanitizedTrailer(): SafeResourceUrl  {
     const trailer = `https://www.youtube.com/embed/${this.movie.trailer}`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(trailer);
@@ -140,11 +222,9 @@ export class MovieComponent implements OnInit {
       return {} as MovieCredits;
     }
   }
-
   onMovieClick(movieId: number): void {
     this.router.navigate(['/movie', movieId]);
   }
-
   open(content: TemplateRef<any>) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
@@ -156,6 +236,16 @@ export class MovieComponent implements OnInit {
     );
   }
 
+  openReview(content: any): void {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-review' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
   private getDismissReason(reason: any): string {
     switch (reason) {
       case ModalDismissReasons.ESC:
@@ -166,4 +256,12 @@ export class MovieComponent implements OnInit {
         return `with: ${reason}`;
     }
   }
+
+  ngOnDestroy() {
+    if (this.AuthUserSub) {
+      this.AuthUserSub.unsubscribe();
+    }
+  }
+
+  protected readonly Object = Object;
 }
