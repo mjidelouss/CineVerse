@@ -13,6 +13,7 @@ import {Subscription} from "rxjs";
 export class UserHomeComponent implements OnInit, OnDestroy {
 
   trendingMovies: TrendingMovie[] = [];
+  movies: TrendingMovie[] = [];
   AuthUserSub! : Subscription;
 
   constructor(private authService : AuthService, private movieService: MovieService, private router: Router) {}
@@ -30,6 +31,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       }
     })
     this.getTrendingMovies();
+    this.getMovies()
   }
 
   getTrendingMovies() {
@@ -53,6 +55,32 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.error('Error fetching Trending Movies:', error);
+        }
+      );
+  }
+
+  getMovies() {
+    this.movieService
+      .getLastMovies()
+      .subscribe(
+        (response) => {
+          console.log(response.data)
+          this.movies = [];
+          for (const element of response.data) {
+            const dbMovie = element;
+            let movie: TrendingMovie = {
+              id: dbMovie.id,
+              title: dbMovie.title || 'N/A',
+              year: dbMovie.year || 'N/A',
+              director: dbMovie.director || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
+              overview: dbMovie.overview || 'N/A',
+            };
+            this.movies.push(movie);
+          }
+        },
+        (error) => {
+          console.error('Error fetching Movies:', error);
         }
       );
   }
