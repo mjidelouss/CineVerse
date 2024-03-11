@@ -2,26 +2,49 @@
     font-weight: bold;
     color: #ffffff;
   }
-  
-  .movie-card {
-    height: 270px;
-    width: 210px;
-    margin-top: 10px;
-  }
 
-  .movie-card2 {
-    height: 270px;
-    width: 220px;
-    margin-top: 10px;
-  }
-  
-  .movie-poster {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border: 3px solid black;
-  }
-  
+.movie-card {
+  height: 270px;
+  width: 219px;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.star-hover {
+  color: #c7c72f;
+}
+
+.movie-poster {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border: 3px solid rgb(46, 38, 61);
+  transition: transform 0.3s ease;
+}
+
+.movie-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s ease; /* Add transition for opacity */
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+}
+
+.movie-card:hover .movie-poster {
+  transform: scale(1.05); /* Increase scale on hover */
+}
+
   .banner-card {
     height: 150px;
     width: 95.5%;
@@ -33,20 +56,20 @@
     width: 95.5%;
     margin-top: 10px;
   }
-  
+
   .banner-poster {
     height: 100%;
     width: 100%;
     object-fit: cover;
   }
-  
+
   .overlay {
     position: relative;
     width: 100vw;
     height: 30vh;
     overflow: hidden;
   }
-  
+
   .overlay-img1,
   .overlay-img2,
   .overlay-img3 {
@@ -55,16 +78,15 @@
     height: 240px;
     width: 210px;
   }
-  
+
   .overlay-img1 {
-    left: 5%; 
+    left: 5%;
   }
   .overlay-img2 {
-    left: 12%; 
+    left: 12%;
     z-index: 10;
   }
   .overlay-img3 {
-    left: 17.9%; 
+    left: 17.9%;
     z-index: 10;
   }
-  

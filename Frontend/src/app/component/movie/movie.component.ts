@@ -5,13 +5,14 @@ import {Movie} from "../../models/movie";
 import {MovieCredits} from "../../models/movie-credits";
 import {DomSanitizer, SafeResourceUrl, SafeStyle} from "@angular/platform-browser";
 import {MatDialog} from "@angular/material/dialog";
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {SimilarMovie} from "../../models/similarMovie";
 import {ReviewService} from "../../service/review.service";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../service/auth.service";
 import {Rate} from "../../models/rate";
 import {Review} from "../../models/review";
+import {RecentReview} from "../../models/recent-review";
 
 @Component({
   selector: 'app-movie',
@@ -27,6 +28,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   movieCredits!: MovieCredits;
   movie!: Movie
   similarMovies: SimilarMovie[] = [];
+  recentReviews: RecentReview[] = [];
   hoverStar: number = 0;
   selectedStar: number = 0;
   clickedIcon: string | null = null;
@@ -35,6 +37,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   review: Review = { userId: {} as number, movieId: {} as number, content: '' };
   showAllCast: boolean = false;
   selectedTab: 'cast' | 'crew' | 'genre' | 'details' = 'cast';
+  private modalRef: NgbModalRef | undefined;
   showAllContent: { cast: boolean; crew: boolean; genre: boolean; details: boolean } = {
     cast: false,
     crew: false,
@@ -60,7 +63,9 @@ export class MovieComponent implements OnInit, OnDestroy {
       }
     });
     this.getReview(this.movieId);
+    this.getRecentReviews(this.movieId);
     this.getSimilarMovies(this.movieId);
+    console.log(this.recentReviews)
   }
 
 
@@ -78,6 +83,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         console.error("Error Adding Movie Review:", error);
       }
     );
+    this.closeReviewModal();
   }
 
   rateMovie(star: number) {
@@ -179,6 +185,32 @@ export class MovieComponent implements OnInit, OnDestroy {
     );
   }
 
+  getRecentReviews(movieId: number) {
+    this.reviewService.getRecentReviews(movieId).subscribe(
+      (response) => {
+        console.log(response.data)
+        this.recentReviews = [];
+        for (const element of response.data) {
+          const dbReview = element;
+          let review: RecentReview = {
+            firstname: dbReview.appUser.firstname || 'N/A',
+            lastname: dbReview.appUser.lastname || 'N/A',
+            image: dbReview.appUser.image || 'N/A',
+            content: dbReview.content || 'N/A',
+            rating: dbReview.rating || 'N/A',
+            likes: dbReview.likes,
+            timestamp: dbReview.timestamp|| 'N/A'
+          };
+          console.log(review)
+          this.recentReviews.push(review);
+        }
+      },
+      (error) => {
+        console.error('Error fetching Recent Reviews:', error);
+      }
+    );
+  }
+
   getSimilarMovies(movieId: number) {
     this.movieService
       .getSimilarMovies(movieId)
@@ -237,7 +269,9 @@ export class MovieComponent implements OnInit, OnDestroy {
   }
 
   openReview(content: any): void {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-review' }).result.then(
+    this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-review' });
+
+    this.modalRef.result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
@@ -245,6 +279,11 @@ export class MovieComponent implements OnInit, OnDestroy {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
+  }
+  closeReviewModal(): void {
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
   }
   private getDismissReason(reason: any): string {
     switch (reason) {

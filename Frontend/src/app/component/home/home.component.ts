@@ -48,7 +48,6 @@ export class HomeComponent implements OnInit{
       );
   }
 
-
   viewMovie(competition: any) {
     this.router.navigate(['/movie-details'], { state: { competition } });
   }
