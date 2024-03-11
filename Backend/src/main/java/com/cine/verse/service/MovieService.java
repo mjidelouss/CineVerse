@@ -14,6 +14,8 @@ public interface MovieService {
 
     Movie addMovie(Movie movie);
 
+    List<Movie> getLastSixMovies();
+
     Movie updateMovie(Movie movie, Long id);
 
     void deleteMovie(Long id);

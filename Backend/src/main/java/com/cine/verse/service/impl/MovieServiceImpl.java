@@ -41,6 +41,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> getLastSixMovies() {
+        return movieRepository.findTop6ByOrderByMovieIdDesc();
+    }
+
+
+    @Override
     public Movie addMovie(Movie movie) {
         return movieRepository.save(movie);
     }

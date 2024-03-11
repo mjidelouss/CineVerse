@@ -33,6 +33,17 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/last")
+    public ResponseEntity getLastMovies() {
+        List<Movie> lastSixMovies = movieService.getLastSixMovies();
+        if (lastSixMovies.isEmpty()) {
+            return ResponseMessage.notFound("Movies Not Found");
+        } else {
+            return ResponseMessage.ok("Success", lastSixMovies);
+        }
+    }
+
+
     @GetMapping("/trending")
     public ResponseEntity getTrendingMovies() {
         List<Movie> movies = movieService.getTrendingMovies();
