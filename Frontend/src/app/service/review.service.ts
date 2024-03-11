@@ -25,6 +25,11 @@ export class ReviewService {
     return this.http.post(this.apiUrl, review);
   }
 
+  getReviewedMoviesWithRating(userId: number) {
+    const url = `${this.apiUrl}/reviewed-movies/${userId}`;
+    return this.http.get<any>(url);
+  }
+
   getRecentReviews(movieId: number) {
     const url = `${this.apiUrl}/recent/${movieId}`;
     return this.http.get<any>(url);

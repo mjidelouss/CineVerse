@@ -65,7 +65,6 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.getReview(this.movieId);
     this.getRecentReviews(this.movieId);
     this.getSimilarMovies(this.movieId);
-    console.log(this.recentReviews)
   }
 
 
@@ -96,7 +95,6 @@ export class MovieComponent implements OnInit, OnDestroy {
     }
     this.reviewService.addRating(this.rate, star).subscribe(
       (response: any) => {
-        console.log(response.data)
       },
       (error) => {
         console.error("Error Rating Movie:", error);

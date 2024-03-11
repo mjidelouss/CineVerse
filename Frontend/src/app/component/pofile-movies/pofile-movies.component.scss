@@ -4,14 +4,27 @@
 }
 
 .movie-card {
-    height: 230px;
-    width: 188px;
-    margin-top: 7px;
-  }
-  
-  .movie-poster {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border: 3px solid rgb(46, 38, 61);
-  }
+  height: 230px;
+  width: 188px;
+  margin-top: 7px;
+}
+
+.star-hover {
+  color: #c7c72f;
+}
+
+.movie-poster {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border: 3px solid rgb(46, 38, 61);
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  opacity: 1;
+}
+
+.movie-card:hover .movie-poster {
+  transform: scale(1.02);
+}
