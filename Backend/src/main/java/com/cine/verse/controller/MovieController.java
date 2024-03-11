@@ -7,6 +7,8 @@ import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +23,13 @@ public class MovieController {
     private final MovieMapper movieMapper;
 
     @GetMapping("/all")
-    public ResponseEntity getMovies() {
-        List<Movie> movies = movieService.getMovies();
-        if (movies.isEmpty()) {
+    public ResponseEntity getMovies(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        Page<Movie> moviesPage = movieService.getMovies(PageRequest.of(page, size));
+
+        if (moviesPage.isEmpty()) {
             return ResponseMessage.notFound("Movies Not Found");
         } else {
-            return ResponseMessage.ok("Success", movies);
+            return ResponseMessage.ok("Success", moviesPage.getContent());
         }
     }
 

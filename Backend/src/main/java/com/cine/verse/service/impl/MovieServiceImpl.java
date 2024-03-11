@@ -9,6 +9,8 @@ import com.cine.verse.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,14 +29,15 @@ public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
-    @Override
-    public List<Movie> getMovies() {
-        return movieRepository.findAll();
-    }
 
     @Override
     public Movie getMovieById(Long id) {
         return movieRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Page<Movie> getMovies(Pageable pageable) {
+        return movieRepository.findAll(pageable);
     }
 
     @Override
