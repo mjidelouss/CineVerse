@@ -60,8 +60,7 @@
         <!-- Watchlist Movies -->
         <div class="row" id="itemContainer">
             <!-- Movies Cards Section -->
-            <div *ngFor="let movie of movies">
-              <div class="col-lg-2 col-md-4 card bg-black movie-card" (click)="onMovieClick(movie.id)">
+              <div *ngFor="let movie of movies" class="col-lg-2 col-md-4 card bg-black movie-card" (click)="onMovieClick(movie.id)">
                 <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie 1">
                 <div class="col mt-1 text-center">
                   <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
@@ -69,7 +68,6 @@
                   </ng-container>
                 </div>
               </div>
-            </div>
         </div>
 
     </div>

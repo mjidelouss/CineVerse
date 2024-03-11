@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container">
 
-        <a class="navbar-brand fw-bolder">CINE <span class="" style="color: hsl(6, 100%, 42%)">VERSE</span></a>
+        <a class="navbar-brand fw-bolder" routerLink="/user-home">CINE <span class="" style="color: hsl(6, 100%, 42%)">VERSE</span></a>
         <div class="" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" ngbDropdown placement="bottom-end">
@@ -19,26 +19,26 @@
                         class="rounded-circle"
                         width="31"
                       />
-                      <span class="ms-2 fw-bold">MJID_ELOUSSE </span>
+                      <span class="ms-2 fw-bold">MJIDELOUSSE</span>
                     </a>
                     <div class="dropdown-menu-right" ngbDropdownMenu>
-                      <a class="dropdown-item" href="#"> Profile</a>
-                      <a class="dropdown-item" href="#"> Movies</a>
-                      <a class="dropdown-item" href="#"> Diary</a>
-                      <a class="dropdown-item" href="#"> Likes</a>
-                      <a class="dropdown-item" href="#"> Watchlist</a>
-                      <a class="dropdown-item" href="#"> Settings</a>
-                      <a class="dropdown-item text-danger opacity-75" href="#"> Logout</a>
+                      <a class="dropdown-item" routerLink="/profile"> Profile</a>
+                      <a class="dropdown-item" routerLink="/profile-movies"> Movies</a>
+                      <a class="dropdown-item" routerLink="/diary"> Diary</a>
+                      <a class="dropdown-item" routerLink="/likes"> Likes</a>
+                      <a class="dropdown-item" routerLink="/watchlist"> Watchlist</a>
+                      <a class="dropdown-item" routerLink="/settings"> Settings</a>
+                      <a class="dropdown-item text-danger opacity-75" type="submit" (click)="handleLogout($event)"> Logout</a>
                     </div>
                   </li>
                 <li class="nav-item mt-1">
-                    <a class="nav-link text-white" href="#">Movies</a>
+                    <a class="nav-link text-white" routerLink="/">Movies</a>
                 </li>
                 <li class="nav-item mt-1">
-                    <a class="nav-link text-white" href="#">Lists</a>
+                    <a class="nav-link text-white" routerLink="/lists">Lists</a>
                 </li>
                 <li class="nav-item mt-1">
-                    <a class="nav-link text-white" href="#">Members</a>
+                    <a class="nav-link text-white" routerLink="/">Members</a>
                 </li>
             </ul>
         </div>

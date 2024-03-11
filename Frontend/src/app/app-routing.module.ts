@@ -15,6 +15,7 @@ import { PofileListsComponent } from './component/pofile-lists/pofile-lists.comp
 import { PofileMoviesComponent } from './component/pofile-movies/pofile-movies.component';
 import { PofileReviewsComponent } from './component/pofile-reviews/pofile-reviews.component';
 import {ForbiddenComponent} from "./component/forbidden/forbidden.component";
+import {SettingsComponent} from "./component/settings/settings.component";
 
 export const Approutes: Routes = [
   {
@@ -87,6 +88,10 @@ export const Approutes: Routes = [
   {
     path: 'diary',
     component: DiaryComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
   {
     path: '**',

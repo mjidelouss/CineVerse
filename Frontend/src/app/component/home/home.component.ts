@@ -3,6 +3,8 @@ import {Router} from "@angular/router";
 import {MovieService} from "../../service/movie.service";
 import {Movie} from "../../models/movie";
 import {TrendingMovie} from "../../models/trendingMovie";
+import {AuthService} from "../../service/auth.service";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -13,10 +15,22 @@ import {TrendingMovie} from "../../models/trendingMovie";
 export class HomeComponent implements OnInit{
 
   trendingMovies: TrendingMovie[] = [];
+  AuthUserSub! : Subscription;
 
-  constructor(private movieService: MovieService, private router: Router) {}
+  constructor(private movieService: MovieService, private router: Router, private authService : AuthService) {}
 
   ngOnInit() {
+    this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
+      next : user => {
+        if(user) {
+          if (user.role.name == "ROLE_MANAGER") {
+            this.router.navigate(['dashboard']);
+          } else if (user.role.name == "ROLE_USER") {
+            this.router.navigate(['user-home']);
+          }
+        }
+      }
+    })
     this.getTrendingMovies();
   }
 
