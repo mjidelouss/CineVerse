@@ -10,7 +10,11 @@ import java.util.List;
 public interface ReviewService {
     List<Review> getReviews();
 
+    List<Review> getRecentReviews(Long movieId);
+
     Review getReviewById(Long id);
+
+    List<Object[]> getReviewdMovies(Long userId);
 
     Review getReviewByMovieAndUser(Long movieId, Long userId);
     Review addReview(Review review);

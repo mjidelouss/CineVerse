@@ -32,13 +32,23 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public List<Review> getRecentReviews(Long movieId) {
+        return reviewRepository.findByMovieId(movieId);
+    }
+
+    @Override
     public Review getReviewById(Long id) {
         return reviewRepository.findById(id).orElse(null);
     }
 
     @Override
+    public List<Object[]> getReviewdMovies(Long userId) {
+        return reviewRepository.findMoviesAndRatingsByAppUserId(userId);
+    }
+
+    @Override
     public Review getReviewByMovieAndUser(Long movieId, Long userId) {
-        return reviewRepository.findByMovieIdAndAppUserId(movieId, userId).orElse(null);
+        return reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
     }
 
     @Override
@@ -58,7 +68,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewResponse rateMovie(Long movieId, Long userId, Integer rate) {
-        Review review = reviewRepository.findByMovieIdAndAppUserId(movieId, userId).orElse(null);
+        Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
 
         if (review == null) {
             review = new Review();

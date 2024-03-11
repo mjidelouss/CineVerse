@@ -1,8 +1,6 @@
 package com.cine.verse.Dto.response;
 
-import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Like;
-import com.cine.verse.domain.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,12 +14,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewResponse {
-    private Long id;
-    private AppUser appUser;
-    private Movie movie;
+    private String firstname;
+    private String lastname;
+    private String image;
     private String content;
     private Integer rating;
-    private Boolean watched;
     private LocalDate timestamp;
     private Set<Like> likes;
 }
