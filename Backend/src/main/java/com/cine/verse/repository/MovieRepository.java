@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     Optional<Movie> findByTitleAndYear(String title, Integer year);
 
-    List<Movie> findTop6ByOrderByMovieIdDesc();
+    List<Movie> findTop6ByOrderByIdDesc();
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AppUserServiceImpl implements AppUserService {
 
-    private AppUserRepository userRepository;
+    private final AppUserRepository userRepository;
 
     @Override
     public AppUser getUserById(Long userId) {

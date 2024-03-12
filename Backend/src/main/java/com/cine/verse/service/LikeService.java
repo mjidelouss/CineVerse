@@ -9,7 +9,7 @@ public interface LikeService {
 
     Like getLikeById(Long id);
 
-    Like addLike(Like like);
+    Like addLike(Long userId, Long reviewId);
 
     Like updateLike(Like like, Long id);
 

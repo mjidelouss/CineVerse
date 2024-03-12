@@ -42,12 +42,11 @@ public class LikeController {
 
     @PostMapping("")
     public ResponseEntity addLike(@RequestBody @Valid LikeRequest likeRequest) {
-        Like like = likeMapper.likeRequestToLike(likeRequest);
-        Like like1 = likeService.addLike(like);
-        if(like1 == null) {
+        Like like = likeService.addLike(likeRequest.getUserId(), likeRequest.getReviewId());
+        if(like == null) {
             return ResponseMessage.badRequest("Failed To Create Like");
         } else {
-            return ResponseMessage.created("Like Created Successfully", like1);
+            return ResponseMessage.created("Like Created Successfully", like);
         }
     }
 

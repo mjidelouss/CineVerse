@@ -1,7 +1,6 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.domain.AppUser;
-import com.cine.verse.domain.Movie;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.AppUserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AppUserController {
 
-    private AppUserService appUserService;
+    private final  AppUserService appUserService;
 
     @GetMapping("/{id}")
     public ResponseEntity getUserById(@PathVariable Long id) {
