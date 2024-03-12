@@ -33,6 +33,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   selectedStar: number = 0;
   clickedIcon: string | null = null;
   watched!: boolean
+  liked!: boolean
   rate: Rate = { userId: {} as number, movieId: {} as number };
   review: Review = { userId: {} as number, movieId: {} as number, content: '' };
   showAllCast: boolean = false;
@@ -102,10 +103,31 @@ export class MovieComponent implements OnInit, OnDestroy {
     );
   }
 
+  likeMovie(like: boolean) {
+    this.reviewService.saveLike(this.rate, like).subscribe(
+      (response: any) => {
+        this.liked = response.data
+      },
+      (error) => {
+        console.error("Error Liking Movie:", error);
+      }
+    );
+  }
+
   onIconClick(icon: string): void {
     this.clickedIcon = this.clickedIcon === icon ? null : icon;
     if (icon === "watch_later") {
       this.watched = true;
+    }
+    if (icon === "favorite") {
+      if (this.liked == true) {
+        this.likeMovie(false)
+        this.liked = false;
+      } else {
+        this.likeMovie(true)
+        this.liked = true;
+      }
+
     }
   }
 
@@ -176,6 +198,7 @@ export class MovieComponent implements OnInit, OnDestroy {
       (response: any) => {
         this.watched = response.data.watched;
         this.selectedStar = response.data.rating;
+        this.liked = response.data.liked;
       },
       (error) => {
         console.error("Error fetching Movie Details & Credits:", error);

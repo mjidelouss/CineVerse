@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1709819284063-1
+      id: 1710242167767-1
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -23,7 +23,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: genres
   - changeSet:
-      id: 1709819284063-2
+      id: 1710242167767-2
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -47,7 +47,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: likes
   - changeSet:
-      id: 1709819284063-3
+      id: 1710242167767-3
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -71,7 +71,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: lists
   - changeSet:
-      id: 1709819284063-4
+      id: 1710242167767-4
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -97,7 +97,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: movie_lists
   - changeSet:
-      id: 1709819284063-5
+      id: 1710242167767-5
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -143,7 +143,7 @@ databaseChangeLog:
                   type: TEXT
             tableName: movies
   - changeSet:
-      id: 1709819284063-6
+      id: 1710242167767-6
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -177,7 +177,7 @@ databaseChangeLog:
                   type: BOOLEAN
             tableName: refresh_token
   - changeSet:
-      id: 1709819284063-7
+      id: 1710242167767-7
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -211,11 +211,14 @@ databaseChangeLog:
                   name: watched
                   type: BOOLEAN
               - column:
+                  name: liked
+                  type: BOOLEAN
+              - column:
                   name: timestamp
                   type: DATE
             tableName: reviews
   - changeSet:
-      id: 1709819284063-8
+      id: 1710242167767-8
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -255,7 +258,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: users
   - changeSet:
-      id: 1709819284063-9
+      id: 1710242167767-9
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -284,7 +287,7 @@ databaseChangeLog:
                   type: DATE
             tableName: watch_lists
   - changeSet:
-      id: 1709819284063-10
+      id: 1710242167767-10
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -293,7 +296,7 @@ databaseChangeLog:
             constraintName: uc_refreshtoken_token
             tableName: refresh_token
   - changeSet:
-      id: 1709819284063-11
+      id: 1710242167767-11
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -304,7 +307,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: movies
   - changeSet:
-      id: 1709819284063-12
+      id: 1710242167767-12
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -315,7 +318,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: reviews
   - changeSet:
-      id: 1709819284063-13
+      id: 1710242167767-13
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -326,7 +329,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1709819284063-14
+      id: 1710242167767-14
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -337,7 +340,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1709819284063-15
+      id: 1710242167767-15
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -348,7 +351,7 @@ databaseChangeLog:
             referencedColumnNames: list_id
             referencedTableName: lists
   - changeSet:
-      id: 1709819284063-16
+      id: 1710242167767-16
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -359,7 +362,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: movies
   - changeSet:
-      id: 1709819284063-17
+      id: 1710242167767-17
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -370,7 +373,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1709819284063-18
+      id: 1710242167767-18
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -381,7 +384,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: movies
   - changeSet:
-      id: 1709819284063-19
+      id: 1710242167767-19
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -392,7 +395,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: users
   - changeSet:
-      id: 1709819284063-20
+      id: 1710242167767-20
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -403,7 +406,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: movies
   - changeSet:
-      id: 1709819284063-21
+      id: 1710242167767-21
       author: lordo (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
