@@ -13,6 +13,7 @@ import {AuthService} from "../../service/auth.service";
 import {Rate} from "../../models/rate";
 import {Review} from "../../models/review";
 import {RecentReview} from "../../models/recent-review";
+import {WatchlistService} from "../../service/watchlist.service";
 
 @Component({
   selector: 'app-movie',
@@ -48,7 +49,8 @@ export class MovieComponent implements OnInit, OnDestroy {
   };
   constructor(private router: Router, public dialog: MatDialog,
               private sanitizer: DomSanitizer, private movieService: MovieService,
-              private route: ActivatedRoute, private reviewService: ReviewService, private authService: AuthService) {
+              private route: ActivatedRoute, private reviewService: ReviewService,
+              private authService: AuthService, private watchlistService: WatchlistService) {
 
   }
   ngOnInit() {
@@ -105,7 +107,31 @@ export class MovieComponent implements OnInit, OnDestroy {
   }
 
   addMovieToWatchList(watch: boolean) {
-
+    this.reviewService.saveWatchList(this.rate, watch).subscribe(
+      (response: any) => {
+        this.watchlist = response.data
+      },
+      (error) => {
+        console.error("Error WatchList:", error);
+      }
+    )
+    if (watch) {
+      this.watchlistService.addMovieToWatchList(this.rate).subscribe(
+        (response: any) => {
+        },
+        (error) => {
+          console.error("Error Adding Movie to WatchList:", error);
+        }
+      )
+    } else {
+      this.watchlistService.removeMovieFromWatchList(this.rate).subscribe(
+        (response: any) => {
+        },
+        (error) => {
+          console.error("Error Removing Movie from WatchList:", error);
+        }
+      )
+    }
   }
 
   likeMovie(like: boolean) {
@@ -121,8 +147,17 @@ export class MovieComponent implements OnInit, OnDestroy {
 
   onIconClick(icon: string): void {
     this.clickedIcon = this.clickedIcon === icon ? null : icon;
-    if (icon === "watch_later") {
+    if (icon === "visibility") {
       this.watched = true;
+    }
+    if (icon == "watch_later") {
+      if (this.watchlist == true) {
+        this.addMovieToWatchList(false)
+        this.watchlist = false
+      } else {
+        this.addMovieToWatchList(true)
+        this.watchlist = true
+      }
     }
     if (icon === "favorite") {
       if (this.liked == true) {

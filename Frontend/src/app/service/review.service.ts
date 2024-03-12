@@ -25,6 +25,11 @@ export class ReviewService {
     return this.http.post(url, rate);
   }
 
+  saveWatchList(rate: any, watch: boolean): Observable<any> {
+    const url = `${this.apiUrl}/watchlist/${watch}`;
+    return this.http.post(url, rate);
+  }
+
   addReview(review:any):Observable<any> {
     console.log(review)
     return this.http.post(this.apiUrl, review);
