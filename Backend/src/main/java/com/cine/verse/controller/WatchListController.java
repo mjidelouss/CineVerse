@@ -30,6 +30,16 @@ public class WatchListController {
         }
     }
 
+    @GetMapping("/user/${id}")
+    public ResponseEntity getWatchListByUser(@PathVariable Long id) {
+        List<WatchList> watchLists = watchListService.getWatchListByUser(id);
+        if (watchLists.isEmpty()) {
+            return ResponseMessage.notFound("WatchList Not Found");
+        } else {
+            return ResponseMessage.ok("Success", watchLists);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getWatchListById(@PathVariable Long id) {
         WatchList watchList = watchListService.getWatchListById(id);

@@ -9,6 +9,7 @@ public interface WatchListService {
 
     WatchList getWatchListById(Long id);
 
+    List<WatchList> getWatchListByUser(Long userId);
     WatchList getWatchListByMovieIdAndUserId(Long movieId, Long userId);
 
     WatchList addWatchList(Long userId, Long movieId);
