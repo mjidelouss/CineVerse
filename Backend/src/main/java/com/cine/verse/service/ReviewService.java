@@ -24,4 +24,6 @@ public interface ReviewService {
     void deleteReview(Long id);
 
     ReviewResponse rateMovie(Long movieId, Long userId, Integer rate);
+
+    Boolean likeMovie(Long movieId, Long userId, Boolean like);
 }

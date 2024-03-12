@@ -40,9 +40,9 @@ public class LikeController {
         }
     }
 
-    @PostMapping("")
-    public ResponseEntity addLike(@RequestBody @Valid LikeRequest likeRequest) {
-        Like like = likeService.addLike(likeRequest.getUserId(), likeRequest.getReviewId());
+    @PostMapping("/{userId}/{reviewId}")
+    public ResponseEntity addLike(@PathVariable Long userId, @PathVariable Long reviewId) {
+        Like like = likeService.addLike(userId, reviewId);
         if(like == null) {
             return ResponseMessage.badRequest("Failed To Create Like");
         } else {

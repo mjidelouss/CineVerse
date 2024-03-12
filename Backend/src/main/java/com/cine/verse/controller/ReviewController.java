@@ -105,6 +105,7 @@ public class ReviewController {
                 Review review2 = new Review();
                 review2.setRating(review.getRating());
                 review2.setWatched(review.getWatched());
+                review2.setLiked(review.getLiked());
                 review2.setAppUser(review.getAppUser());
                 review2.setMovie(review.getMovie());
                 review2.setContent(reviewRequest.getContent());
@@ -128,6 +129,16 @@ public class ReviewController {
             return ResponseMessage.badRequest("Failed To Add Rating");
         } else {
             return ResponseMessage.created("Rating Created Successfully", response);
+        }
+    }
+
+    @PostMapping(value = "like/{bool}")
+    public ResponseEntity addMovieLike(@RequestBody @Valid RateRequest rateRequest, @PathVariable Boolean bool) {
+        Boolean response = reviewService.likeMovie(rateRequest.getMovieId(), rateRequest.getUserId(), bool);
+        if(response == null) {
+            return ResponseMessage.badRequest("Failed To Add Movie Like");
+        } else {
+            return ResponseMessage.created("Like Movie Created Successfully", response);
         }
     }
 

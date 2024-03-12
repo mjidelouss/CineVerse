@@ -1,11 +1,16 @@
 package com.cine.verse.service.impl;
 
+import com.cine.verse.domain.AppUser;
+import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.WatchList;
 import com.cine.verse.repository.WatchListRepository;
+import com.cine.verse.service.AppUserService;
+import com.cine.verse.service.MovieService;
 import com.cine.verse.service.WatchListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -13,6 +18,9 @@ import java.util.List;
 public class WatchListServiceImpl implements WatchListService {
 
     private final WatchListRepository watchListRepository;
+    private final AppUserService appUserService;
+    private final MovieService movieService;
+
 
     @Override
     public List<WatchList> getWatchLists() {
@@ -25,7 +33,14 @@ public class WatchListServiceImpl implements WatchListService {
     }
 
     @Override
-    public WatchList addWatchList(WatchList watchList) {
+    public WatchList addWatchList(Long userId, Long movieId) {
+        Movie movie = movieService.getMovieById(movieId);
+        AppUser user = appUserService.getUserById(userId);
+        WatchList watchList = WatchList.builder()
+                .movie(movie)
+                .appUser(user)
+                .timestamp(LocalDate.now())
+                .build();
         return watchListRepository.save(watchList);
     }
 

@@ -42,8 +42,7 @@ public class WatchListController {
 
     @PostMapping("")
     public ResponseEntity addWatchList(@RequestBody @Valid WatchListRequest watchListRequest) {
-        WatchList watchList = watchListMapper.watchListRequestToWatchList(watchListRequest);
-        WatchList watchList1 = watchListService.addWatchList(watchList);
+        WatchList watchList1 = watchListService.addWatchList(watchListRequest.getUserId(), watchListRequest.getMovieId());
         if(watchList1 == null) {
             return ResponseMessage.badRequest("Failed To Create WatchList");
         } else {

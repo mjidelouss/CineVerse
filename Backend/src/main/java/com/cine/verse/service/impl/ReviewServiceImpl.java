@@ -79,10 +79,29 @@ public class ReviewServiceImpl implements ReviewService {
         }
         review.setRating(rate);
         review.setTimestamp(LocalDate.now());
-        review.setWatched(true);
+        if (rate == 0) {
+            review.setWatched(false);
+        } else {
+            review.setWatched(true);
+        }
         addReview(review);
         // Convert the review to a response and return
         ReviewResponse reviewResponse = reviewMapper.reviewToReviewResponse(review);
         return reviewResponse;
+    }
+
+    @Override
+    public Boolean likeMovie(Long movieId, Long userId, Boolean like) {
+        Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
+        if (review == null) {
+            review = new Review();
+            Movie movie = movieService.getMovieById(movieId);
+            AppUser user1 = userRepository.findById(userId).orElse(null);
+            review.setMovie(movie);
+            review.setAppUser(user1);
+        }
+        review.setLiked(like);
+        addReview(review);
+        return like;
     }
 }

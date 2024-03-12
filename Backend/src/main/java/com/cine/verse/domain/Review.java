@@ -39,6 +39,9 @@ public class Review {
     private Boolean watched;
 
     @Column()
+    private Boolean liked;
+
+    @Column()
     private LocalDate timestamp;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
