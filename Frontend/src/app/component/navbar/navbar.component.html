@@ -22,12 +22,12 @@
                       <span class="ms-2 fw-bold">{{user.lastname}}</span>
                     </a>
                     <div class="dropdown-menu-right" ngbDropdownMenu>
-                      <a class="dropdown-item" routerLink="/profile"> Profile</a>
-                      <a class="dropdown-item" routerLink="/profile-movies"> Movies</a>
-                      <a class="dropdown-item" routerLink="/diary"> Diary</a>
-                      <a class="dropdown-item" routerLink="/likes"> Likes</a>
-                      <a class="dropdown-item" routerLink="/watchlist"> Watchlist</a>
-                      <a class="dropdown-item" routerLink="/settings"> Settings</a>
+                      <a class="dropdown-item" (click)="onProfileClick()"> Profile</a>
+                      <a class="dropdown-item" (click)="onProfileMoviesClick()"> Movies</a>
+                      <a class="dropdown-item" (click)="onDiaryClick()"> Diary</a>
+                      <a class="dropdown-item" (click)="onLikesClick()"> Likes</a>
+                      <a class="dropdown-item" (click)="onWatchListClick()"> Watchlist</a>
+                      <a class="dropdown-item" (click)="onSettingsClick()"> Settings</a>
                       <a class="dropdown-item text-danger opacity-75" type="submit" (click)="handleLogout($event)"> Logout</a>
                     </div>
                   </li>

@@ -58,11 +58,11 @@ export const Approutes: Routes = [
     component: UserHomeComponent
   },
   {
-    path: 'profile',
+    path: 'profile/:id',
     component: ProfileComponent
   },
   {
-    path: 'watchlist',
+    path: 'watchlist/:id',
     component: WatchlistComponent
   },
   {
@@ -70,27 +70,27 @@ export const Approutes: Routes = [
     component: MovieComponent
   },
   {
-    path: 'likes',
+    path: 'likes/:id',
     component: LikesComponent
   },
   {
-    path: 'profile-reviews',
+    path: 'profile-reviews/:id',
     component: PofileReviewsComponent
   },
   {
-    path: 'profile-movies',
+    path: 'profile-movies/:id',
     component: PofileMoviesComponent
   },
   {
-    path: 'profile-lists',
+    path: 'profile-lists/:id',
     component: PofileListsComponent
   },
   {
-    path: 'diary',
+    path: 'diary/:id',
     component: DiaryComponent
   },
   {
-    path: 'settings',
+    path: 'settings/:id',
     component: SettingsComponent
   },
   {

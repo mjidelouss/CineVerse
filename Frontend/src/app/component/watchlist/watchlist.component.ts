@@ -16,12 +16,11 @@ import {TrendingMovie} from "../../models/trendingMovie";
 })
 export class WatchlistComponent implements OnInit, OnDestroy{
 
-  AuthUserSub! : Subscription;
   userId!: number;
   movies: TrendingMovie[] = [];
 
-  constructor(private router: Router, public dialog: MatDialog, private authService: AuthService,
-              private watchlistService: WatchlistService) {
+  constructor(private route: ActivatedRoute,private router: Router, public dialog: MatDialog,
+              private authService: AuthService, private watchlistService: WatchlistService) {
 
   }
   ngOnDestroy(): void {
@@ -32,14 +31,10 @@ export class WatchlistComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
-      next: user => {
-        if (user) {
-          this.userId = user.id;
-        }
-      }
+    this.route.params.subscribe(params => {
+      this.userId = +params['id'];
     });
-
+    this.getUserWatchList()
   }
 
   getUserWatchList() {

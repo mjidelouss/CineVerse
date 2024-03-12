@@ -28,14 +28,7 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.movieId = +params['id'];
-    });
-    this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
-      next: user => {
-        if (user) {
-          this.userId = user.id;
-        }
-      }
+      this.userId = +params['id'];
     });
     this.getReviewedMoviesWithRating()
   }
