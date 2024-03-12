@@ -45,6 +45,11 @@ public class WatchListServiceImpl implements WatchListService {
     }
 
     @Override
+    public WatchList getWatchListByMovieIdAndUserId(Long movieId, Long userId) {
+        return watchListRepository.findByMovieIdAndAppUserId(movieId, userId);
+    }
+
+    @Override
     public WatchList updateWatchList(WatchList watchList, Long id) {
         return null;
     }

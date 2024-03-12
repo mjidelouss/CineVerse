@@ -9,6 +9,8 @@ public interface WatchListService {
 
     WatchList getWatchListById(Long id);
 
+    WatchList getWatchListByMovieIdAndUserId(Long movieId, Long userId);
+
     WatchList addWatchList(Long userId, Long movieId);
 
     WatchList updateWatchList(WatchList watchList, Long id);

@@ -50,6 +50,17 @@ public class WatchListController {
         }
     }
 
+    @PostMapping("/remove")
+    public ResponseEntity removeMovieFromWatchList(@RequestBody @Valid WatchListRequest watchListRequest) {
+        WatchList watchList = watchListService.getWatchListByMovieIdAndUserId(watchListRequest.getMovieId(), watchListRequest.getUserId());
+        if (watchList == null) {
+            return ResponseMessage.notFound("WatchList Not Found");
+        } else {
+            watchListService.deleteWatchList(watchList.getId());
+            return ResponseMessage.ok("WatchList Deleted Successfully", watchList);
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity updateWatchList(@RequestBody @Valid WatchListRequest watchListRequest, @PathVariable Long id) {
         WatchList watchList = watchListMapper.watchListRequestToWatchList(watchListRequest);

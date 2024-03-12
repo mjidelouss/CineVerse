@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WatchListRepository extends JpaRepository<WatchList, Long> {
-
+    WatchList findByMovieIdAndAppUserId(Long movieId, Long userId);
 }
