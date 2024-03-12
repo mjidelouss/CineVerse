@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
 
   AuthUserSub! : Subscription;
   userId!: number
+  user!: any
 
   constructor(private authService: AuthService, private userService: UserService) {
   }
@@ -28,11 +29,17 @@ export class ProfileComponent implements OnInit, OnDestroy{
       }
     });
     this.getUser()
+    console.log(this.user)
   }
 
   getUser() {
     this.userService.getUser(this.userId).subscribe(
-
+      (response) => {
+        this.user = response.data
+      },
+      (error) => {
+        console.error('Error fetching User:', error);
+      }
     )
   }
 

@@ -23,6 +23,7 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/movie', movieId]);
   }
   ngOnDestroy(): void {
+    this.AuthUserSub.unsubscribe();
   }
 
   ngOnInit(): void {

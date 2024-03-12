@@ -6,6 +6,7 @@ import {MovieService} from "../../service/movie.service";
 import {ReviewService} from "../../service/review.service";
 import {AuthService} from "../../service/auth.service";
 import {Subscription} from "rxjs";
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-navbar',
@@ -14,11 +15,11 @@ import {Subscription} from "rxjs";
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  fullname!: string
-  profileImage!: string
   AuthUserSub! : Subscription;
+  userId!: number
+  user!: any
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private userService: UserService) {
 
   }
   handleLogout(event: Event) {
@@ -33,12 +34,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next: user => {
         if (user) {
-          //this.fullname = user.id;
+          this.userId = user.id
         }
       }
     });
+    this.getUser()
   }
 
-
+  getUser() {
+    this.userService.getUser(this.userId).subscribe(
+      (response) => {
+        this.user = response.data
+      },
+      (error) => {
+        console.error('Error fetching User:', error);
+      }
+    )
+  }
 
 }
