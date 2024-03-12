@@ -33,6 +33,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   selectedStar: number = 0;
   clickedIcon: string | null = null;
   watched!: boolean
+  watchlist!: boolean
   liked!: boolean
   rate: Rate = { userId: {} as number, movieId: {} as number };
   review: Review = { userId: {} as number, movieId: {} as number, content: '' };
@@ -101,6 +102,10 @@ export class MovieComponent implements OnInit, OnDestroy {
         console.error("Error Rating Movie:", error);
       }
     );
+  }
+
+  addMovieToWatchList(watch: boolean) {
+
   }
 
   likeMovie(like: boolean) {
