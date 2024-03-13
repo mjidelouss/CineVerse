@@ -80,6 +80,26 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/diary/{userId}")
+    public ResponseEntity getUserReviews(@PathVariable Long userId) {
+        List<Review> reviews = reviewService.getUserReviews(userId);
+        if (reviews.isEmpty()) {
+            return ResponseMessage.notFound("User Reviews Not Found");
+        } else {
+            return ResponseMessage.ok("Success", reviews);
+        }
+    }
+
+    @GetMapping("/liked/{userId}")
+    public ResponseEntity getLikedMovies(@PathVariable Long userId) {
+        List<Movie> movies = reviewService.getMoviesLiked(userId);
+        if (movies.isEmpty()) {
+            return ResponseMessage.notFound("User Liked Movies Not Found");
+        } else {
+            return ResponseMessage.ok("Success", movies);
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity addReview(@RequestBody @Valid ReviewRequest reviewRequest) {
         Review review1;
@@ -139,6 +159,16 @@ public class ReviewController {
             return ResponseMessage.badRequest("Failed To Add Movie Like");
         } else {
             return ResponseMessage.created("Like Movie Created Successfully", response);
+        }
+    }
+
+    @PostMapping(value = "watchlist/{bool}")
+    public ResponseEntity addMovieWatchList(@RequestBody @Valid RateRequest rateRequest, @PathVariable Boolean bool) {
+        Boolean response = reviewService.watchListMovie(rateRequest.getMovieId(), rateRequest.getUserId(), bool);
+        if(response == null) {
+            return ResponseMessage.badRequest("Failed To Add Movie WatchList");
+        } else {
+            return ResponseMessage.created("Added Movie to WatchList Successfully", response);
         }
     }
 

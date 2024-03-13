@@ -1,7 +1,6 @@
 package com.cine.verse.service;
 
 import com.cine.verse.Dto.response.ReviewResponse;
-import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 
@@ -14,6 +13,8 @@ public interface ReviewService {
 
     Review getReviewById(Long id);
 
+    List<Movie> getMoviesLiked(Long userId);
+
     List<Object[]> getReviewdMovies(Long userId);
 
     Review getReviewByMovieAndUser(Long movieId, Long userId);
@@ -25,5 +26,9 @@ public interface ReviewService {
 
     ReviewResponse rateMovie(Long movieId, Long userId, Integer rate);
 
+    Boolean watchListMovie(Long movieId, Long userId, Boolean watchlist);
+
     Boolean likeMovie(Long movieId, Long userId, Boolean like);
+
+    List<Review> getUserReviews(Long userId);
 }

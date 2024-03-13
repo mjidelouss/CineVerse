@@ -14,7 +14,12 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r FROM Review r WHERE r.movie.id = :movieId AND r.appUser.id = :userId ORDER BY r.timestamp DESC LIMIT 1")
     Optional<Review> findByMovieIdAppUserId(@Param("movieId") Long movieId, @Param("userId") Long userId);
-    List<Review> findByMovieId(Long movieId);
+    List<Review> findByMovieIdAndContentIsNotNull(Long movieId);
+
+    List<Review> findByAppUserIdAndContentIsNotNull(Long userId);
+
+    @Query("SELECT r.movie FROM Review r WHERE r.appUser.id = :userId AND r.liked = true")
+    List<Movie> findMoviesByAppUserIdAndLikedTrue(@Param("userId") Long userId);
 
     @Query("SELECT DISTINCT r.movie, r.rating FROM Review r WHERE r.appUser.id = :userId")
     List<Object[]> findMoviesAndRatingsByAppUserId(@Param("userId") Long userId);

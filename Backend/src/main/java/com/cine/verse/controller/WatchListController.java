@@ -30,7 +30,7 @@ public class WatchListController {
         }
     }
 
-    @GetMapping("/user/${id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity getWatchListByUser(@PathVariable Long id) {
         List<WatchList> watchLists = watchListService.getWatchListByUser(id);
         if (watchLists.isEmpty()) {

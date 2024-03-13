@@ -33,7 +33,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getRecentReviews(Long movieId) {
-        return reviewRepository.findByMovieId(movieId);
+        return reviewRepository.findByMovieIdAndContentIsNotNull(movieId);
     }
 
     @Override
@@ -103,5 +103,30 @@ public class ReviewServiceImpl implements ReviewService {
         review.setLiked(like);
         addReview(review);
         return like;
+    }
+
+    @Override
+    public Boolean watchListMovie(Long movieId, Long userId, Boolean watchlist) {
+        Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
+        if (review == null) {
+            review = new Review();
+            Movie movie = movieService.getMovieById(movieId);
+            AppUser user1 = userRepository.findById(userId).orElse(null);
+            review.setMovie(movie);
+            review.setAppUser(user1);
+        }
+        review.setWatchlist(watchlist);
+        addReview(review);
+        return watchlist;
+    }
+
+    @Override
+    public List<Review> getUserReviews(Long userId) {
+        return reviewRepository.findByAppUserIdAndContentIsNotNull(userId);
+    }
+
+    @Override
+    public List<Movie> getMoviesLiked(Long userId) {
+        return reviewRepository.findMoviesByAppUserIdAndLikedTrue(userId);
     }
 }
