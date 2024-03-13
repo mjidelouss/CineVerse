@@ -80,7 +80,6 @@ export class MovieComponent implements OnInit, OnDestroy {
   saveReview() {
     this.reviewService.addReview(this.review).subscribe(
       (response: any) => {
-        console.log(response.data)
       },
       (error) => {
         console.error("Error Adding Movie Review:", error);
@@ -239,6 +238,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         this.watched = response.data.watched;
         this.selectedStar = response.data.rating;
         this.liked = response.data.liked;
+        this.watchlist = response.data.watchlist;
       },
       (error) => {
         console.error("Error fetching Movie Details & Credits:", error);
@@ -249,7 +249,6 @@ export class MovieComponent implements OnInit, OnDestroy {
   getRecentReviews(movieId: number) {
     this.reviewService.getRecentReviews(movieId).subscribe(
       (response) => {
-        console.log(response.data)
         this.recentReviews = [];
         for (const element of response.data) {
           const dbReview = element;
@@ -262,7 +261,6 @@ export class MovieComponent implements OnInit, OnDestroy {
             likes: dbReview.likes,
             timestamp: dbReview.timestamp|| 'N/A'
           };
-          console.log(review)
           this.recentReviews.push(review);
         }
       },
