@@ -64,7 +64,6 @@ export class UserHomeComponent implements OnInit, OnDestroy {
       .getLastMovies()
       .subscribe(
         (response) => {
-          console.log(response.data)
           this.movies = [];
           for (const element of response.data) {
             const dbMovie = element;

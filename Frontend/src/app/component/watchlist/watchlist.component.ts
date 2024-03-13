@@ -1,10 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {DomSanitizer} from "@angular/platform-browser";
-import {MovieService} from "../../service/movie.service";
-import {ReviewService} from "../../service/review.service";
 import {AuthService} from "../../service/auth.service";
 import {WatchlistService} from "../../service/watchlist.service";
 import {TrendingMovie} from "../../models/trendingMovie";

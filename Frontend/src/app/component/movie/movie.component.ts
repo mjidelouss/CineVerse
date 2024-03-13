@@ -241,7 +241,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         this.watchlist = response.data.watchlist;
       },
       (error) => {
-        console.error("Error fetching Movie Details & Credits:", error);
+        console.error("Error fetching Movie Review:", error);
       }
     );
   }

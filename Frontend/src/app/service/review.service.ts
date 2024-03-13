@@ -45,4 +45,19 @@ export class ReviewService {
     return this.http.get<any>(url);
   }
 
+  getUserReviews(userId: number) {
+    const url = `${this.apiUrl}/diary/${userId}`;
+    return this.http.get<any>(url);
+  }
+
+  getUserLikedMovies(userId: number) {
+    const url = `${this.apiUrl}/liked/${userId}`;
+    return this.http.get<any>(url);
+  }
+
+  getRecentUserReviews(userId: number) {
+    const url = `${this.apiUrl}/user-review/${userId}`;
+    return this.http.get<any>(url);
+  }
+
 }

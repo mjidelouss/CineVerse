@@ -25,7 +25,7 @@ time.icon strong {
   top: 0;
   padding: 0.01em 0;
   color: #fff;
-  background-color: rgb(46, 38, 61);
+  background-color: rgb(193, 1, 27);
   border-bottom: 1px dashed rgb(46, 38, 33);
   box-shadow: 0 2px 0 #3e3d3d;
 }
@@ -38,18 +38,37 @@ time.icon em {
 }
 
 time.icon span {
-  font-size: 2.8em;
+  font-size: 1.4em;
   letter-spacing: -0.05em;
-  padding-top: 1em;
-  color: #2f2f2f;
+  padding-top: 1.7em;
+  color: #383837;
 }
 
 .movie {
   height: 103px;
   width: 75px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.movie:hover {
+  border-color: #ac0021;
+  cursor: pointer;
+}
+
+.star-hover {
+  color: #c7c72f;
 }
 
 .item {
   border: 2px solid rgb(46, 38, 61);
   padding-top: 1%;
+}
+
+.red-icon {
+  color: #ea3939;
+}
+
+.move-left {
+  margin-right: 6px;
 }

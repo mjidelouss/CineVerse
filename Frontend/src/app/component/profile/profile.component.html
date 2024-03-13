@@ -92,83 +92,43 @@
             </div>
             <hr class="text-white">
             <div class="row">
-                <!-- Card 1 -->
-                <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                    <img src="../../../assets/images/img/oppen.png" class="card-img-top movie-poster rounded"
-                        alt="Movie 1">
-                </div>
-
-                <!-- Card 2 -->
-                <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                    <img src="../../../assets/images/img/us.jpeg" class="card-img-top movie-poster rounded"
-                        alt="Movie 2">
-                </div>
-
-                <!-- Card 3 -->
-                <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                    <img src="../../../assets/images/img/star-wars-poster.jpg" class="card-img-top movie-poster rounded"
-                        alt="Movie 3">
-                </div>
-
-                <!-- Card 4 -->
-                <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                    <img src="../../../assets/images/img/batman.png" class="card-img-top movie-poster rounded"
-                        alt="Movie 4">
-                </div>
-
-                <!-- Card 5 -->
-                <div class="col-lg-2 col-md-4 card bg-black movie-card">
-                    <img src="../../../assets/images/img/moonlight.jpeg" class="card-img-top movie-poster rounded"
-                        alt="Movie 5">
+                <div *ngFor="let movie of likedMovies" class="col-lg-2 col-md-4 card bg-black movie-card">
+                    <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="{{ movie.title }}" (click)="onMovieClick(movie.id)">
                 </div>
             </div>
         </div>
 
         <!-- Recent Reviews -->
 <div class="container mb-3 mt-4">
-    <div class="row">
-        <div class="d-flex justify-content-between">
-            <h3 class="fw-bolder text-secondary">Recent Reviews</h3>
-            <h3 class="fw-bolder text-secondary">More</h3>
+  <div class="d-flex justify-content-between">
+    <h3 class="fw-bolder text-secondary">Recent Reviews</h3>
+    <h3 class="fw-bolder text-secondary">More</h3>
+  </div>
+  <hr class="text-white">
+    <div *ngFor="let review of recentReviews">
+      <div class="row" (click)="onMovieClick(review.movie.id)">
+        <div class="col-md-2">
+          <img src="https://image.tmdb.org/t/p/w500/{{review.movie.image}}" class="img-fluid bg-white movie-poster" alt="Movie Poster">
         </div>
-      <hr class="text-white">
-      <div class="col-md-2">
-        <img src="../../../assets/images/img/oppen.png" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
-      </div>
-      <div class="col-md-10 bg-dark">
-        <div class="card mb-3 bg-dark">
-          <div class="card-body">
-            <h2 class="card-title text-white">Oppenheimer (2023)</h2>
-            <span class="badge bg-warning text-dark mt-1">★★½</span>
-            <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
-            <div class="d-flex">
+        <div class="col-md-10 bg-dark">
+          <div class="card mb-3 bg-dark">
+            <div class="card-body">
+              <h2 class="card-title text-white">{{review.movie.title + " (" + review.movie.year + ")" }}</h2>
+              <div class="mt-1">
+                <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                  <mat-icon class="star" [ngClass]="{ 'star-hover': i < review.rating }">star</mat-icon>
+                </ng-container>
+              </div>
+              <p class="card-text mt-2 text-white">{{ review.content }}</p>
+              <div class="d-flex">
                 <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
                 <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col-md-2">
-        <img src="../../../assets/images/img/potter.jpg" height="130" width="160" class="img-fluid bg-white" alt="Movie Poster">
-      </div>
-      <div class="col-md-10 bg-dark">
-        <div class="card mb-3 bg-dark">
-          <div class="card-body">
-            <h2 class="card-title text-white">Harry Potter (2001)</h2>
-            <span class="badge bg-warning text-dark mt-1">★★½</span>
-            <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
-            <div class="d-flex">
-                <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
-                <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <br>
     </div>
 
  </div>
