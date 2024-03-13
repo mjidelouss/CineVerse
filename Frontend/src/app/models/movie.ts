@@ -1,4 +1,5 @@
 import {MovieCredits} from "./movie-credits";
+import {Genre} from "./genre";
 
 export interface Movie {
   id: number;
@@ -11,7 +12,7 @@ export interface Movie {
   trailer: string;
   movieData: string;
   overview: string;
-  genres: string[];
+  genres: Genre[];
   reviews: any[];
   watchLists: any[];
   movieLists: any[];

@@ -14,6 +14,7 @@ import {Rate} from "../../models/rate";
 import {Review} from "../../models/review";
 import {RecentReview} from "../../models/recent-review";
 import {WatchlistService} from "../../service/watchlist.service";
+import {Genre} from "../../models/genre";
 
 @Component({
   selector: 'app-movie',
@@ -177,7 +178,7 @@ export class MovieComponent implements OnInit, OnDestroy {
   toggleShowAllCast(): void {
     this.showAllCast = !this.showAllCast;
   }
-  get displayedContent(): { cast: string[]; crew: { [key: string]: any }; genre: string[];} {
+  get displayedContent(): { cast: string[]; crew: { [key: string]: any }; genre: string[] } {
     switch (this.selectedTab) {
       case 'cast':
         return { cast: this.showAllContent.cast ? this.movieCredits.cast : this.movieCredits.cast.slice(0, 3), crew: {}, genre: [] };
@@ -189,15 +190,18 @@ export class MovieComponent implements OnInit, OnDestroy {
             acc[key] = Array.isArray(value) ? value : [value];
             return acc;
           }, {} as { [key: string]: string[] });
-        return { cast: [], crew: this.showAllContent.crew ? crewMembers : crewMembers, genre: []};
+        return { cast: [], crew: this.showAllContent.crew ? crewMembers : crewMembers, genre: [] };
       case 'genre':
-        return { cast: [], crew: {}, genre: this.showAllContent.genre ? this.movie.genres : this.movie.genres};
+        // Extract genre names from Genre objects
+        const genreNames = this.movie.genres.map((genre: Genre) => genre.name);
+        return { cast: [], crew: {}, genre: genreNames };
       case 'details':
-        return { cast: [], crew: {}, genre: []};
+        return { cast: [], crew: {}, genre: [] };
       default:
-        return { cast: [], crew: {}, genre: []};
+        return { cast: [], crew: {}, genre: [] };
     }
   }
+
 
   selectTab(tab: 'cast' | 'crew' | 'genre' | 'details'): void {
     this.selectedTab = tab;
