@@ -221,6 +221,7 @@ export class MovieComponent implements OnInit, OnDestroy {
       .getMovieById(movieId)
       .subscribe(
         (response: any) => {
+          console.log(response.data)
           this.movie = response.data;
           this.movieCredits = this.parseMovieData(this.movie.movieData);
           this.rate.movieId = this.movie.id;
@@ -241,7 +242,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         this.watchlist = response.data.watchlist;
       },
       (error) => {
-        console.error("Error fetching Movie Review:", error);
+        console.error("Error fetching Movie Details & Credits:", error);
       }
     );
   }
