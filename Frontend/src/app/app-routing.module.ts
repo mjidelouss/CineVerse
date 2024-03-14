@@ -20,6 +20,7 @@ import {AddListComponent} from "./component/add-list/add-list.component";
 import {EditListComponent} from "./component/edit-list/edit-list.component";
 import {ListsComponent} from "./component/lists/lists.component";
 import {MoviesComponent} from "./component/movies/movies.component";
+import {MembersComponent} from "./component/members/members.component";
 
 export const Approutes: Routes = [
   {
@@ -64,6 +65,10 @@ export const Approutes: Routes = [
   {
     path: 'add-list',
     component: AddListComponent
+  },
+  {
+    path: 'members',
+    component: MembersComponent
   },
   {
     path: 'edit-list',
