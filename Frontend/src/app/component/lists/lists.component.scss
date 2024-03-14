@@ -1,0 +1,58 @@
+.banner-card {
+  height: 140px;
+  width: 90%;
+  margin-top: 10px;
+}
+
+.banner2-card {
+  height: 300px;
+  width: 95.5%;
+  margin-top: 10px;
+}
+
+.banner-poster {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.big-title {
+  color: whitesmoke;
+  font-family: 'Honk', sans-serif;
+}
+
+.overlay {
+  position: relative;
+  width: 100vw;
+  height: 30vh;
+  overflow: hidden;
+}
+
+.overlay-img1,
+.overlay-img2,
+.overlay-img3 {
+  position: absolute;
+  transform: translateX(-50%);
+  height: 240px;
+  width: 210px;
+}
+
+.overlay-img1 {
+  left: 5%;
+}
+.overlay-img2 {
+  left: 12%;
+  z-index: 10;
+}
+.overlay-img3 {
+  left: 17.9%;
+  z-index: 10;
+}
+
+.card-list:hover {
+  transform: scale(1.01);
+}
+
+.bag {
+  background-color: rgba(32, 29, 29, 0.98);
+}

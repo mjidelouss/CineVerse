@@ -26,6 +26,10 @@ import { MembersComponent } from './members/members.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
+import { AddListComponent } from './add-list/add-list.component';
+import { EditListComponent } from './edit-list/edit-list.component';
+import { MoviesComponent } from './movies/movies.component';
+import { ListsComponent } from './lists/lists.component';
 
 
 
@@ -61,6 +65,10 @@ import {MatDialogModule} from "@angular/material/dialog";
     SettingsComponent,
     MembersComponent,
     ForbiddenComponent,
+    AddListComponent,
+    EditListComponent,
+    MoviesComponent,
+    ListsComponent,
   ],
 })
 export class ComponentsModule { }

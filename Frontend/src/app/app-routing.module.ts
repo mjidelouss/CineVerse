@@ -16,6 +16,10 @@ import { PofileMoviesComponent } from './component/pofile-movies/pofile-movies.c
 import { PofileReviewsComponent } from './component/pofile-reviews/pofile-reviews.component';
 import {ForbiddenComponent} from "./component/forbidden/forbidden.component";
 import {SettingsComponent} from "./component/settings/settings.component";
+import {AddListComponent} from "./component/add-list/add-list.component";
+import {EditListComponent} from "./component/edit-list/edit-list.component";
+import {ListsComponent} from "./component/lists/lists.component";
+import {MoviesComponent} from "./component/movies/movies.component";
 
 export const Approutes: Routes = [
   {
@@ -56,6 +60,22 @@ export const Approutes: Routes = [
   {
     path: 'user-home',
     component: UserHomeComponent
+  },
+  {
+    path: 'add-list',
+    component: AddListComponent
+  },
+  {
+    path: 'edit-list',
+    component: EditListComponent
+  },
+  {
+    path: 'lists',
+    component: ListsComponent
+  },
+  {
+    path: 'movies',
+    component: MoviesComponent
   },
   {
     path: 'profile/:id',

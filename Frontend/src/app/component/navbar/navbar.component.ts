@@ -7,6 +7,7 @@ import {ReviewService} from "../../service/review.service";
 import {AuthService} from "../../service/auth.service";
 import {Subscription} from "rxjs";
 import {UserService} from "../../service/user.service";
+import {NavigationService} from "../../service/navigation.service";
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userId!: number
   user!: any
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService) {
+  constructor(private router: Router, private authService: AuthService, private userService: UserService, private navigationService: NavigationService) {
 
   }
   handleLogout(event: Event) {
@@ -44,6 +45,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   onLikesClick(): void {
     this.router.navigate(['/likes', this.userId]);
+  }
+
+  onListsClick() {
+    this.router.navigate(['/profile-lists', this.userId])
   }
 
   onWatchListClick(): void {
