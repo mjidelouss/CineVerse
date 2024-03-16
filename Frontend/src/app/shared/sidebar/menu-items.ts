@@ -3,6 +3,14 @@ import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
 
   {
+    path: '/dashboard',
+    title: 'Dashboard',
+    icon: '📊',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/dashboard-movies',
     title: 'Movies',
     icon: '🎞️',
@@ -11,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/',
+    path: '/dashboard-members',
     title: 'Members',
     icon: '👨🏿',
     class: '',
@@ -19,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/',
+    path: '/dashboard-reviews',
     title: 'Reviews',
     icon: '⭐',
     class: '',
@@ -27,7 +35,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/',
+    path: '/dashboard-lists',
     title: '  Lists',
     icon: '📋 ',
     class: '',

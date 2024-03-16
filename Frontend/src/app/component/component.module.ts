@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ComponentsRoutes } from './component.routing';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -33,8 +32,6 @@ import { ListsComponent } from './lists/lists.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {NavigationComponent} from "../shared/header/navigation.component";
 import {SidebarComponent} from "../shared/sidebar/sidebar.component";
-
-
 
 @NgModule({
   imports: [

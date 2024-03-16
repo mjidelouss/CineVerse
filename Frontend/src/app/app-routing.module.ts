@@ -22,6 +22,9 @@ import {ListsComponent} from "./component/lists/lists.component";
 import {MoviesComponent} from "./component/movies/movies.component";
 import {MembersComponent} from "./component/members/members.component";
 import {AdminMoviesComponent} from "./component/admin-movies/admin-movies.component";
+import {AdminMembersComponent} from "./component/admin-members/admin-members.component";
+import {AdminListsComponent} from "./component/admin-lists/admin-lists.component";
+import {AdminReviewsComponent} from "./component/admin-reviews/admin-reviews.component";
 
 export const Approutes: Routes = [
   {
@@ -42,6 +45,18 @@ export const Approutes: Routes = [
   {
     path: 'dashboard-movies',
     component: AdminMoviesComponent,
+  },
+  {
+    path: 'dashboard-members',
+    component: AdminMembersComponent,
+  },
+  {
+    path: 'dashboard-lists',
+    component: AdminListsComponent,
+  },
+  {
+    path: 'dashboard-reviews',
+    component: AdminReviewsComponent,
   },
   {
     path: 'forbidden',

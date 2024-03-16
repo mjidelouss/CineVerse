@@ -110,38 +110,19 @@
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <div>
-                  <h4 class="card-title text-white">Movies</h4>
-                  <h5 class="card-subtitle text-success">Overview of the movies</h5>
-                </div>
-                <div class="mt-1"><button class="btn btn-primary" routerLink="/add-competition">Add
-                  Movie</button></div>
-              </div>
-              <div class="container mt-4">
-                <div class="row justify-content-center">
-                  <div class="col-md-6 d-flex">
-                    <div class="input-group">
-                      <select class="form-control" [(ngModel)]="selectedStatus" id="statusFilter">
-                        <option value="OPEN">Open</option>
-                        <option value="CLOSED">Closed</option>
-                        <option value="IN_PROGRESS">In Progress</option>
-                      </select>
-                    </div>
-                    <div>
-                      <button type="button" (click)="getCompetitionsByStatus()"
-                              class="btn btn-primary ms-1">Filter</button>
-                    </div>
-                  </div>
+                  <h4 class="card-title text-white">Members</h4>
+                  <h5 class="card-subtitle text-success">Overview of the members</h5>
                 </div>
               </div>
               <div class="table-responsive">
                 <table class="table align-middle text-nowrap" id="competitionsTable">
                   <thead>
                   <tr>
-                    <th class="text-white font-medium fs-4">Poster</th>
-                    <th class="text-white font-medium fs-4">Title</th>
-                    <th class="text-white font-medium fs-4">Year</th>
-                    <th class="text-white font-medium fs-4">Language</th>
-                    <th class="text-white font-medium fs-4">Director</th>
+                    <th class="text-white font-medium fs-4">Picture</th>
+                    <th class="text-white font-medium fs-4">FirstName</th>
+                    <th class="text-white font-medium fs-4">LastName</th>
+                    <th class="text-white font-medium fs-4">Location</th>
+                    <th class="text-white font-medium fs-4">Email</th>
                     <th class="text-white font-medium fs-4">Action</th>
                   </tr>
                   </thead>
