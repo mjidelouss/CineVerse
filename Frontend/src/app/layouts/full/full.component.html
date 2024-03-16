@@ -18,7 +18,7 @@
   <header class="topbar" data-navbarbg="skin1">
     <nav class="d-flex top-navbar navbar-expand-lg navbar-dark">
       <div
-        class="navbar-header"
+        class="navbar-header bg-dark"
         [ngClass]="expandLogo ? 'expand-logo' : ''"
         data-logobg="skin6"
       >
@@ -33,14 +33,14 @@
         <!-- ============================================================== -->
         <!-- Logo -->
         <!-- ============================================================== -->
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand " href="/">
           <!-- Logo icon -->
 
           <!--End Logo icon -->
           <!-- Logo text -->
           <span class="logo-text">
             <!-- Light Logo text -->
-            <div class="sidebar-heading ms-3 text-black fs-6 fw-bold text-uppercase border-bottom"><i
+            <div class="sidebar-heading ms-3 text-white fs-6 fw-bold text-uppercase"><i
               class=""></i>Cine <span class="" style="color: hsl(6, 100%, 42%)">Verse</span>
       </div>
           </span>
@@ -52,7 +52,7 @@
         <!-- Toggle which is visible on mobile only -->
         <!-- ============================================================== -->
         <a
-          class="topbartoggler d-block d-lg-none waves-effect waves-light"
+          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-primary"
           href="javascript:void(0)"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -69,7 +69,8 @@
       <!-- End Logo -->
       <!-- ============================================================== -->
       <div
-        class="navbar-collapse collapse"
+        class="navbar-collapse collapse bg-dark"
+        style="border-bottom: 1px solid darkgrey"
         id="navbarSupportedContent"
         data-navbarbg="skin1"
         [ngbCollapse]="!isCollapsed"
@@ -85,7 +86,7 @@
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
   <aside
-    class="left-sidebar"
+    class="left-sidebar bg-primary"
     data-sidebarbg="skin6"
     (mouseover)="Logo()"
     (mouseout)="Logo()"
@@ -98,7 +99,7 @@
   <!-- ============================================================== -->
   <!-- Page wrapper  -->
   <!-- ============================================================== -->
-  <div class="page-wrapper">
+  <div class="page-wrapper bg-dark">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
@@ -117,14 +118,8 @@
     <!-- ============================================================== -->
     <!-- footer -->
     <!-- ============================================================== -->
-    <footer class="footer text-center">
+    <footer class="footer text-center text-white">
       All Rights Reserved by CineVerse.
     </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
-    <!-- ============================================================== -->
   </div>
-  <!-- ============================================================== -->
-  <!-- End Page wrapper  -->
-  <!-- ============================================================== -->
 </div>

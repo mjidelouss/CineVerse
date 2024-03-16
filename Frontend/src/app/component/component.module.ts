@@ -30,24 +30,27 @@ import { AddListComponent } from './add-list/add-list.component';
 import { EditListComponent } from './edit-list/edit-list.component';
 import { MoviesComponent } from './movies/movies.component';
 import { ListsComponent } from './lists/lists.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {NavigationComponent} from "../shared/header/navigation.component";
+import {SidebarComponent} from "../shared/sidebar/sidebar.component";
 
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(ComponentsRoutes),
-        FormsModule,
-        ReactiveFormsModule,
-        NgbModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDialogModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(ComponentsRoutes),
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    NavigationComponent,
+    SidebarComponent
+  ],
   declarations: [
-
-
-    DashboardComponent,
     HomeComponent,
     NavbarComponent,
     FooterComponent,

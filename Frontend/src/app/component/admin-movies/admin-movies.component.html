@@ -104,6 +104,82 @@
     <!-- Container fluid  -->
     <!-- ============================================================== -->
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title">Movies</h4>
+                  <h5 class="card-subtitle text-muted">Overview of the movies</h5>
+                </div>
+                <div class="mt-1"><button class="btn btn-primary" routerLink="/add-competition">Add
+                  Movie</button></div>
+              </div>
+              <div class="container mt-4">
+                <div class="row justify-content-center">
+                  <div class="col-md-6 d-flex">
+                    <div class="input-group">
+                      <select class="form-control" [(ngModel)]="selectedStatus" id="statusFilter">
+                        <option value="OPEN">Open</option>
+                        <option value="CLOSED">Closed</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                      </select>
+                    </div>
+                    <div>
+                      <button type="button" (click)="getCompetitionsByStatus()"
+                              class="btn btn-primary ms-1">Filter</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-middle text-nowrap" id="competitionsTable">
+                  <thead>
+                  <tr>
+                    <th class="text-dark font-medium fs-4">Poster</th>
+                    <th class="text-dark font-medium fs-4">Title</th>
+                    <th class="text-dark font-medium fs-4">Year</th>
+                    <th class="text-dark font-medium fs-4">Language</th>
+                    <th class="text-dark font-medium fs-4">Director</th>
+                    <th class="text-dark font-medium fs-4">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor='let Competition of competitions'>
+                    <td>
+                      <h5 class="mb-0 fw-normal">{{ Competition.code }}</h5>
+                    </td>
+                    <td class="fs-4">{{ Competition.date }}</td>
+                    <td>
+                      <h5 class="mb-0 fw-normal">{{ Competition.startTime }}</h5>
+                    </td>
+                    <td>
+                      <h5 class="mb-0 fw-normal">{{ Competition.endTime }}</h5>
+                    </td>
+                    <td>
+                      <h5 class="mb-0 fw-normal">{{ Competition.location }}</h5>
+                    </td>
+
+                    <td class="d-flex justify-content-evenly">
+                      <button type="submit" class="btn btn-info opacity-75"
+                              (click)="viewCompetition(Competition)">View</button>
+                      <button type="submit" class="btn btn-success ms-1"
+                              (click)="editCompetition(Competition)">Edit</button>
+                      <button type="submit" class="btn btn-danger ms-1"
+                              (click)="deleteCompetition(Competition.id)">Delete</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <mat-paginator [length]="totalCompetitions" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
     </div>
     <!-- ============================================================== -->

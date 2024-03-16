@@ -21,26 +21,27 @@ import {EditListComponent} from "./component/edit-list/edit-list.component";
 import {ListsComponent} from "./component/lists/lists.component";
 import {MoviesComponent} from "./component/movies/movies.component";
 import {MembersComponent} from "./component/members/members.component";
+import {AdminMoviesComponent} from "./component/admin-movies/admin-movies.component";
 
 export const Approutes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: 'dashboard',
     component: FullComponent,
     children: [
-      {
-        path: '',
-        component: DashboardComponent
-      },
+
       {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       },
     ]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
+  {
+    path: 'dashboard-movies',
+    component: AdminMoviesComponent,
   },
   {
     path: 'forbidden',
