@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -44,7 +43,12 @@ public class Movie {
     @Column(name = "overview", columnDefinition = "TEXT")
     private String overview;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "movie-genres",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
     private Set<Genre> genres;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
@@ -52,9 +56,6 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<WatchList> watchLists;
-
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private Set<MovieList> movieLists;
 
     public void setObjectData(Object yourObject) {
         try {

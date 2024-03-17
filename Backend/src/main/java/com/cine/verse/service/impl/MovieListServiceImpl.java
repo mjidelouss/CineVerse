@@ -1,12 +1,10 @@
 package com.cine.verse.service.impl;
 
-import com.cine.verse.domain.MovieList;
+import com.cine.verse.domain.List;
 import com.cine.verse.repository.MovieListRepository;
 import com.cine.verse.service.MovieListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,22 +13,22 @@ public class MovieListServiceImpl implements MovieListService {
     private final MovieListRepository movieListRepository;
 
     @Override
-    public List<MovieList> getMovieLists() {
+    public java.util.List<List> getMovieLists() {
         return movieListRepository.findAll();
     }
 
     @Override
-    public MovieList getMovieListById(Long id) {
+    public List getMovieListById(Long id) {
         return movieListRepository.findById(id).orElse(null);
     }
 
     @Override
-    public MovieList addMovieList(MovieList movieList) {
+    public List addMovieList(List movieList) {
         return movieListRepository.save(movieList);
     }
 
     @Override
-    public MovieList updateMovieList(MovieList movieList, Long id) {
+    public List updateMovieList(List movieList, Long id) {
         return null;
     }
 

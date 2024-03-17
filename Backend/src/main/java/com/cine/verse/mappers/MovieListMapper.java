@@ -2,12 +2,12 @@ package com.cine.verse.mappers;
 
 import com.cine.verse.Dto.request.MovieListRequest;
 import com.cine.verse.Dto.response.MovieListResponse;
-import com.cine.verse.domain.MovieList;
+import com.cine.verse.domain.List;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MovieListMapper {
-    MovieList movieListRequestToMovieList(MovieListRequest movieListRequest);
+    List movieListRequestToMovieList(MovieListRequest movieListRequest);
 
-    MovieListResponse movieListToMovieListResponse(MovieList movieList);
+    MovieListResponse movieListToMovieListResponse(List movieList);
 }

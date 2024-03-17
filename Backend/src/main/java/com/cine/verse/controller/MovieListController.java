@@ -2,15 +2,13 @@ package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.MovieListRequest;
 import com.cine.verse.mappers.MovieListMapper;
-import com.cine.verse.domain.MovieList;
+import com.cine.verse.domain.List;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MovieListService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/movie-list")
@@ -22,7 +20,7 @@ public class MovieListController {
 
     @GetMapping("/all")
     public ResponseEntity getMovieLists() {
-        List<MovieList> movieLists = movieListService.getMovieLists();
+        java.util.List<List> movieLists = movieListService.getMovieLists();
         if (movieLists.isEmpty()) {
             return ResponseMessage.notFound("Movie List Not Found");
         } else {
@@ -32,7 +30,7 @@ public class MovieListController {
 
     @GetMapping("/{id}")
     public ResponseEntity getMovieListById(@PathVariable Long id) {
-        MovieList movieList = movieListService.getMovieListById(id);
+        List movieList = movieListService.getMovieListById(id);
         if (movieList == null) {
             return ResponseMessage.notFound("Movie List Not Found");
         } else {
@@ -42,8 +40,8 @@ public class MovieListController {
 
     @PostMapping("")
     public ResponseEntity addMovieList(@RequestBody @Valid MovieListRequest movieListRequest) {
-        MovieList movieList = movieListMapper.movieListRequestToMovieList(movieListRequest);
-        MovieList movieList1 = movieListService.addMovieList(movieList);
+        List movieList = movieListMapper.movieListRequestToMovieList(movieListRequest);
+        List movieList1 = movieListService.addMovieList(movieList);
         if(movieList1 == null) {
             return ResponseMessage.badRequest("Failed To Create Movie List");
         } else {
@@ -53,8 +51,8 @@ public class MovieListController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateMovieList(@RequestBody @Valid MovieListRequest movieListRequest, @PathVariable Long id) {
-        MovieList movieList = movieListMapper.movieListRequestToMovieList(movieListRequest);
-        MovieList movieList1 = movieListService.updateMovieList(movieList, id);
+        List movieList = movieListMapper.movieListRequestToMovieList(movieListRequest);
+        List movieList1 = movieListService.updateMovieList(movieList, id);
         if (movieList1 == null) {
             return ResponseMessage.badRequest("Movie List Not Updated");
         } else {
@@ -63,7 +61,7 @@ public class MovieListController {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteMovieList(@PathVariable Long id) {
-        MovieList movieList = movieListService.getMovieListById(id);
+        List movieList = movieListService.getMovieListById(id);
         if (movieList == null) {
             return ResponseMessage.notFound("MovieList Not Found");
         } else {

@@ -21,8 +21,4 @@ public class Genre {
 
     @Column(nullable = false)
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
 }

@@ -18,6 +18,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findByAppUserIdAndContentIsNotNull(Long userId);
 
+    List<Review> findTop3ByAppUserIdAndContentIsNotNullOrderByTimestampDesc(Long userId);
     @Query("SELECT r.movie FROM Review r WHERE r.appUser.id = :userId AND r.liked = true")
     List<Movie> findMoviesByAppUserIdAndLikedTrue(@Param("userId") Long userId);
 

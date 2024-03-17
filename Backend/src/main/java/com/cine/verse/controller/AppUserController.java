@@ -1,14 +1,14 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.domain.AppUser;
+import com.cine.verse.domain.Movie;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.AppUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -24,6 +24,17 @@ public class AppUserController {
             return ResponseMessage.notFound("User Not Found");
         } else {
             return ResponseMessage.ok("Successfully Brought User", user);
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        Page<Movie> usersPage = appUserService.getUsers(PageRequest.of(page, size));
+
+        if (usersPage.isEmpty()) {
+            return ResponseMessage.notFound("Users Not Found");
+        } else {
+            return ResponseMessage.ok("Success", usersPage.getContent());
         }
     }
 }

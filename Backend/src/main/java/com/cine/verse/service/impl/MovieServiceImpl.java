@@ -92,7 +92,7 @@ public class MovieServiceImpl implements MovieService {
                             movie.setImage(tmdbMovie.getPoster_path() != null ? tmdbMovie.getPoster_path() : "N/A");
                             MovieDetailsTrailer movieDetailsTrailer = getMovieDetailsTrailer(tmdbMovie.getId());
                             MovieCredits movieCredits = getMovieCredits(tmdbMovie.getId());
-                            movie.setGenres(movieDetailsTrailer.getGenres());
+                            movie.setGenres(saveGenreIfExist(movieDetailsTrailer.getGenres()));
                             movie.setMovie_background(movieDetailsTrailer.getMovie_background());
                             movie.setLanguage(movieDetailsTrailer.getLanguage());
                             movie.setBudget(movieDetailsTrailer.getBudget());
@@ -152,7 +152,7 @@ public class MovieServiceImpl implements MovieService {
                         trendingMoviesList.add(movie);
                         MovieDetailsTrailer movieDetailsTrailer = getMovieDetailsTrailer(tmdbMovie.getId());
                         MovieCredits movieCredits = getMovieCredits(tmdbMovie.getId());
-                        movie.setGenres(movieDetailsTrailer.getGenres());
+                        movie.setGenres(saveGenreIfExist(movieDetailsTrailer.getGenres()));
                         movie.setMovie_background(movieDetailsTrailer.getMovie_background());
                         movie.setLanguage(movieDetailsTrailer.getLanguage());
                         movie.setBudget(movieDetailsTrailer.getBudget());
@@ -180,7 +180,7 @@ public class MovieServiceImpl implements MovieService {
 
             if (tmdbApiResponse != null) {
                 movie.setId(tmdbApiResponse.getId());
-                movie.setGenres(tmdbApiResponse.getGenres());
+                movie.setGenres(saveGenreIfExist(tmdbApiResponse.getGenres()));
                 movie.setMovie_background(tmdbApiResponse.getBackdrop_path());
                 movie.setBudget(tmdbApiResponse.getBudget());
                 if (!tmdbApiResponse.getSpoken_languages().isEmpty()) {
@@ -328,7 +328,7 @@ public class MovieServiceImpl implements MovieService {
                         similarMoviesList.add(movie);
                         MovieDetailsTrailer movieDetailsTrailer = getMovieDetailsTrailer(tmdbMovie.getId());
                         MovieCredits movieCredits = getMovieCredits(tmdbMovie.getId());
-                        movie.setGenres(movieDetailsTrailer.getGenres());
+                        movie.setGenres(saveGenreIfExist(movieDetailsTrailer.getGenres()));
                         movie.setMovie_background(movieDetailsTrailer.getMovie_background());
                         movie.setLanguage(movieDetailsTrailer.getLanguage());
                         movie.setBudget(movieDetailsTrailer.getBudget());
@@ -351,5 +351,27 @@ public class MovieServiceImpl implements MovieService {
                 return Integer.parseInt(releaseDate.substring(0, 4));
             }
             return null;
+    }
+
+    private Set<Genre> saveGenreIfExist(Set<Genre> genres){
+        Set<Genre> genresCollect = new HashSet<>();
+        Set<Genre> genresNew = new HashSet<>();
+        for (Genre item : genres) {
+            Long genreId = item.getId();
+            Optional<Genre> existingGenre = genreRepository.findById(genreId);
+            Genre genre;
+            if (existingGenre.isPresent()) {
+                genre = existingGenre.get();
+            } else {
+                genre = Genre.builder()
+                        .id(genreId)
+                        .name(item.getName())
+                        .build();
+                genresNew.add(genre);
+            }
+            genresCollect.add(genre);
         }
+        genreRepository.saveAll(genresNew);
+        return genresCollect;
+    }
 }

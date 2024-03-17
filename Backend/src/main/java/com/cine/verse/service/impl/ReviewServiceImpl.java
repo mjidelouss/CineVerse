@@ -121,6 +121,11 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public List<Review> getUserRecentReviews(Long userId) {
+        return reviewRepository.findTop3ByAppUserIdAndContentIsNotNullOrderByTimestampDesc(userId);
+    }
+
+    @Override
     public List<Review> getUserReviews(Long userId) {
         return reviewRepository.findByAppUserIdAndContentIsNotNull(userId);
     }

@@ -36,19 +36,7 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
-    private Set<Review> reviews;
-
-    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
-    private Set<Like> likes;
-
-    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
-    private Set<WatchList> watchLists;
-
-    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
-    private Set<MyList> myLists;
-
-    // we should return a list of roles
+    // return a list of roles
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();

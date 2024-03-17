@@ -50,6 +50,16 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/user-review/{userId}")
+    public ResponseEntity getUserRecentReviews(@PathVariable Long userId) {
+        List<Review> reviews = reviewService.getUserRecentReviews(userId);
+        if (reviews.isEmpty()) {
+            return ResponseMessage.notFound("User's Recent Reviews Not Found");
+        } else {
+            return ResponseMessage.ok("Successfully retrieved User's Recent Reviews", reviews);
+        }
+    }
+
     @GetMapping("/{movieId}/{userId}")
     public ResponseEntity getReviewByMovieAndUser(@PathVariable Long movieId, @PathVariable Long userId) {
         Review review = reviewService.getReviewByMovieAndUser(movieId, userId);
@@ -202,7 +212,6 @@ public class ReviewController {
         reviewResponse.setContent(review.getContent());
         reviewResponse.setRating(review.getRating());
         reviewResponse.setTimestamp(review.getTimestamp());
-        reviewResponse.setLikes(review.getLikes());
         return reviewResponse;
     }
 }

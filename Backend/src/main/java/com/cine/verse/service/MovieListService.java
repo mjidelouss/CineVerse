@@ -1,17 +1,15 @@
 package com.cine.verse.service;
 
-import com.cine.verse.domain.MovieList;
-
-import java.util.List;
+import com.cine.verse.domain.List;
 
 public interface MovieListService {
-    List<MovieList> getMovieLists();
+    java.util.List<List> getMovieLists();
 
-    MovieList getMovieListById(Long id);
+    List getMovieListById(Long id);
 
-    MovieList addMovieList(MovieList movieList);
+    List addMovieList(List movieList);
 
-    MovieList updateMovieList(MovieList movieList, Long id);
+    List updateMovieList(List movieList, Long id);
 
     void deleteMovieList(Long id);
 }

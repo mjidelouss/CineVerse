@@ -47,6 +47,16 @@ public class Review {
     @Column()
     private LocalDate timestamp;
 
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    private Set<Like> likes;
+    @Column(columnDefinition = "integer default 0")
+    private Integer totalLikes;
+
+    public void incrementTotalLikes() {
+        this.totalLikes++;
+    }
+
+    public void decrementTotalLikes() {
+        if (this.totalLikes > 0) {
+            this.totalLikes--;
+        }
+    }
 }
