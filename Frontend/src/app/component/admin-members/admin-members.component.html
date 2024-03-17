@@ -122,38 +122,33 @@
                     <th class="text-white font-medium fs-4">FirstName</th>
                     <th class="text-white font-medium fs-4">LastName</th>
                     <th class="text-white font-medium fs-4">Location</th>
-                    <th class="text-white font-medium fs-4">Email</th>
                     <th class="text-white font-medium fs-4">Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor='let Competition of competitions'>
+                  <tr *ngFor='let member of members'>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.code }}</h5>
+                      <img src="{{ member.image }}" alt="user" class="rounded-circle" width="41" />
                     </td>
-                    <td class="fs-4">{{ Competition.date }}</td>
+                    <td class="fs-4 text-white">{{ member.firstname }}</td>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.startTime }}</h5>
-                    </td>
-                    <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.endTime }}</h5>
+                      <h5 class="mb-0 fs-4 fw-normal text-white">{{ member.lastname }}</h5>
                     </td>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.location }}</h5>
+                      <h5 class="mb-0 fs-4 fw-normal text-white">{{ member.location }}</h5>
                     </td>
-
                     <td class="d-flex justify-content-evenly">
                       <button type="submit" class="btn btn-info opacity-75"
-                              (click)="viewCompetition(Competition)">View</button>
+                              (click)="viewMember(member)">View</button>
                       <button type="submit" class="btn btn-success ms-1"
-                              (click)="editCompetition(Competition)">Edit</button>
+                              (click)="editMember(member)">Edit</button>
                       <button type="submit" class="btn btn-danger ms-1"
-                              (click)="deleteCompetition(Competition.id)">Delete</button>
+                              (click)="deleteMember(member.id)">Delete</button>
                     </td>
                   </tr>
                   </tbody>
                 </table>
-                <mat-paginator [length]="totalCompetitions" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+                <mat-paginator [length]="totalMembers" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
                 </mat-paginator>
               </div>
             </div>

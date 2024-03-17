@@ -11,6 +11,7 @@ import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import {DataTablesModule} from "angular-datatables";
 import {FormsModule} from "@angular/forms";
 import {UserService} from "../../service/user.service";
+import {UserInfo} from "../../models/user-info";
 
 @Component({
   selector: 'app-admin-members',
@@ -41,12 +42,12 @@ export class AdminMembersComponent {
     this.expandLogo = !this.expandLogo;
   }
   ngOnInit() {
-    if (this.router.url === "/dashboard-movies") {
-      this.router.navigate(["/dashboard-movies"]);
+    if (this.router.url === "/dashboard-members") {
+      this.router.navigate(["/dashboard-members"]);
     }
     this.defaultSidebar = this.sidebartype;
     this.handleSidebar();
-    this.getCompetitions();
+    this.getMembers();
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next : user => {
         if(user) {
@@ -64,7 +65,7 @@ export class AdminMembersComponent {
 
   getMembers() {
     this.userService
-      .getMembers(this.pageIndex, this.pageSize)
+      .getUsers(this.pageIndex, this.pageSize)
       .subscribe(
         (response) => {
           this.members = response.data;
