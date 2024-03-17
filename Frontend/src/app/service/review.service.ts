@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -14,6 +14,11 @@ export class ReviewService {
   getReview(movieId: number, userId: number):Observable<any> {
     const url = `${this.apiUrl}/${movieId}/${userId}`;
     return this.http.get(url);
+  }
+
+  getReviews(pageIndex: number, pageSize: number): Observable<any> {
+    const params = new HttpParams().set('page', pageIndex.toString()).set('size', pageSize.toString());
+    return this.http.get<any>(this.apiUrl+'/all', { params });
   }
   addRating(rate: any, num: number): Observable<any> {
     const url = `${this.apiUrl}/rate/${num}`;
