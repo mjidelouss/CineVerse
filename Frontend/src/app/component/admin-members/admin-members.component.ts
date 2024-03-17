@@ -10,6 +10,7 @@ import {CommonModule} from "@angular/common";
 import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import {DataTablesModule} from "angular-datatables";
 import {FormsModule} from "@angular/forms";
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-admin-members',
@@ -20,15 +21,15 @@ import {FormsModule} from "@angular/forms";
 })
 export class AdminMembersComponent {
 
-  competitions: any[] = [];
+  members: any[] = [];
   selectedStatus: string = '';
   pageSizeOptions: number[] = [5, 10, 20];
   pageSize: number = 5;
   pageIndex: number = 0;
-  totalCompetitions: number = 0;
+  totalMembers: number = 50;
   AuthUserSub! : Subscription;
 
-  constructor(private movieService: MovieService, private router: Router, private authService : AuthService,) {}
+  constructor(private userService: UserService, private router: Router, private authService : AuthService,) {}
   public isCollapsed = false;
   public innerWidth: number = 0;
   public defaultSidebar: string = "";
@@ -49,12 +50,10 @@ export class AdminMembersComponent {
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next : user => {
         if(user) {
-          if (user.role.name == "ROLE_MANAGER") {
-            this.router.navigate(['competition']);
-          } else if (user.role.name == "ROLE_JURY") {
-            this.router.navigate(['jury-dashboard']);
+          if (user.role.name == "ROLE_ADMIN") {
+            this.router.navigate(['dashboard-members']);
           } else {
-            this.router.navigate(['member-dashboard']);
+            this.router.navigate(['forbidden']);
           }
         } else {
           console.log("user is null")
@@ -63,16 +62,15 @@ export class AdminMembersComponent {
     })
   }
 
-  getCompetitions() {
-    this.movieService
-      .getMovies(this.pageIndex, this.pageSize)
+  getMembers() {
+    this.userService
+      .getMembers(this.pageIndex, this.pageSize)
       .subscribe(
         (response) => {
-          this.competitions = response.data;
-          this.totalCompetitions = response.data.length;
+          this.members = response.data;
         },
         (error) => {
-          console.error('Error fetching Competitions:', error);
+          console.error('Error fetching Members:', error);
         }
       );
   }
@@ -80,29 +78,18 @@ export class AdminMembersComponent {
   onPageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.getCompetitions();
+    this.getMembers();
   }
 
-  getCompetitionsByStatus() {
-    this.movieService.getMoviesByStatus(this.selectedStatus).subscribe(
-      (response) => {
-        this.competitions = response.data;
-      },
-      (error) => {
-        console.error('Error fetching competitions:', error);
-      }
-    );
+  viewMember(competition: any) {
+    this.router.navigate(['/member-detail'], { state: { competition } });
   }
 
-  viewCompetition(competition: any) {
-    this.router.navigate(['/competition-detail'], { state: { competition } });
+  editMember(competition: any) {
+    this.router.navigate(['/edit-member'], { state: { competition } });
   }
 
-  editCompetition(competition: any) {
-    this.router.navigate(['/edit-competition'], { state: { competition } });
-  }
-
-  deleteCompetition(id: number) {
+  deleteMember(id: number) {
 
   }
 

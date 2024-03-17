@@ -127,7 +127,7 @@
                       </select>
                     </div>
                     <div>
-                      <button type="button" (click)="getCompetitionsByStatus()"
+                      <button type="button" (click)="getMoviesByGenre()"
                               class="btn btn-primary ms-1">Filter</button>
                     </div>
                   </div>
@@ -141,38 +141,33 @@
                     <th class="text-white font-medium fs-4">Title</th>
                     <th class="text-white font-medium fs-4">Year</th>
                     <th class="text-white font-medium fs-4">Language</th>
-                    <th class="text-white font-medium fs-4">Director</th>
                     <th class="text-white font-medium fs-4">Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor='let Competition of competitions'>
+                  <tr *ngFor='let movie of movies'>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.code }}</h5>
+                      <img src="https://image.tmdb.org/t/p/w500/{{movie.image}}}" width="55" height="70" class="mb-0 fw-normal rounded">
                     </td>
-                    <td class="fs-4">{{ Competition.date }}</td>
+                    <td class="fs-4 text-white">{{ movie.title }}</td>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.startTime }}</h5>
-                    </td>
-                    <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.endTime }}</h5>
+                      <h5 class="mb-0 fw-normal fs-3 text-white">{{ movie.year }}</h5>
                     </td>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.location }}</h5>
+                      <h5 class="mb-0 fw-normal fs-3 text-white">{{ movie.language }}</h5>
                     </td>
-
                     <td class="d-flex justify-content-evenly">
                       <button type="submit" class="btn btn-info opacity-75"
-                              (click)="viewCompetition(Competition)">View</button>
+                              (click)="viewMovie(movie)">View</button>
                       <button type="submit" class="btn btn-success ms-1"
-                              (click)="editCompetition(Competition)">Edit</button>
+                              (click)="editMovie(movie)">Edit</button>
                       <button type="submit" class="btn btn-danger ms-1"
-                              (click)="deleteCompetition(Competition.id)">Delete</button>
+                              (click)="deleteMovie(movie.id)">Delete</button>
                     </td>
                   </tr>
                   </tbody>
                 </table>
-                <mat-paginator [length]="totalCompetitions" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+                <mat-paginator [length]="totalMovies" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
                 </mat-paginator>
               </div>
             </div>
