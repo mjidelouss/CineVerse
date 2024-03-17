@@ -29,7 +29,7 @@ public class AppUserController {
 
     @GetMapping("/all")
     public ResponseEntity getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
-        Page<Movie> usersPage = appUserService.getUsers(PageRequest.of(page, size));
+        Page<AppUser> usersPage = appUserService.getUsers(PageRequest.of(page, size));
 
         if (usersPage.isEmpty()) {
             return ResponseMessage.notFound("Users Not Found");

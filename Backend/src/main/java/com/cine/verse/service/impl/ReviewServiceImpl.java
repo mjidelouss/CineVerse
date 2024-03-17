@@ -11,6 +11,8 @@ import com.cine.verse.service.AppUserService;
 import com.cine.verse.service.MovieService;
 import com.cine.verse.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,8 +29,8 @@ public class ReviewServiceImpl implements ReviewService {
 
 
     @Override
-    public List<Review> getReviews() {
-        return reviewRepository.findAll();
+    public Page<Review> getReviews(Pageable pageable) {
+        return reviewRepository.findAll(pageable);
     }
 
     @Override

@@ -13,6 +13,8 @@ import com.cine.verse.service.MovieService;
 import com.cine.verse.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +33,13 @@ public class ReviewController {
     private final MovieService movieService;
 
     @GetMapping("/all")
-    public ResponseEntity getReviews() {
-        List<Review> reviews = reviewService.getReviews();
-        if (reviews.isEmpty()) {
+    public ResponseEntity getReviews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        Page<Review> reviewsPage = reviewService.getReviews(PageRequest.of(page, size));
+
+        if (reviewsPage.isEmpty()) {
             return ResponseMessage.notFound("Reviews Not Found");
         } else {
-            return ResponseMessage.ok("Success", reviews.stream().map(this::reviewToReviewResponse).collect(Collectors.toList()));
+            return ResponseMessage.ok("Success", reviewsPage.getContent());
         }
     }
 

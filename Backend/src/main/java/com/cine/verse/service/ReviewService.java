@@ -1,13 +1,16 @@
 package com.cine.verse.service;
 
 import com.cine.verse.Dto.response.ReviewResponse;
+import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ReviewService {
-    List<Review> getReviews();
+    Page<Review> getReviews(Pageable pageable);
 
     List<Review> getRecentReviews(Long movieId);
 
