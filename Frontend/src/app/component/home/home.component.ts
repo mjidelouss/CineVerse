@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit{
 
   trendingMovies: TrendingMovie[] = [];
   AuthUserSub! : Subscription;
-  searchForm!: FormGroup;
   searchResults: any[] = [];
   searchTermControl: FormControl = new FormControl();
 

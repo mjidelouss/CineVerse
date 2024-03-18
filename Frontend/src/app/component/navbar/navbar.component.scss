@@ -1,0 +1,14 @@
+.searchBar{
+  left: 40%;
+  position: relative; /* Ensure z-index works */
+  z-index: 1000;
+}
+
+.searchElement {
+  width: 400px;
+}
+
+.movieSearch:hover {
+  background-color: #2c2b2b;
+  cursor: pointer;
+}

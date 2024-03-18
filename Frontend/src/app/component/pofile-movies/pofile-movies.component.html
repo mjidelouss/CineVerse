@@ -19,18 +19,16 @@
     <!-- Filter Options -->
     <div class="container mt-5 mb-5">
         <div class="row mb-3">
-            <div class="col-md-4">
-                <label for="genreFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Genre:</label>
-                <select class="form-control" id="genreFilter">
-                    <option value="">All Genres</option>
-                    <option value="action">Action</option>
-                    <option value="drama">Drama</option>
-                    <option value="comedy">Comedy</option>
-                    <!-- Add more genres as needed -->
-                </select>
-            </div>
+          <div class="col-md-4">
+            <label for="genreFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Genre:</label>
+            <select class="form-control" id="genreFilter" name="genre" [(ngModel)]="selectedGenre" (change)="filterMoviesByGenre()">
+              <option value="">All Genres</option>
+              <option *ngFor="let genre of genres" value="{{ genre.name }}">{{ genre.name }}</option>
+            </select>
+          </div>
 
-            <div class="col-md-4">
+
+          <div class="col-md-4">
                 <label for="decadeFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Decade:</label>
                 <select class="form-control" id="decadeFilter">
                     <option value="">All Decades</option>

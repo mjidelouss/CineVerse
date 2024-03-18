@@ -19,6 +19,10 @@ export class MovieService {
     return this.http.get(`${this.apiUrl}/search?query=${searchTerm}`);
   }
 
+  filterMoviesByGenre(userId: number, genre: string): Observable<any> {
+    return this.http.get(this.apiUrl+ `/filterByGenre/${userId}?genre=${genre}`)
+  }
+
   getMovieById(id: number) {
     return this.http.get<any>(`http://127.0.0.1:8080/api/v1/movie/${id}`);
   }

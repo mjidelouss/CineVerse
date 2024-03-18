@@ -3,7 +3,8 @@ import {TrendingMovie} from "../../models/trendingMovie";
 import {MovieService} from "../../service/movie.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
-import {Subscription} from "rxjs";
+import {debounceTime, Subscription} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-user-home',
@@ -33,7 +34,6 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     this.getTrendingMovies();
     this.getMovies()
   }
-
   getTrendingMovies() {
     this.movieService
       .getTrendingMovies()

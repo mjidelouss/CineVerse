@@ -5,9 +5,10 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {MovieService} from "../../service/movie.service";
 import {ReviewService} from "../../service/review.service";
 import {AuthService} from "../../service/auth.service";
-import {Subscription} from "rxjs";
+import {debounceTime, Subscription} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {NavigationService} from "../../service/navigation.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-navbar',
@@ -18,9 +19,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   AuthUserSub! : Subscription;
   userId!: number
+  searchResults: any[] = [];
+  searchTermControl: FormControl = new FormControl();
   user!: any
 
-  constructor(private router: Router, private authService: AuthService, private userService: UserService, private navigationService: NavigationService) {
+  constructor(private router: Router, private movieService: MovieService, private authService: AuthService, private userService: UserService, private navigationService: NavigationService) {
 
   }
   handleLogout(event: Event) {
@@ -29,6 +32,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.AuthUserSub.unsubscribe();
+  }
+
+  onMovieClick(movieId: number): void {
+    this.router.navigate(['/movie', movieId]);
+  }
+
+  onSearch(): void {
+    const searchTerm = this.searchTermControl.value.trim();
+    if (searchTerm == "") {
+      this.searchResults = [];
+    } else{
+      this.movieService.searchMovies(searchTerm).subscribe(
+        (response) => {
+          this.searchResults = response.data;
+        },
+        (error) => {
+          console.error('Error fetching movie search results:', error);
+        }
+      );
+    }
   }
 
   onProfileClick(): void {
@@ -66,6 +89,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.userId = user.id
         }
       }
+    });
+    this.searchTermControl.valueChanges.pipe(
+      debounceTime(300) // Adjust the debounce time as needed (e.g., 300 milliseconds)
+    ).subscribe(() => {
+      this.onSearch();
     });
     this.getUser()
   }
