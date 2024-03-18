@@ -18,6 +18,7 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
   AuthUserSub! : Subscription;
   movieId!: number;
   userId!: number;
+  selectedDecade!: string;
   movies: ProfileMovie[] = [];
   genres: Genre[] = [];
   selectedGenre: string = '';
@@ -63,6 +64,33 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
     )
   }
 
+  filterMovies() {
+    // Filter movies by selected decade
+    if (this.selectedDecade) {
+      this.movieService.filterMoviesByDecade(this.userId, this.selectedDecade).subscribe(
+        (response) => {
+          console.log(response)
+          this.movies = response.map((element: any[]) => {
+            const dbMovie = element;
+            return {
+              id: dbMovie[0].movieId,
+              title: dbMovie[0].title || 'N/A',
+              year: dbMovie[0].year || 'N/A',
+              director: dbMovie[0].director || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + (dbMovie[0].image || 'N/A'),
+              overview: dbMovie[0].overview || 'N/A',
+              rate: dbMovie[1]
+            };
+          });
+        },
+        (error) => {
+          console.error('Error filtering movies by decade:', error);
+        }
+      );
+    } else {
+      this.getReviewedMoviesWithRating();
+    }
+  }
   getGenres() {
     this.genreService.getGenres().subscribe(
       (response) => {

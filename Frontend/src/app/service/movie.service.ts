@@ -23,6 +23,10 @@ export class MovieService {
     return this.http.get(this.apiUrl+ `/filterByGenre/${userId}?genre=${genre}`)
   }
 
+  filterMoviesByDecade(userId: number, decade: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/filterByDecade/${userId}?decade=${decade}`);
+  }
+
   getMovieById(id: number) {
     return this.http.get<any>(`http://127.0.0.1:8080/api/v1/movie/${id}`);
   }
