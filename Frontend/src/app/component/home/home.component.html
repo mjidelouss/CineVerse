@@ -25,13 +25,22 @@
       <!-- Search Bar -->
       <div class="container w-50">
         <div class="input-group">
-          <input type="text" class="form-control rounded-pill" placeholder="Search movies...">
+          <form [formGroup]="searchForm">
+          <input type="text" class="form-control rounded-pill" formControlName="searchTerm" placeholder="Search movies..." (input)="onSearch()">
+          </form>
           <div class="input-group-append">
             <button class="btn btn-black text-white" type="button">
               <mat-icon>search</mat-icon>
             </button>
           </div>
         </div>
+        <div *ngIf="searchResults.length > 0" class="search-results">
+          <div *ngFor="let movie of searchResults">
+            <img [src]="movie.posterUrl" alt="{{ movie.title }}">
+            <p>{{ movie.title }} ({{ movie.year }})</p>
+          </div>
+        </div>
+
       </div>
 
     </div>

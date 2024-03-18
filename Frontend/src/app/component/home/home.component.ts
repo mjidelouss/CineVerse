@@ -5,6 +5,7 @@ import {Movie} from "../../models/movie";
 import {TrendingMovie} from "../../models/trendingMovie";
 import {AuthService} from "../../service/auth.service";
 import {Subscription} from "rxjs";
+import {FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -16,8 +17,9 @@ export class HomeComponent implements OnInit{
 
   trendingMovies: TrendingMovie[] = [];
   AuthUserSub! : Subscription;
+  searchForm!: FormGroup;
 
-  constructor(private movieService: MovieService, private router: Router, private authService : AuthService) {}
+  constructor(private movieService: MovieService, private router: Router, private authService : AuthService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
@@ -31,12 +33,28 @@ export class HomeComponent implements OnInit{
         }
       }
     })
+    this.searchForm = this.formBuilder.group({
+      searchTerm: ['']
+    });
     this.getTrendingMovies();
   }
 
   onMovieClick(movieId: number): void {
     this.router.navigate(['/movie', movieId]);
   }
+
+  onSearch(): void {
+    const searchTerm = this.searchForm.get('searchTerm').value;
+    this.movieService.searchMovies(searchTerm).subscribe(
+      (response) => {
+        this.searchResults = response.data;
+      },
+      (error) => {
+        console.error('Error fetching movie search results:', error);
+      }
+    );
+  }
+
   getTrendingMovies() {
     this.movieService
       .getTrendingMovies()
