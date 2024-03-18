@@ -145,3 +145,16 @@
 .card-list:hover {
   transform: scale(1.05);
 }
+
+.searchBar{
+  left: 40%;
+}
+
+.searchElement {
+  width: 400px;
+}
+
+.movieSearch:hover {
+  background-color: #2c2b2b;
+  cursor: pointer;
+}

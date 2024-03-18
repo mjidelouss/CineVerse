@@ -1,6 +1,6 @@
   <div class="bg-black">
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black position-relative">
     <div class="container">
       <a class="navbar-brand fw-bolder" routerLink="/home">CINE <span class="" style="color: hsl(6, 100%, 42%)">VERSE</span></a>
       <div class="" id="navbarNav">
@@ -25,28 +25,29 @@
       <!-- Search Bar -->
       <div class="container w-50">
         <div class="input-group">
-          <form [formGroup]="searchForm">
-          <input type="text" class="form-control rounded-pill" formControlName="searchTerm" placeholder="Search movies..." (input)="onSearch()">
+          <form>
+            <input type="text" class="form-control rounded-pill" [formControl]="searchTermControl" placeholder="Search movies...">
           </form>
-          <div class="input-group-append">
-            <button class="btn btn-black text-white" type="button">
-              <mat-icon>search</mat-icon>
-            </button>
-          </div>
         </div>
-        <div *ngIf="searchResults.length > 0" class="search-results">
-          <div *ngFor="let movie of searchResults">
-            <img [src]="movie.posterUrl" alt="{{ movie.title }}">
-            <p>{{ movie.title }} ({{ movie.year }})</p>
-          </div>
-        </div>
-
       </div>
 
     </div>
   </nav>
-
-
+    <div *ngIf="searchResults.length > 0" class="searchBar position-absolute justify-content-center bg-black">
+      <div class="">
+        <div class="">
+          <div *ngFor="let movie of searchResults" class="mb-2 searchElement" (click)="onMovieClick(movie.id)">
+            <div class="d-flex movieSearch p-1">
+              <img class="rounded ms-1 mt-1" src="https://image.tmdb.org/t/p/w500/{{ movie.image }}" height="70" width="55" alt="{{ movie.title }}">
+              <div>
+                <p class="text-white ms-3">{{ movie.title }}</p>
+                <p class="ms-3 text-danger">({{ movie.year }})</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Hero Section -->
 <section class="hero-section text-white text-center d-flex flex-column align-items-center justify-content-center">
 </section>

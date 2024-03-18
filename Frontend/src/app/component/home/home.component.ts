@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {MovieService} from "../../service/movie.service";
-import {Movie} from "../../models/movie";
 import {TrendingMovie} from "../../models/trendingMovie";
 import {AuthService} from "../../service/auth.service";
-import {Subscription} from "rxjs";
-import {FormGroup} from "@angular/forms";
+import {debounceTime, Subscription} from "rxjs";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -18,6 +17,8 @@ export class HomeComponent implements OnInit{
   trendingMovies: TrendingMovie[] = [];
   AuthUserSub! : Subscription;
   searchForm!: FormGroup;
+  searchResults: any[] = [];
+  searchTermControl: FormControl = new FormControl();
 
   constructor(private movieService: MovieService, private router: Router, private authService : AuthService, private formBuilder: FormBuilder) {}
 
@@ -33,8 +34,10 @@ export class HomeComponent implements OnInit{
         }
       }
     })
-    this.searchForm = this.formBuilder.group({
-      searchTerm: ['']
+    this.searchTermControl.valueChanges.pipe(
+      debounceTime(300) // Adjust the debounce time as needed (e.g., 300 milliseconds)
+    ).subscribe(() => {
+      this.onSearch();
     });
     this.getTrendingMovies();
   }
@@ -44,15 +47,19 @@ export class HomeComponent implements OnInit{
   }
 
   onSearch(): void {
-    const searchTerm = this.searchForm.get('searchTerm').value;
-    this.movieService.searchMovies(searchTerm).subscribe(
-      (response) => {
-        this.searchResults = response.data;
-      },
-      (error) => {
-        console.error('Error fetching movie search results:', error);
-      }
-    );
+    const searchTerm = this.searchTermControl.value.trim();
+    if (searchTerm == "") {
+      this.searchResults = [];
+    } else{
+      this.movieService.searchMovies(searchTerm).subscribe(
+        (response) => {
+          this.searchResults = response.data;
+        },
+        (error) => {
+          console.error('Error fetching movie search results:', error);
+        }
+      );
+    }
   }
 
   getTrendingMovies() {
