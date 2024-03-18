@@ -125,26 +125,26 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor='let Competition of competitions'>
+                  <tr *ngFor='let list of lists'>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.code }}</h5>
+                      <h5 class="mb-0 fw-normal">{{ list.id }}</h5>
                     </td>
-                    <td class="fs-4">{{ Competition.date }}</td>
+                    <td class="fs-4">{{ list.title }}</td>
                     <td>
-                      <h5 class="mb-0 fw-normal">{{ Competition.startTime }}</h5>
+                      <h5 class="mb-0 fw-normal">{{ list.movies }}</h5>
                     </td>
                     <td class="d-flex justify-content-evenly">
                       <button type="submit" class="btn btn-info opacity-75"
-                              (click)="viewCompetition(Competition)">View</button>
+                              (click)="viewList(list)">View</button>
                       <button type="submit" class="btn btn-success ms-1"
-                              (click)="editCompetition(Competition)">Edit</button>
+                              (click)="editList(list)">Edit</button>
                       <button type="submit" class="btn btn-danger ms-1"
-                              (click)="deleteCompetition(Competition.id)">Delete</button>
+                              (click)="deleteList(list.id)">Delete</button>
                     </td>
                   </tr>
                   </tbody>
                 </table>
-                <mat-paginator [length]="totalCompetitions" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+                <mat-paginator [length]="totalLists" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
                 </mat-paginator>
               </div>
             </div>

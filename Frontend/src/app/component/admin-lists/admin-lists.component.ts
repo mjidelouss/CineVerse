@@ -10,6 +10,7 @@ import {CommonModule} from "@angular/common";
 import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import {DataTablesModule} from "angular-datatables";
 import {FormsModule} from "@angular/forms";
+import {ListService} from "../../service/list.service";
 
 @Component({
   selector: 'app-admin-lists',
@@ -20,15 +21,15 @@ import {FormsModule} from "@angular/forms";
 })
 export class AdminListsComponent {
 
-  competitions: any[] = [];
+  lists: any[] = [];
   selectedStatus: string = '';
   pageSizeOptions: number[] = [5, 10, 20];
   pageSize: number = 5;
   pageIndex: number = 0;
-  totalCompetitions: number = 0;
+  totalLists: number = 0;
   AuthUserSub! : Subscription;
 
-  constructor(private movieService: MovieService, private router: Router, private authService : AuthService,) {}
+  constructor(private listService: ListService, private router: Router, private authService : AuthService,) {}
   public isCollapsed = false;
   public innerWidth: number = 0;
   public defaultSidebar: string = "";
@@ -40,21 +41,19 @@ export class AdminListsComponent {
     this.expandLogo = !this.expandLogo;
   }
   ngOnInit() {
-    if (this.router.url === "/dashboard-movies") {
-      this.router.navigate(["/dashboard-movies"]);
+    if (this.router.url === "/dashboard-lists") {
+      this.router.navigate(["/dashboard-lists"]);
     }
     this.defaultSidebar = this.sidebartype;
     this.handleSidebar();
-    this.getCompetitions();
+    this.getLists();
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next : user => {
         if(user) {
-          if (user.role.name == "ROLE_MANAGER") {
-            this.router.navigate(['competition']);
-          } else if (user.role.name == "ROLE_JURY") {
-            this.router.navigate(['jury-dashboard']);
+          if (user.role.name == "ROLE_ADMIN") {
+            this.router.navigate(['dashboard-lists']);
           } else {
-            this.router.navigate(['member-dashboard']);
+            this.router.navigate(['forbidden']);
           }
         } else {
           console.log("user is null")
@@ -63,16 +62,15 @@ export class AdminListsComponent {
     })
   }
 
-  getCompetitions() {
-    this.movieService
-      .getMovies(this.pageIndex, this.pageSize)
+  getLists() {
+    this.listService
+      .getLists(this.pageIndex, this.pageSize)
       .subscribe(
         (response) => {
-          this.competitions = response.data;
-          this.totalCompetitions = response.data.length;
+          this.lists = response.data;
         },
         (error) => {
-          console.error('Error fetching Competitions:', error);
+          console.error('Error fetching Lists:', error);
         }
       );
   }
@@ -80,29 +78,18 @@ export class AdminListsComponent {
   onPageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.getCompetitions();
+    this.getLists();
   }
 
-  getCompetitionsByStatus() {
-    this.movieService.getMoviesByStatus(this.selectedStatus).subscribe(
-      (response) => {
-        this.competitions = response.data;
-      },
-      (error) => {
-        console.error('Error fetching competitions:', error);
-      }
-    );
+  viewList(competition: any) {
+    this.router.navigate(['/list-detail'], { state: { competition } });
   }
 
-  viewCompetition(competition: any) {
-    this.router.navigate(['/competition-detail'], { state: { competition } });
+  editList(competition: any) {
+    this.router.navigate(['/edit-list'], { state: { competition } });
   }
 
-  editCompetition(competition: any) {
-    this.router.navigate(['/edit-competition'], { state: { competition } });
-  }
-
-  deleteCompetition(id: number) {
+  deleteList(id: number) {
 
   }
 
