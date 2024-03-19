@@ -34,12 +34,4 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
-  {
-    path: '/dashboard-lists',
-    title: '  Lists',
-    icon: '📋 ',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
 ];

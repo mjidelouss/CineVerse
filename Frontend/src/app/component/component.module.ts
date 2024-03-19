@@ -16,7 +16,6 @@ import { MovieComponent } from './movie/movie.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { PofileMoviesComponent } from './pofile-movies/pofile-movies.component';
-import { PofileListsComponent } from './pofile-lists/pofile-lists.component';
 import { PofileReviewsComponent } from './pofile-reviews/pofile-reviews.component';
 import { LikesComponent } from './likes/likes.component';
 import { DiaryComponent } from './diary/diary.component';
@@ -25,10 +24,7 @@ import { MembersComponent } from './members/members.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
-import { AddListComponent } from './add-list/add-list.component';
-import { EditListComponent } from './edit-list/edit-list.component';
 import { MoviesComponent } from './movies/movies.component';
-import { ListsComponent } from './lists/lists.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {NavigationComponent} from "../shared/header/navigation.component";
 import {SidebarComponent} from "../shared/sidebar/sidebar.component";
@@ -58,17 +54,13 @@ import {SidebarComponent} from "../shared/sidebar/sidebar.component";
     ProfileComponent,
     WatchlistComponent,
     PofileMoviesComponent,
-    PofileListsComponent,
     PofileReviewsComponent,
     LikesComponent,
     DiaryComponent,
     SettingsComponent,
     MembersComponent,
     ForbiddenComponent,
-    AddListComponent,
-    EditListComponent,
     MoviesComponent,
-    ListsComponent,
   ],
 })
 export class ComponentsModule { }

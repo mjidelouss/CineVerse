@@ -65,4 +65,14 @@ export class ReviewService {
     return this.http.get<any>(url);
   }
 
+  filterLikedMoviesByGenre(userId: number, genre: string) : Observable<any> {
+    const url = `${this.apiUrl}/filterLikedMoviesByGenre/${userId}?genre=${genre}`;
+    return this.http.get<any>(url);
+  }
+
+  filterLikedMoviesByDecade(userId: number, decade: string) : Observable<any> {
+    const url = `${this.apiUrl}/filterLikedMoviesByDecade/${userId}?decade=${decade}`;
+    return this.http.get<any>(url);
+  }
+
 }

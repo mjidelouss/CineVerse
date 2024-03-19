@@ -6,11 +6,10 @@
         <div class="item mt-4 mb-4">
             <div class="ms-3 d-flex justify-content-evenly">
                 <p class=""><a class="text-white opacity-75 fs-5" href="#">Profile</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Movies</a></p>
+                <p class="ms-3"><a class="text-danger fs-5" href="#">Movies</a></p>
                 <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Diary</a></p>
                 <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Reviews</a></p>
                 <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Watchlist</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Lists</a></p>
                 <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Likes</a></p>
             </div>
         </div>
@@ -20,8 +19,8 @@
     <div class="container mt-5 mb-5">
         <div class="row mb-3">
           <div class="col-md-4">
-            <label for="genreFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Genre:</label>
-            <select class="form-control" id="genreFilter" name="genre" [(ngModel)]="selectedGenre" (change)="filterMoviesByGenre()">
+            <label for="genreFilter" class="mb-1 text-white opacity-75 fs-4">Filter by Genre</label>
+            <select class="form-control bg-dark text-white border-0" id="genreFilter" name="genre" [(ngModel)]="selectedGenre" (change)="filterMoviesByGenre()">
               <option value="">All Genres</option>
               <option *ngFor="let genre of genres" value="{{ genre.name }}">{{ genre.name }}</option>
             </select>
@@ -29,9 +28,9 @@
 
 
           <div class="col-md-4">
-                <label for="decadeFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Filter by Decade:</label>
-            <select class="form-control" id="decadeFilter" [(ngModel)]="selectedDecade" (change)="filterMovies()">
-              <option value="" selected>All Decades</option>
+                <label for="decadeFilter" class="mb-1 text-white opacity-75 fs-4">Filter by Decade</label>
+            <select class="form-control bg-dark text-white border-0" id="decadeFilter" [(ngModel)]="selectedDecade" (change)="filterMovies()">
+              <option value="">All Decades</option>
               <option value="1860s">1860s</option>
               <option value="1870s">1870s</option>
               <option value="1880s">1880s</option>
@@ -53,14 +52,6 @@
 
           </div>
 
-            <div class="col-md-4">
-                <label for="sortFilter" class="mb-1 text-white opacity-75 fs-4 fw-bold">Sort by:</label>
-                <select class="form-control" id="sortFilter">
-                    <option value="date">Date</option>
-                    <option value="rating">Rating</option>
-                    <!-- Add more sorting options as needed -->
-                </select>
-            </div>
         </div>
 
         <!-- Movies - Reviews - Lists -->
@@ -69,7 +60,7 @@
             <hr class="text-white">
         </div>
 
-        <!-- Watchlist Movies -->
+        <!-- Movies -->
         <div class="row" id="itemContainer">
             <!-- Movies Cards Section -->
               <div *ngFor="let movie of movies" class="col-lg-2 col-md-4 card bg-black movie-card" (click)="onMovieClick(movie.id)">

@@ -11,19 +11,14 @@ import { WatchlistComponent } from './component/watchlist/watchlist.component';
 import { MovieComponent } from './component/movie/movie.component';
 import { LikesComponent } from './component/likes/likes.component';
 import { DiaryComponent } from './component/diary/diary.component';
-import { PofileListsComponent } from './component/pofile-lists/pofile-lists.component';
 import { PofileMoviesComponent } from './component/pofile-movies/pofile-movies.component';
 import { PofileReviewsComponent } from './component/pofile-reviews/pofile-reviews.component';
 import {ForbiddenComponent} from "./component/forbidden/forbidden.component";
 import {SettingsComponent} from "./component/settings/settings.component";
-import {AddListComponent} from "./component/add-list/add-list.component";
-import {EditListComponent} from "./component/edit-list/edit-list.component";
-import {ListsComponent} from "./component/lists/lists.component";
 import {MoviesComponent} from "./component/movies/movies.component";
 import {MembersComponent} from "./component/members/members.component";
 import {AdminMoviesComponent} from "./component/admin-movies/admin-movies.component";
 import {AdminMembersComponent} from "./component/admin-members/admin-members.component";
-import {AdminListsComponent} from "./component/admin-lists/admin-lists.component";
 import {AdminReviewsComponent} from "./component/admin-reviews/admin-reviews.component";
 
 export const Approutes: Routes = [
@@ -51,10 +46,6 @@ export const Approutes: Routes = [
     component: AdminMembersComponent,
   },
   {
-    path: 'dashboard-lists',
-    component: AdminListsComponent,
-  },
-  {
     path: 'dashboard-reviews',
     component: AdminReviewsComponent,
   },
@@ -79,20 +70,8 @@ export const Approutes: Routes = [
     component: UserHomeComponent
   },
   {
-    path: 'add-list',
-    component: AddListComponent
-  },
-  {
     path: 'members',
     component: MembersComponent
-  },
-  {
-    path: 'edit-list',
-    component: EditListComponent
-  },
-  {
-    path: 'lists',
-    component: ListsComponent
   },
   {
     path: 'movies',
@@ -121,10 +100,6 @@ export const Approutes: Routes = [
   {
     path: 'profile-movies/:id',
     component: PofileMoviesComponent
-  },
-  {
-    path: 'profile-lists/:id',
-    component: PofileListsComponent
   },
   {
     path: 'diary/:id',
