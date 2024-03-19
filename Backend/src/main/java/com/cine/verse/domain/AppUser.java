@@ -1,12 +1,10 @@
 package com.cine.verse.domain;
 
 import com.cine.verse.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,10 +12,11 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "users")
 public class AppUser implements UserDetails {
 
@@ -37,6 +36,7 @@ public class AppUser implements UserDetails {
     private Role role;
 
     // return a list of roles
+    @JsonIgnoreProperties("authorities")
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();

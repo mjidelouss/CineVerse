@@ -2,6 +2,7 @@ package com.cine.verse.service.impl;
 
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
+import com.cine.verse.enums.Role;
 import com.cine.verse.repository.AppUserRepository;
 import com.cine.verse.service.AppUserService;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,15 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public Page<AppUser> getUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public AppUser saveUser(AppUser user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public long getTotalUsersByRole(Role role) {
+        return userRepository.countByRole(role);
     }
 }

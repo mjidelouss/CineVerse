@@ -2,6 +2,7 @@ package com.cine.verse.controller;
 
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
+import com.cine.verse.enums.Role;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.AppUserService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,38 @@ public class AppUserController {
             return ResponseMessage.notFound("Users Not Found");
         } else {
             return ResponseMessage.ok("Success", usersPage.getContent());
+        }
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity getTotalUsersByRole() {
+        long totalUsers = appUserService.getTotalUsersByRole(Role.USER);
+        return ResponseMessage.ok("Success", totalUsers);
+    }
+
+    @PutMapping("/profile/{userId}")
+    public ResponseEntity updateUserProfile(@PathVariable Long userId, @RequestBody AppUser updatedUser) {
+        // Retrieve the existing user from the database
+        AppUser existingUser = appUserService.getUserById(userId);
+
+        // Check if the user exists
+        if (existingUser == null) {
+            return ResponseMessage.notFound("Users Not Found");
+        }
+        // Update the user's profile with the new data
+        existingUser.setFirstname(updatedUser.getFirstname());
+        existingUser.setLastname(updatedUser.getLastname());
+        existingUser.setEmail(updatedUser.getEmail());
+        existingUser.setImage(updatedUser.getImage());
+        existingUser.setBio(updatedUser.getBio());
+        existingUser.setLocation(updatedUser.getLocation());
+
+        // Save the updated user to the database
+        AppUser savedUser = appUserService.saveUser(existingUser);
+        if (savedUser == null) {
+             return ResponseMessage.notFound("Update User Failed Found");
+        } else {
+            return ResponseMessage.ok("Profile updated successfully", savedUser);
         }
     }
 }
