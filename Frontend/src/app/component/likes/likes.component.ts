@@ -97,7 +97,6 @@ export class LikesComponent implements OnInit, OnDestroy{
     } else {
       this.getUserLikedMovies()
     }
-
   }
 
   getUserLikedMovies() {

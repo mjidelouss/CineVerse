@@ -5,6 +5,8 @@ import {ReviewService} from "../../service/review.service";
 import {TrendingMovie} from "../../models/trendingMovie";
 import {Diary} from "../../models/diary";
 import {MovieCredits} from "../../models/movie-credits";
+import {Genre} from "../../models/genre";
+import {GenreService} from "../../service/genre.service";
 
 @Component({
   selector: 'app-diary',
@@ -15,7 +17,11 @@ export class DiaryComponent implements OnInit, OnDestroy{
 
   userId!: number;
   diaryMovies: Diary[] = [];
-  constructor(private route: ActivatedRoute,private router: Router, public dialog: MatDialog, private reviewService: ReviewService) {
+  selectedDecade!: string;
+  genres: Genre[] = [];
+  selectedGenre: string = '';
+  constructor(private route: ActivatedRoute,private router: Router, private genreService: GenreService
+              ,public dialog: MatDialog, private reviewService: ReviewService) {
 
   }
   ngOnDestroy(): void {
@@ -30,12 +36,22 @@ export class DiaryComponent implements OnInit, OnDestroy{
       this.userId = +params['id'];
     });
     this.getMyReviews()
+    this.getGenres()
   }
 
+  getGenres() {
+    this.genreService.getGenres().subscribe(
+      (response) => {
+        this.genres = response.data
+      },
+      (error) => {
+        console.error('Error fetching Genres:', error);
+      }
+    )
+  }
   getMyReviews() {
     this.reviewService.getUserReviews(this.userId).subscribe(
       (response) => {
-        console.log(response.data)
         this.diaryMovies = [];
         for (const element of response.data) {
           const dbMovie = element;
@@ -56,6 +72,61 @@ export class DiaryComponent implements OnInit, OnDestroy{
         console.error('Error fetching Diary Movies:', error);
       }
     )
+  }
+
+  filterReviewdMoviesByGenre() {
+    this.reviewService.filterDiaryMoviesByGenre(this.userId, this.selectedGenre).subscribe(
+      (response) => {
+        this.diaryMovies = [];
+        for (const element of response.data) {
+          const dbMovie = element;
+          let movie: Diary = {
+            id: dbMovie.movie.id,
+            title: dbMovie.movie.title || 'N/A',
+            year: dbMovie.movie.year || 'N/A',
+            director: dbMovie.movie.director || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+            like: dbMovie.liked,
+            rate: dbMovie.rating,
+            timestamp: this.parseTimeStamp(dbMovie.timestamp)
+          };
+          this.diaryMovies.push(movie);
+        }
+      },
+      (error) => {
+        console.error('Error filtering Diary Movies By Genre:', error);
+      }
+      )
+  }
+
+  filterReviewdMoviesByDecade() {
+    if (this.selectedDecade) {
+      this.reviewService.filterDiaryMoviesByDecade(this.userId, this.selectedDecade).subscribe(
+        (response) => {
+          this.diaryMovies = [];
+          for (const element of response.data) {
+            const dbMovie = element;
+            let movie: Diary = {
+              id: dbMovie.movie.id,
+              title: dbMovie.movie.title || 'N/A',
+              year: dbMovie.movie.year || 'N/A',
+              director: dbMovie.movie.director || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+              like: dbMovie.liked,
+              rate: dbMovie.rating,
+              timestamp: this.parseTimeStamp(dbMovie.timestamp)
+            };
+            this.diaryMovies.push(movie);
+          }
+        },
+        (error) => {
+          console.error('Error filtering Diary Movies By Decade:', error);
+        }
+      )
+    } else {
+      this.getMyReviews()
+    }
+
   }
 
   parseTimeStamp(timestamp: string):{ day: string, month: string, dayOfMonth: string}  {

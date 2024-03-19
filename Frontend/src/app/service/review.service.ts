@@ -75,4 +75,14 @@ export class ReviewService {
     return this.http.get<any>(url);
   }
 
+  filterDiaryMoviesByGenre(userId: number, genre: string) : Observable<any> {
+    const url = `${this.apiUrl}/filterReviewdMoviesByGenre/${userId}?genre=${genre}`;
+    return this.http.get<any>(url);
+  }
+
+  filterDiaryMoviesByDecade(userId: number, decade: string) : Observable<any> {
+    const url = `${this.apiUrl}/filterReviewdMoviesByDecade/${userId}?decade=${decade}`;
+    return this.http.get<any>(url);
+  }
+
 }

@@ -21,4 +21,14 @@ export class WatchlistService {
   removeMovieFromWatchList(watchList: any) {
     return this.http.post<any>(this.apiUrl+`/remove`, watchList);
   }
+
+  filterWatchedMoviesByGenre(userId: number, genre: string) : Observable<any> {
+    const url = `${this.apiUrl}/filterWatchedMoviesByGenre/${userId}?genre=${genre}`;
+    return this.http.get<any>(url);
+  }
+
+  filterWatchedMoviesByDecade(userId: number, decade: string) : Observable<any> {
+    const url = `${this.apiUrl}/filterWatchedMoviesByDecade/${userId}?decade=${decade}`;
+    return this.http.get<any>(url);
+  }
 }
