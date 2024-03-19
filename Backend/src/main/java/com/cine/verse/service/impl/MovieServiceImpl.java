@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,10 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> getLastSixMovies() {
         return movieRepository.findTop6ByOrderByIdDesc();
     }
-
-
+    @Override
+    public List<Movie> searchMovies(String searchTerm) {
+        return movieRepository.findByTitleContainingIgnoreCase(searchTerm);
+    }
     @Override
     public Movie addMovie(Movie movie) {
         return movieRepository.save(movie);

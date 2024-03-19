@@ -20,7 +20,7 @@ public class GenreController {
     private final GenreService genreService;
     private final GenreMapper genreMapper;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity getGenres() {
         List<Genre> genres = genreService.getGenres();
         if (genres.isEmpty()) {
@@ -48,16 +48,6 @@ public class GenreController {
             return ResponseMessage.badRequest("Failed To Create Genre");
         } else {
             return ResponseMessage.created("Genre Created Successfully", genre1);
-        }
-    }
-
-    @GetMapping("")
-    public ResponseEntity searchGenre(@RequestParam String searchTerm) {
-        List<Genre> genres = genreService.searchGenre(searchTerm);
-        if (genres.isEmpty()) {
-            return ResponseMessage.notFound("Genre Not Found");
-        } else {
-            return ResponseMessage.ok("Success", genres);
         }
     }
 

@@ -22,6 +22,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r.movie FROM Review r WHERE r.appUser.id = :userId AND r.liked = true")
     List<Movie> findMoviesByAppUserIdAndLikedTrue(@Param("userId") Long userId);
 
-    @Query("SELECT DISTINCT r.movie, r.rating FROM Review r WHERE r.appUser.id = :userId")
+    @Query("SELECT DISTINCT r.movie, r.rating FROM Review r WHERE r.appUser.id = :userId AND r.rating > 0")
     List<Object[]> findMoviesAndRatingsByAppUserId(@Param("userId") Long userId);
 }

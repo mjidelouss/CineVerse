@@ -113,6 +113,68 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/filterLikedMoviesByGenre/{userId}")
+    public List<Movie> getLikedMoviesByGenre(@RequestParam(name = "genre", required = false) String genreName, @PathVariable Long userId) {
+        // Retrieve movies by genre from the service layer
+        List<Movie> allMovies = reviewService.getMoviesLiked(userId);
+        // Check if genreName is empty or null
+        if (genreName == null || genreName.isEmpty()) {
+            return allMovies;
+        }
+        // Filter movies by the specified genre
+        return allMovies.stream()
+                .filter(movie -> {
+                    return movie.getGenres().stream()
+                            .anyMatch(genre -> genre.getName().equalsIgnoreCase(genreName));
+                })
+                .collect(Collectors.toList()); // Collect the filtered movies into a list
+    }
+
+    @GetMapping("/filterLikedMoviesByDecade/{userId}")
+    public List<Movie> getLikedMoviesByDecade(@RequestParam("decade") String decade, @PathVariable Long userId) {
+        // Retrieve movies from the service layer
+        List<Movie> allMovies = reviewService.getMoviesLiked(userId);
+
+        if (decade == null || decade.isEmpty()) {
+            return allMovies;
+        }
+        // Filter movies by the specified decade
+        return allMovies.stream()
+                .filter(movie -> isMovieInDecade(movie, decade))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/filterDiaryMoviesByGenre/{userId}")
+    public List<Review> getDiaryMoviesByGenre(@RequestParam(name = "genre", required = false) String genreName, @PathVariable Long userId) {
+        // Retrieve movies by genre from the service layer
+        List<Review> allReviews = reviewService.getUserReviews(userId);
+        // Check if genreName is empty or null
+        if (genreName == null || genreName.isEmpty()) {
+            return allReviews;
+        }
+        // Filter movies by the specified genre
+        return allReviews.stream()
+                .filter(review -> {
+                    return review.getMovie().getGenres().stream()
+                            .anyMatch(genre -> genre.getName().equalsIgnoreCase(genreName));
+                })
+                .collect(Collectors.toList()); // Collect the filtered movies into a list
+    }
+
+    @GetMapping("/filterDiaryMoviesByDecade/{userId}")
+    public List<Review> getDiaryMoviesByDecade(@RequestParam("decade") String decade, @PathVariable Long userId) {
+        // Retrieve movies from the service layer
+        List<Review> allReviews = reviewService.getUserReviews(userId);
+
+        if (decade == null || decade.isEmpty()) {
+            return allReviews;
+        }
+        // Filter movies by the specified decade
+        return allReviews.stream()
+                .filter(review -> isMovieInDecade(review.getMovie(), decade))
+                .collect(Collectors.toList());
+    }
+
     @PostMapping("")
     public ResponseEntity addReview(@RequestBody @Valid ReviewRequest reviewRequest) {
         Review review1;
@@ -216,5 +278,47 @@ public class ReviewController {
         reviewResponse.setRating(review.getRating());
         reviewResponse.setTimestamp(review.getTimestamp());
         return reviewResponse;
+    }
+
+    private boolean isMovieInDecade(Movie movie, String decade) {
+        int year = movie.getYear();
+        switch (decade.toLowerCase()) {
+            case "1860s":
+                return year >= 1860 && year <= 1869;
+            case "1870s":
+                return year >= 1870 && year <= 1879;
+            case "1880s":
+                return year >= 1880 && year <= 1889;
+            case "1890s":
+                return year >= 1890 && year <= 1899;
+            case "1900s":
+                return year >= 1900 && year <= 1909;
+            case "1910s":
+                return year >= 1910 && year <= 1919;
+            case "1920s":
+                return year >= 1920 && year <= 1929;
+            case "1930s":
+                return year >= 1930 && year <= 1939;
+            case "1940s":
+                return year >= 1940 && year <= 1949;
+            case "1950s":
+                return year >= 1950 && year <= 1959;
+            case "1960s":
+                return year >= 1960 && year <= 1969;
+            case "1970s":
+                return year >= 1970 && year <= 1979;
+            case "1980s":
+                return year >= 1980 && year <= 1989;
+            case "1990s":
+                return year >= 1990 && year <= 1999;
+            case "2000s":
+                return year >= 2000 && year <= 2009;
+            case "2010s":
+                return year >= 2010 && year <= 2019;
+            case "2020s":
+                return year >= 2020 && year <= 2024; // Up to 2024
+            default:
+                return false;
+        }
     }
 }
