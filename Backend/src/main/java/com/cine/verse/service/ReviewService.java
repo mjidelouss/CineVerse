@@ -27,6 +27,8 @@ public interface ReviewService {
 
     Review updateReview(Review review, Long id);
 
+    long getTotalReviews();
+
     void deleteReview(Long id);
 
     ReviewResponse rateMovie(Long movieId, Long userId, Integer rate);

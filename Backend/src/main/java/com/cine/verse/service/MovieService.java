@@ -27,5 +27,6 @@ public interface MovieService {
     List<Movie> getTrendingMovies();
     MovieCredits getMovieCredits(Long movieId);
     MovieDetailsTrailer getMovieDetailsTrailer(Long movieId);
-    public List<Movie> getSimilarMovies(Long movieId);
+    List<Movie> getSimilarMovies(Long movieId);
+    long getTotalMovies();
 }

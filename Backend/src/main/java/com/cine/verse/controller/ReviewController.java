@@ -113,6 +113,13 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/count")
+    public ResponseEntity getTotalReviews() {
+        long totalReviews = reviewService.getTotalReviews();
+        return ResponseMessage.ok("Success", totalReviews);
+    }
+
+
     @GetMapping("/filterLikedMoviesByGenre/{userId}")
     public List<Movie> getLikedMoviesByGenre(@RequestParam(name = "genre", required = false) String genreName, @PathVariable Long userId) {
         // Retrieve movies by genre from the service layer

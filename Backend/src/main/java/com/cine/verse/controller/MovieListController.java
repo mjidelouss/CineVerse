@@ -4,7 +4,6 @@ import com.cine.verse.Dto.request.MovieListRequest;
 import com.cine.verse.mappers.MovieListMapper;
 import com.cine.verse.domain.List;
 import com.cine.verse.response.ResponseMessage;
-import com.cine.verse.service.MovieListService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

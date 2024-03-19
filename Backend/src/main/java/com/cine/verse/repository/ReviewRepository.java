@@ -24,4 +24,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     @Query("SELECT DISTINCT r.movie, r.rating FROM Review r WHERE r.appUser.id = :userId AND r.rating > 0")
     List<Object[]> findMoviesAndRatingsByAppUserId(@Param("userId") Long userId);
+
+    @Query("SELECT COUNT(r) FROM Review r WHERE r.content IS NOT NULL")
+    long countReviewsWithContentNotNull();
 }

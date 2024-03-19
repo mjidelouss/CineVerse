@@ -1,6 +1,7 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.MovieRequest;
+import com.cine.verse.enums.Role;
 import com.cine.verse.mappers.MovieMapper;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.response.ResponseMessage;
@@ -102,6 +103,12 @@ public class MovieController {
         } else {
             return ResponseMessage.ok("Successfully gotten Trending Movies", movies);
         }
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity getTotalMovies() {
+        long totalMovies = movieService.getTotalMovies();
+        return ResponseMessage.ok("Success", totalMovies);
     }
 
     @GetMapping("/similar/{id}")

@@ -13,5 +13,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findTop6ByOrderByIdDesc();
 
+    long count();
+
     List<Movie> findByTitleContainingIgnoreCase(String searchTerm);
 }

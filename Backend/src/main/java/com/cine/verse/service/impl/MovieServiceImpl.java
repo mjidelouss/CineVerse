@@ -49,6 +49,11 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> searchMovies(String searchTerm) {
         return movieRepository.findByTitleContainingIgnoreCase(searchTerm);
     }
+
+    @Override
+    public long getTotalMovies() {
+        return movieRepository.count();
+    }
     @Override
     public Movie addMovie(Movie movie) {
         return movieRepository.save(movie);

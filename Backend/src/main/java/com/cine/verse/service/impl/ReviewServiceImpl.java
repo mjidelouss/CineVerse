@@ -70,6 +70,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public long getTotalReviews() {
+        return reviewRepository.countReviewsWithContentNotNull();
+    }
+    @Override
     public ReviewResponse rateMovie(Long movieId, Long userId, Integer rate) {
         Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
 
