@@ -5,6 +5,7 @@ import {
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -53,6 +54,7 @@ import { MatDividerModule } from '@angular/material/divider';
     DataTablesModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatTooltipModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,

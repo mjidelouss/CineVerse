@@ -53,7 +53,6 @@ export class WatchlistComponent implements OnInit, OnDestroy{
   getUserWatchList() {
     this.watchlistService.getUserWatchlist(this.userId).subscribe(
       (response) => {
-        console.log(response.data)
         this.movies = [];
         for (const element of response.data) {
           const dbMovie = element;
@@ -77,16 +76,17 @@ export class WatchlistComponent implements OnInit, OnDestroy{
   filterWatchedMoviesByGenre() {
     this.watchlistService.filterWatchedMoviesByGenre(this.userId, this.selectedGenre).subscribe(
       (response) => {
+        console.log(response)
         this.movies = [];
         for (const element of response) {
           const dbMovie = element;
           let movie: TrendingMovie = {
-            id: dbMovie.id,
-            title: dbMovie.title || 'N/A',
-            year: dbMovie.year || 'N/A',
-            director: dbMovie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-            overview: dbMovie.overview || 'N/A',
+            id: dbMovie.movie.id,
+            title: dbMovie.movie.title || 'N/A',
+            year: dbMovie.movie.year || 'N/A',
+            director: dbMovie.movie.director || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+            overview: dbMovie.movie.overview || 'N/A',
           };
           this.movies.push(movie);
         }
@@ -105,12 +105,12 @@ export class WatchlistComponent implements OnInit, OnDestroy{
           for (const element of response) {
             const dbMovie = element;
             let movie: TrendingMovie = {
-              id: dbMovie.id,
-              title: dbMovie.title || 'N/A',
-              year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
+              id: dbMovie.movie.id,
+              title: dbMovie.movie.title || 'N/A',
+              year: dbMovie.movie.year || 'N/A',
+              director: dbMovie.movie.director || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+              overview: dbMovie.movie.overview || 'N/A',
             };
             this.movies.push(movie);
           }

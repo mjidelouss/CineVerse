@@ -78,7 +78,7 @@ export class DiaryComponent implements OnInit, OnDestroy{
     this.reviewService.filterDiaryMoviesByGenre(this.userId, this.selectedGenre).subscribe(
       (response) => {
         this.diaryMovies = [];
-        for (const element of response.data) {
+        for (const element of response) {
           const dbMovie = element;
           let movie: Diary = {
             id: dbMovie.movie.id,
@@ -104,7 +104,7 @@ export class DiaryComponent implements OnInit, OnDestroy{
       this.reviewService.filterDiaryMoviesByDecade(this.userId, this.selectedDecade).subscribe(
         (response) => {
           this.diaryMovies = [];
-          for (const element of response.data) {
+          for (const element of response) {
             const dbMovie = element;
             let movie: Diary = {
               id: dbMovie.movie.id,

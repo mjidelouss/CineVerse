@@ -76,12 +76,12 @@ export class ReviewService {
   }
 
   filterDiaryMoviesByGenre(userId: number, genre: string) : Observable<any> {
-    const url = `${this.apiUrl}/filterReviewdMoviesByGenre/${userId}?genre=${genre}`;
+    const url = `${this.apiUrl}/filterDiaryMoviesByGenre/${userId}?genre=${genre}`;
     return this.http.get<any>(url);
   }
 
   filterDiaryMoviesByDecade(userId: number, decade: string) : Observable<any> {
-    const url = `${this.apiUrl}/filterReviewdMoviesByDecade/${userId}?decade=${decade}`;
+    const url = `${this.apiUrl}/filterDiaryMoviesByDecade/${userId}?decade=${decade}`;
     return this.http.get<any>(url);
   }
 

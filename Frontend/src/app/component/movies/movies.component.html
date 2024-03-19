@@ -21,11 +21,11 @@
     </div>
   </div>
 
-  <!-- 2024 Oscars Banner Section -->
-  <div class="container text-center mt-4">
+  <!-- 2023 Banner Section -->
+  <div class="container text-center mt-5">
     <div class="row justify-content-center">
       <div class="col-lg-2 col-md-4 card banner-card bg-black">
-        <img src="../../../assets/images/img/banner-oscars.jpg" class="card-img-top banner-poster rounded" alt="Banner">
+        <img src="../../../assets/images/img/banner.png" class="card-img-top banner-poster rounded" alt="Banner">
       </div>
     </div>
   </div>
@@ -45,6 +45,10 @@
         </div>
       </div>
     </div>
+    <!-- Pagination component -->
+    <mat-paginator class="bg-black rounded d-flex justify-content-center fs-4" [length]="totalMovies" [pageSize]="pageSize" (page)="onPageChange($event)">
+    </mat-paginator>
+
   </div>
 
 

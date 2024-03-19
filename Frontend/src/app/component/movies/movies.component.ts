@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {AuthService} from "../../service/auth.service";
 import {MovieService} from "../../service/movie.service";
 import {Router} from "@angular/router";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-movies',
@@ -15,6 +16,9 @@ export class MoviesComponent implements OnInit{
   trendingMovies: TrendingMovie[] = [];
   movies: TrendingMovie[] = [];
   AuthUserSub! : Subscription;
+  pageIndex: number = 1
+  pageSize: number = 48
+  totalMovies: number = 1000
 
   constructor(private authService : AuthService, private movieService: MovieService, private router: Router) {}
 
@@ -59,29 +63,29 @@ export class MoviesComponent implements OnInit{
       );
   }
 
-  getMovies() {
-    this.movieService
-      .getLastMovies()
+  getMovies(): void {
+    this.movieService.getMovies(this.pageIndex, this.pageSize)
       .subscribe(
         (response) => {
-          this.movies = [];
-          for (const element of response.data) {
-            const dbMovie = element;
-            let movie: TrendingMovie = {
-              id: dbMovie.id,
-              title: dbMovie.title || 'N/A',
-              year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
-            };
-            this.movies.push(movie);
-          }
+          this.movies = response.data.map((dbMovie: any) => ({
+            id: dbMovie.id,
+            title: dbMovie.title || 'N/A',
+            year: dbMovie.year || 'N/A',
+            director: dbMovie.director || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
+            overview: dbMovie.overview || 'N/A',
+          }));
         },
         (error) => {
           console.error('Error fetching Movies:', error);
         }
       );
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getMovies();
   }
 
   onMovieClick(movieId: number): void {
