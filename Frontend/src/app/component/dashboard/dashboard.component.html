@@ -52,7 +52,7 @@
         <!-- Toggle which is visible on mobile only -->
         <!-- ============================================================== -->
         <a
-          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-primary"
+          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-dark"
           href="javascript:void(0)"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -86,7 +86,7 @@
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
   <aside
-    class="left-sidebar bg-primary"
+    class="left-sidebar bg-dark border-end"
     data-sidebarbg="skin6"
     (mouseover)="Logo()"
     (mouseout)="Logo()"
@@ -104,6 +104,60 @@
     <!-- Container fluid  -->
     <!-- ============================================================== -->
     <div class="container-fluid">
+
+      <div class="container mt-5">
+        <div class="row">
+          <!-- Total Users Card -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-white">Total Users</h5>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text display-6">👨🏿</p> <!-- total movies count -->
+                  <p class="fs-6 mt-3"> {{ totalUsers }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Movies Card -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-white">Total Movies</h5>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text display-6">🎞️</p> <!-- total movies count -->
+                  <p class="fs-6 mt-3"> {{ totalMovies }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Reviews Card -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-white">Total Reviews</h5>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text display-6">⭐</p> <!-- total reviews count -->
+                  <p class="fs-6 mt-3"> {{ totalReviews }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vader mt-5">
+        <div class="shadow"></div>
+        <div class="head"><div class="helmet"><span class="left"></span><span class="right"></span></div><div class="eyes"><span class="left"></span><span class="right"></span></div><span class="grill"><span class="left"></span><span class="center"></span><span class="right"></span></span><span class="mask"><span class="top"></span><span class="left"></span><span class="center"></span><span class="right"></span></span><span class="line"></span></div>
+        <div class="torso"><span class="neck"><span class="left"></span><span class="center"></span><span class="right"></span><span class="bottom"></span></span><span class="belt"><span class="center"></span></span><div class="plate"><span class="red_top"></span><span class="red_center"></span><span class="red_bottom"></span><span class="blue"></span><span class="gray"></span></div></div>
+        <div class="hand left"><span class="hand"></span></div>
+        <div class="hand right animation-right"><span class="hand"></span></div>
+        <div class="legs"><span class="left"></span><span class="right"></span></div>
+        <div class="boots"><span class="left"></span><span class="right"></span></div>
+        <div class="sword animation-left"><span class="handle"></span><span class="light"></span></div>
+      </div>
 
     </div>
     <!-- ============================================================== -->

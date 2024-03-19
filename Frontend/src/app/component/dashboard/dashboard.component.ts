@@ -5,6 +5,10 @@ import {NavigationComponent} from "../../shared/header/navigation.component";
 import {CommonModule} from "@angular/common";
 import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import {DataTablesModule} from "angular-datatables";
+import {UserService} from "../../service/user.service";
+import {MovieService} from "../../service/movie.service";
+import {ReviewService} from "../../service/review.service";
+import {Diary} from "../../models/diary";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +19,12 @@ import {DataTablesModule} from "angular-datatables";
 })
 export class DashboardComponent {
 
-  constructor(public router: Router) {}
+  totalUsers!: number
+  totalMovies!: number
+  totalReviews!: number
+
+  constructor(public router: Router, private userService: UserService, private movieService: MovieService,
+              private reviewService: ReviewService) {}
   public isCollapsed = false;
   public innerWidth: number = 0;
   public defaultSidebar: string = "";
@@ -33,6 +42,42 @@ export class DashboardComponent {
     }
     this.defaultSidebar = this.sidebartype;
     this.handleSidebar();
+    this.getTotalUsers()
+    this.getTotalReviews()
+    this.getTotalMovies()
+  }
+
+  getTotalUsers() {
+    this.userService.getTotalUsers().subscribe(
+      (response) => {
+        this.totalUsers = response.data
+      },
+      (error) => {
+        console.error('Error fetching Total Users:', error);
+      }
+    )
+  }
+
+  getTotalReviews() {
+    this.reviewService.getTotalReviews().subscribe(
+      (response) => {
+        this.totalReviews = response.data
+      },
+      (error) => {
+        console.error('Error fetching Total Reviews:', error);
+      }
+    )
+  }
+
+  getTotalMovies() {
+    this.movieService.getTotalMovies().subscribe(
+      (response) => {
+        this.totalMovies = response.data
+      },
+      (error) => {
+        console.error('Error fetching Total Movies:', error);
+      }
+    )
   }
 
   @HostListener("window:resize", ["$event"])

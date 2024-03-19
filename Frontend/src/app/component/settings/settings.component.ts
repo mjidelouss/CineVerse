@@ -32,6 +32,7 @@ export class SettingsComponent implements OnInit, OnDestroy{
   getUserProfile() {
     this.userService.getUser(this.userId).subscribe(
       (response) => {
+        console.log(response.data)
         this.user = response.data
       },
       (error) => {

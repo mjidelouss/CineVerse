@@ -1,7 +1,7 @@
-<nav class="sidebar-nav mt-4">
-    <ul id="sidebarnav">
+<nav class="sidebar-nav mt-4 bg-dark">
+    <ul id="sidebarnav bg-dark">
         <!-- First level menu -->
-        <li class="sidebar-item bg-primary" [class.active]="showMenu === sidebarnavItem.title"
+        <li class="sidebar-item bg-dark" [class.active]="showMenu === sidebarnavItem.title"
             *ngFor="let sidebarnavItem of sidebarnavItems"
             [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>

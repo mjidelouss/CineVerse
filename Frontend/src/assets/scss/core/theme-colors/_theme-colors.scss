@@ -28,10 +28,11 @@
     /*This is for the sidebar bg*/
     .left-sidebar {
       &[data-sidebarbg="skin6"] {
-        background: $skin6;
+        background-color: #343a40;
+        background: #343a40;
         .sidebar-nav {
           ul {
-            background: $skin6;
+            background: #343a40;
             .sidebar-item {
               &.active {
                 > .sidebar-link {

@@ -43,7 +43,9 @@ export class MovieService {
     return this.http.get<any>(this.apiUrl+'/all', { params });
   }
 
-
+  getTotalMovies() {
+    return this.http.get<any>(this.apiUrl+`/count`);
+  }
   getMoviesByStatus(status: string): Observable<any> {
     const url = `${this.apiUrl}/byStatus/${status}`;
     return this.http.get(url);

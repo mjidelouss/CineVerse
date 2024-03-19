@@ -52,7 +52,7 @@
         <!-- Toggle which is visible on mobile only -->
         <!-- ============================================================== -->
         <a
-          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-primary"
+          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-dark"
           href="javascript:void(0)"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -86,7 +86,7 @@
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
   <aside
-    class="left-sidebar bg-primary"
+    class="left-sidebar bg-dark border-end"
     data-sidebarbg="skin6"
     (mouseover)="Logo()"
     (mouseout)="Logo()"
@@ -137,11 +137,7 @@
                     <td>
                       <h5 class="mb-0 fs-4 fw-normal text-white">{{ member.location }}</h5>
                     </td>
-                    <td class="d-flex justify-content-evenly">
-                      <button type="submit" class="btn btn-info opacity-75"
-                              (click)="viewMember(member)">View</button>
-                      <button type="submit" class="btn btn-success ms-1"
-                              (click)="editMember(member)">Edit</button>
+                    <td class="">
                       <button type="submit" class="btn btn-danger ms-1"
                               (click)="deleteMember(member.id)">Delete</button>
                     </td>

@@ -52,7 +52,7 @@
         <!-- Toggle which is visible on mobile only -->
         <!-- ============================================================== -->
         <a
-          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-primary"
+          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-dark"
           href="javascript:void(0)"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -86,7 +86,7 @@
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
   <aside
-    class="left-sidebar bg-primary"
+    class="left-sidebar bg-dark border-end"
     data-sidebarbg="skin6"
     (mouseover)="Logo()"
     (mouseout)="Logo()"
@@ -113,23 +113,10 @@
                   <h4 class="card-title text-white">Movies</h4>
                   <h5 class="card-subtitle text-success">Overview of the movies</h5>
                 </div>
-                <div class="mt-1"><button class="btn btn-primary" routerLink="/add-competition">Add
-                  Movie</button></div>
               </div>
               <div class="container mt-4">
                 <div class="row justify-content-center">
                   <div class="col-md-6 d-flex">
-                    <div class="input-group">
-                      <select class="form-control" [(ngModel)]="selectedStatus" id="statusFilter">
-                        <option value="OPEN">Open</option>
-                        <option value="CLOSED">Closed</option>
-                        <option value="IN_PROGRESS">In Progress</option>
-                      </select>
-                    </div>
-                    <div>
-                      <button type="button" (click)="getMoviesByGenre()"
-                              class="btn btn-primary ms-1">Filter</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -156,11 +143,7 @@
                     <td>
                       <h5 class="mb-0 fw-normal fs-3 text-white">{{ movie.language }}</h5>
                     </td>
-                    <td class="d-flex justify-content-evenly">
-                      <button type="submit" class="btn btn-info opacity-75"
-                              (click)="viewMovie(movie)">View</button>
-                      <button type="submit" class="btn btn-success ms-1"
-                              (click)="editMovie(movie)">Edit</button>
+                    <td class="">
                       <button type="submit" class="btn btn-danger ms-1"
                               (click)="deleteMovie(movie.id)">Delete</button>
                     </td>

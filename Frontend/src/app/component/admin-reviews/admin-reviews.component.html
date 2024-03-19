@@ -52,7 +52,7 @@
         <!-- Toggle which is visible on mobile only -->
         <!-- ============================================================== -->
         <a
-          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-primary"
+          class="topbartoggler d-block d-lg-none waves-effect waves-light bg-dark"
           href="javascript:void(0)"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -86,7 +86,7 @@
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
   <aside
-    class="left-sidebar bg-primary"
+    class="left-sidebar bg-dark border-end"
     data-sidebarbg="skin6"
     (mouseover)="Logo()"
     (mouseout)="Logo()"
@@ -118,7 +118,6 @@
                 <table class="table align-middle text-nowrap" id="competitionsTable">
                   <thead>
                   <tr>
-                    <th class="text-white font-medium fs-4">Review</th>
                     <th class="text-white font-medium fs-4">Movie</th>
                     <th class="text-white font-medium fs-4">User</th>
                     <th class="text-white font-medium fs-4">Rating</th>
@@ -128,12 +127,9 @@
                   </thead>
                   <tbody>
                   <tr *ngFor='let review of reviews'>
-                    <td>
-                      <h5 class="mb-0 fw-normal text-white">{{ review.content }}</h5>
-                    </td>
                     <td class="fs-4 text-white">{{ review.movie.title }}</td>
                     <td>
-                      <h5 class="mb-0 fw-normal text-white">{{ review.appUser }}</h5>
+                      <h5 class="mb-0 fw-normal text-white">{{ review.appUser.firstname }}</h5>
                     </td>
                     <td>
                       <h5 class="mb-0 fw-normal text-white">{{ review.rating }}</h5>
@@ -142,11 +138,7 @@
                       <h5 class="mb-0 fw-normal text-white">{{ review.timestamp }}</h5>
                     </td>
 
-                    <td class="d-flex justify-content-evenly">
-                      <button type="submit" class="btn btn-info opacity-75"
-                              (click)="viewReview(review)">View</button>
-                      <button type="submit" class="btn btn-success ms-1"
-                              (click)="editReview(review)">Edit</button>
+                    <td class="">
                       <button type="submit" class="btn btn-danger ms-1"
                               (click)="deleteReview(review.id)">Delete</button>
                     </td>

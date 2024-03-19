@@ -85,4 +85,8 @@ export class ReviewService {
     return this.http.get<any>(url);
   }
 
+  getTotalReviews() {
+    return this.http.get<any>(this.apiUrl+`/count`);
+  }
+
 }
