@@ -19,4 +19,8 @@ export class UserService {
     return this.http.get<any>(this.apiUrl+'/all', { params });
   }
 
+  updateUserProfile(userId: number, updatedUser: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/profile/${userId}`, updatedUser);
+  }
+
 }

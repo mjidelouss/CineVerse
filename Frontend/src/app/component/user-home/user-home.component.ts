@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {debounceTime, Subscription} from "rxjs";
 import {FormControl} from "@angular/forms";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-user-home',

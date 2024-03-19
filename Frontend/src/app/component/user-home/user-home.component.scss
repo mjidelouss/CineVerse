@@ -4,11 +4,25 @@
   }
 
 .movie-card {
-  height: 270px;
+  cursor: pointer;
+  height: 280px;
   width: 219px;
   margin-top: 10px;
   position: relative;
   overflow: hidden;
+}
+
+.review-poster {
+  cursor: pointer;
+  height: 255px;
+  width: 180px;
+  object-fit: cover;
+  border: 3px solid rgb(46, 38, 61);
+  transition: transform 0.3s ease;
+}
+
+.review-poster:hover {
+  transform: scale(1.05); /* Increase scale on hover */
 }
 
 .star-hover {
