@@ -3,6 +3,7 @@
 <!-- ============================================================== -->
 <div
   id="main-wrapper"
+  class="vh-100"
   [ngClass]="{ 'show-sidebar': showMobileMenu }"
   dir="ltr"
   data-theme="light"
@@ -85,21 +86,21 @@
   <!-- ============================================================== -->
   <!-- Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
-  <aside
-    class="left-sidebar bg-dark border-end"
-    data-sidebarbg="skin6"
-    (mouseover)="Logo()"
-    (mouseout)="Logo()"
-  >
-    <app-sidebar></app-sidebar>
-  </aside>
+    <aside
+      class="left-sidebar bg-dark border-end"
+      data-sidebarbg="skin6"
+      (mouseover)="Logo()"
+      (mouseout)="Logo()"
+    >
+      <app-sidebar></app-sidebar>
+    </aside>
   <!-- ============================================================== -->
   <!-- End Left Sidebar - style you can find in sidebar.scss  -->
   <!-- ============================================================== -->
   <!-- ============================================================== -->
   <!-- Page wrapper  -->
   <!-- ============================================================== -->
-  <div class="page-wrapper bg-dark">
+  <div class="page-wrapper bg-dark vh-100">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
@@ -160,14 +161,6 @@
       </div>
 
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
-    <footer class="footer text-center text-white">
-      All Rights Reserved by CineVerse.
-    </footer>
+
   </div>
 </div>

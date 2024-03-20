@@ -139,6 +139,9 @@ export class LikesComponent implements OnInit, OnDestroy{
     this.router.navigate(['/likes', this.userId]);
   }
 
+  onReviewsClick(): void {
+    this.router.navigate(['/profile-reviews', this.userId]);
+  }
   onWatchListClick(): void {
     this.router.navigate(['/watchlist', this.userId]);
   }

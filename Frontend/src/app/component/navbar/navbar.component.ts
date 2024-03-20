@@ -62,6 +62,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/profile-movies', this.userId]);
   }
 
+  onReviewsClick(): void {
+    this.router.navigate(['/profile-reviews', this.userId]);
+  }
   onDiaryClick(): void {
     this.router.navigate(['/diary', this.userId]);
   }

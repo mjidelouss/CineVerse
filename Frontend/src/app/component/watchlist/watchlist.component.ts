@@ -136,6 +136,10 @@ export class WatchlistComponent implements OnInit, OnDestroy{
     this.router.navigate(['/diary', this.userId]);
   }
 
+  onReviewsClick(): void {
+    this.router.navigate(['/profile-reviews', this.userId]);
+  }
+
   onLikesClick(): void {
     this.router.navigate(['/likes', this.userId]);
   }

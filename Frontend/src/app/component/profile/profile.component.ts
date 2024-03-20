@@ -58,6 +58,9 @@ export class ProfileComponent implements OnInit, OnDestroy{
     this.router.navigate(['/profile', this.userId]);
   }
 
+  onReviewsClick(): void {
+    this.router.navigate(['/profile-reviews', this.userId]);
+  }
   onProfileMoviesClick(): void {
     this.router.navigate(['/profile-movies', this.userId]);
   }

@@ -24,8 +24,8 @@ export class AdminMembersComponent {
 
   members: any[] = [];
   selectedStatus: string = '';
-  pageSizeOptions: number[] = [5, 10, 20];
-  pageSize: number = 5;
+  pageSizeOptions: number[] = [4];
+  pageSize: number = 4;
   pageIndex: number = 0;
   totalMembers: number = 50;
   AuthUserSub! : Subscription;

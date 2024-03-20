@@ -23,8 +23,8 @@ export class AdminReviewsComponent {
 
   reviews: any[] = [];
   selectedStatus: string = '';
-  pageSizeOptions: number[] = [5, 10, 20];
-  pageSize: number = 5;
+  pageSizeOptions: number[] = [4];
+  pageSize: number = 4;
   pageIndex: number = 0;
   totalReviews: number = 100;
   AuthUserSub! : Subscription;

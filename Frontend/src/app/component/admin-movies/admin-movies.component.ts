@@ -23,8 +23,8 @@ export class AdminMoviesComponent {
 
   movies: Movie[] = [];
   selectedStatus: string = '';
-  pageSizeOptions: number[] = [5, 10, 20, 100];
-  pageSize: number = 5;
+  pageSizeOptions: number[] = [4];
+  pageSize: number = 4;
   pageIndex: number = 0;
   totalMovies: number = 100;
   AuthUserSub! : Subscription;

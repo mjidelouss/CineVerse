@@ -88,4 +88,8 @@ export class ReviewService {
     return this.http.get<any>(this.apiUrl+`/count`);
   }
 
+  getPopularReviews() {
+    return this.http.get<any>(this.apiUrl+'/popular')
+  }
+
 }

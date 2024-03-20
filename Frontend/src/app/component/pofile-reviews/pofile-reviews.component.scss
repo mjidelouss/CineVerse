@@ -3,3 +3,27 @@
     padding-top: 1%;
 }
 
+.crum {
+  cursor: pointer;
+}
+
+.movie {
+  height: 200px;
+  width: 160px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.movie:hover {
+  border-color: #ac0021;
+  cursor: pointer;
+}
+
+.star-hover {
+  color: #c7c72f;
+}
+
+.watched {
+  font-family: "Malgun Gothic";
+}
+
