@@ -4,14 +4,13 @@
     <!-- WatchList -->
     <div class="container">
         <div class="item mt-4 mb-4">
-            <div class="ms-3 d-flex justify-content-evenly">
-                <p class=""><a class="text-white opacity-75 fs-5" href="#">Profile</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Movies</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Diary</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Reviews</a></p>
-                <p class="ms-3"><a class="text-danger fs-5" href="#">Watchlist</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Likes</a></p>
-            </div>
+          <div class="ms-3 d-flex justify-content-evenly">
+            <p class=""><a class="text-white opacity-75 fs-5 crum" (click)="onProfileClick()">Profile</a></p>
+            <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onProfileMoviesClick()">Movies</a></p>
+            <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onDiaryClick()">Diary</a></p>
+            <p class="ms-3"><a class="text-danger fs-5 crum" (click)="onWatchListClick()">Watchlist</a></p>
+            <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onLikesClick()">Likes</a></p>
+          </div>
         </div>
     </div>
     <!-- Filter Options -->
@@ -19,16 +18,6 @@
 
         <!-- Add Movie search -->
         <div class="row mb-3">
-            <div class="col-md-3">
-                <label for="movieSearch" class="mb-1 text-white opacity-75 fs-4">Add Movie</label>
-                <div class="input-group d-flex">
-                    <input type="text" class="form-control bg-dark border-0 text-white" id="movieSearch" placeholder="Search for movies...">
-                    <div class="input-group-append ms-2">
-                        <button class="btn btn-outline-success" type="button">Add</button>
-                    </div>
-                </div>
-            </div>
-
         <!-- Filter options -->
             <div class="col-md-3">
                 <label for="genreFilter" class="mb-1 text-white opacity-75 fs-4">Filter by Genre</label>
@@ -69,9 +58,8 @@
             <div class="col-lg-2 col-md-4 card bg-black movie-card" *ngFor="let movie of movies">
                 <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie 1" (click)="onMovieClick(movie.id)">
               <div class="movie-overlay">
-                <mat-icon class="text-light">visibility</mat-icon>
-                <mat-icon class="text-light">favorite_border</mat-icon>
-                <mat-icon class="text-light">more_vert</mat-icon>
+                <p class="text-white fs-2">{{ movie.title}}</p>
+                <p class="text-danger fs-2">{{ movie.year }}</p>
               </div>
             </div>
         </div>

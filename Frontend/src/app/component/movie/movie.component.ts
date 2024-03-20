@@ -81,6 +81,16 @@ export class MovieComponent implements OnInit, OnDestroy {
   saveReview() {
     this.reviewService.addReview(this.review).subscribe(
       (response: any) => {
+        let review: RecentReview = {
+          firstname: response.data.appUser.firstname || 'N/A',
+          lastname: response.data.appUser.lastname || 'N/A',
+          image: response.data.appUser.image || 'N/A',
+          content: response.data.content || 'N/A',
+          rating: response.data.rating || 'N/A',
+          likes: response.data.likes,
+          timestamp: response.data.timestamp|| 'N/A'
+        };
+        this.recentReviews.push(review);
       },
       (error) => {
         console.error("Error Adding Movie Review:", error);

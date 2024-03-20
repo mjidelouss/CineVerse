@@ -51,6 +51,29 @@ export class ProfileComponent implements OnInit, OnDestroy{
     this.router.navigate(['/movie', movieId]);
   }
 
+  onSettingsClick(): void {
+    this.router.navigate(['/settings', this.userId]);
+  }
+  onProfileClick(): void {
+    this.router.navigate(['/profile', this.userId]);
+  }
+
+  onProfileMoviesClick(): void {
+    this.router.navigate(['/profile-movies', this.userId]);
+  }
+
+  onDiaryClick(): void {
+    this.router.navigate(['/diary', this.userId]);
+  }
+
+  onLikesClick(): void {
+    this.router.navigate(['/likes', this.userId]);
+  }
+
+  onWatchListClick(): void {
+    this.router.navigate(['/watchlist', this.userId]);
+  }
+
   getUserRecentReviews() {
     this.reviewService.getRecentUserReviews(this.userId).subscribe(
       (response) => {

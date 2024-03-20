@@ -36,7 +36,6 @@ export class ReviewService {
   }
 
   addReview(review:any):Observable<any> {
-    console.log(review)
     return this.http.post(this.apiUrl, review);
   }
 

@@ -14,8 +14,8 @@
     <!-- Centered Text Div -->
     <div class="container text-center">
         <div class="my-5">
-            <h1 class="fw-bolder text-white">Welcome Back, <span class="text-danger opacity-75"></span>
-                Here's is What the community have been Watching...</h1>
+            <p class="fw-bolder text-white watcher display-4">Welcome Back, <span class="text-danger">Watcher</span>
+                Here's is What the community have been Watching...</p>
         </div>
     </div>
 
@@ -25,9 +25,8 @@
             <div *ngFor="let movie of movies" (click)="onMovieClick(movie.id)" class="col-lg-2 col-md-4 card bg-black movie-card">
               <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie 1">
               <div class="movie-overlay">
-                <mat-icon class="text-light">visibility</mat-icon>
-                <mat-icon class="text-light">favorite_border</mat-icon>
-                <mat-icon class="text-light">more_vert</mat-icon>
+                <p class="text-white fs-2">{{ movie.title}}</p>
+                <p class="text-danger fs-2">{{ movie.year }}</p>
               </div>
             </div>
         </div>
@@ -53,9 +52,8 @@
         <div (click)="onMovieClick(movie.id)">
           <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie {{ movie.title }}">
           <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
+            <p class="text-white fs-2">{{ movie.title}}</p>
+            <p class="text-danger fs-2">{{ movie.year }}</p>
           </div>
         </div>
       </div>

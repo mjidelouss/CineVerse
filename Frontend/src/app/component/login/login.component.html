@@ -10,24 +10,13 @@
           <p>{{errorMessage}}</p>
         </div>
         <form #formLogin="ngForm" (ngSubmit)="onSubmitLogin(formLogin)">
-          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-            <button type="button" class="btn rounded shadow btn-floating">
-              <mat-icon class="text-info opacity-75">facebook</mat-icon>
-            </button>
-
-            <button type="button" class="btn rounded shadow btn-floating ms-2">
-              <mat-icon class="text-danger opacity-75">email</mat-icon>
-            </button>
-          </div>
-
           <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+            <p class="text-center fs-4 mx-3 mb-0">Sign in</p>
           </div>
 
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <label class="form-label mt-1 text-black" for="email">Email address</label>
+            <label class="form-label mt-1" for="email">Email address</label>
             <input type="email" id="email" ngModel #email="ngModel" name="email" required email class="form-control form-control-lg" placeholder="exemple@gmail.com" />
             <div *ngIf="email.errors && formLogin.submitted" class="text-danger">
               Email is required!

@@ -4,9 +4,14 @@
 }
 
 .movie-card {
+  cursor: pointer;
   height: 230px;
   width: 188px;
   margin-top: 7px;
+}
+
+.crum {
+  cursor: pointer;
 }
 
 .star-hover {

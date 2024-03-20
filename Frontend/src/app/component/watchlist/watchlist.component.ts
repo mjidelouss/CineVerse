@@ -122,7 +122,26 @@ export class WatchlistComponent implements OnInit, OnDestroy{
     } else {
       this.getUserWatchList()
     }
+  }
 
+  onProfileClick(): void {
+    this.router.navigate(['/profile', this.userId]);
+  }
+
+  onProfileMoviesClick(): void {
+    this.router.navigate(['/profile-movies', this.userId]);
+  }
+
+  onDiaryClick(): void {
+    this.router.navigate(['/diary', this.userId]);
+  }
+
+  onLikesClick(): void {
+    this.router.navigate(['/likes', this.userId]);
+  }
+
+  onWatchListClick(): void {
+    this.router.navigate(['/watchlist', this.userId]);
   }
 
 }

@@ -12,9 +12,8 @@
         <div (click)="onMovieClick(movie.id)">
           <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie {{ movie.title }}">
           <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
+            <p class="text-white fs-2">{{ movie.title}}</p>
+            <p class="text-danger fs-2">{{ movie.year }}</p>
           </div>
         </div>
       </div>
@@ -39,9 +38,8 @@
       <div *ngFor="let movie of movies" (click)="onMovieClick(movie.id)" class="col-lg-2 col-md-4 card bg-black movie-card">
         <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie 1">
         <div class="movie-overlay">
-          <mat-icon class="text-light">visibility</mat-icon>
-          <mat-icon class="text-light">favorite_border</mat-icon>
-          <mat-icon class="text-light">more_vert</mat-icon>
+          <p class="text-white fs-2">{{ movie.title}}</p>
+          <p class="text-danger fs-2">{{ movie.year }}</p>
         </div>
       </div>
     </div>

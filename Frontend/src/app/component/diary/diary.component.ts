@@ -2,9 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {ReviewService} from "../../service/review.service";
-import {TrendingMovie} from "../../models/trendingMovie";
 import {Diary} from "../../models/diary";
-import {MovieCredits} from "../../models/movie-credits";
 import {Genre} from "../../models/genre";
 import {GenreService} from "../../service/genre.service";
 
@@ -141,6 +139,26 @@ export class DiaryComponent implements OnInit, OnDestroy{
   private getDayOfWeek(dayIndex: number): string {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     return daysOfWeek[dayIndex];
+  }
+
+  onProfileClick(): void {
+    this.router.navigate(['/profile', this.userId]);
+  }
+
+  onProfileMoviesClick(): void {
+    this.router.navigate(['/profile-movies', this.userId]);
+  }
+
+  onDiaryClick(): void {
+    this.router.navigate(['/diary', this.userId]);
+  }
+
+  onLikesClick(): void {
+    this.router.navigate(['/likes', this.userId]);
+  }
+
+  onWatchListClick(): void {
+    this.router.navigate(['/watchlist', this.userId]);
   }
 
 }

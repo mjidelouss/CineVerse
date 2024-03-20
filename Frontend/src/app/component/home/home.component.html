@@ -11,12 +11,6 @@
           <li class="">
             <a class="nav-link text-white" routerLink="/sign-up">Sign up</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Movies</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Members</a>
-          </li>
         </ul>
       </div>
       <!-- Search Bar -->
@@ -51,7 +45,7 @@
 
 <div class="container text-center">
     <p class="head-text fw-bold display-4">Track films you’ve watched.<br> those you want to see.<br>Tell your friends what’s good.</p>
-    <button class="btn btn-success fs-6 mb-4">Begin Your Adventure</button>
+    <button class="btn btn-success fs-6 mb-4" routerLink="/login">Begin Your Adventure</button>
 </div>
 
 <!-- Movies Cards Section -->
@@ -62,9 +56,8 @@
           <div (click)="onMovieClick(movie.id)">
           <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="Movie {{ movie.title }}">
           <div class="movie-overlay">
-            <mat-icon class="text-light">visibility</mat-icon>
-            <mat-icon class="text-light">favorite_border</mat-icon>
-            <mat-icon class="text-light">more_vert</mat-icon>
+            <p class="text-white fs-2">{{ movie.title}}</p>
+            <p class="text-danger fs-2">{{ movie.year }}</p>
           </div>
           </div>
         </div>
@@ -150,7 +143,7 @@
   <div class="container text-center">
     <div class="my-5">
         <h1 class="fw-bolder" style="color: rgb(240, 6, 76);">Write and share reviews. Compile your own lists. Share your life in film.</h1>
-        <h4 class="text-white fw-bold">Below are some popular reviews and lists from this week. <a class="text-warning">Sign up</a> to create your own.</h4>
+        <h4 class="text-white fw-bold">Below are some popular reviews and lists from this week. <a class="text-warning" style="cursor: pointer" routerLink="/sign-up">Sign up</a> to create your own.</h4>
     </div>
 </div>
 

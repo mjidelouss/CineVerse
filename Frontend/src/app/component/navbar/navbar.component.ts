@@ -70,10 +70,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/likes', this.userId]);
   }
 
-  onListsClick() {
-    this.router.navigate(['/profile-lists', this.userId])
-  }
-
   onWatchListClick(): void {
     this.router.navigate(['/watchlist', this.userId]);
   }

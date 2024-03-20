@@ -4,14 +4,13 @@
     <!-- WatchList -->
     <div class="container">
         <div class="item mt-4 mb-4">
-            <div class="ms-3 d-flex justify-content-evenly">
-                <p class=""><a class="text-white opacity-75 fs-5" href="#">Profile</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Movies</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Diary</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Reviews</a></p>
-                <p class="ms-3"><a class="text-white opacity-75 fs-5" href="#">Watchlist</a></p>
-                <p class="ms-3"><a class="text-danger fs-5" href="#">Likes</a></p>
-            </div>
+          <div class="ms-3 d-flex justify-content-evenly">
+            <p class=""><a class="text-white opacity-75 fs-5 crum" (click)="onProfileClick()">Profile</a></p>
+            <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onProfileMoviesClick()">Movies</a></p>
+            <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onDiaryClick()">Diary</a></p>
+            <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onWatchListClick()">Watchlist</a></p>
+            <p class="ms-3"><a class="text-danger fs-5 crum" (click)="onLikesClick()">Likes</a></p>
+          </div>
         </div>
     </div>
 
@@ -56,6 +55,10 @@
             <!-- Movies Cards Section -->
             <div class="col-lg-2 col-md-4 card bg-black movie-card" *ngFor="let movie of movies">
                 <img [src]="movie.image" class="card-img-top movie-poster rounded" alt="{{ movie.title }}" (click)="onMovieClick(movie.id)">
+              <div class="movie-overlay">
+                <p class="text-white fs-2">{{ movie.title}}</p>
+                <p class="text-danger fs-2">{{ movie.year }}</p>
+              </div>
             </div>
         </div>
 

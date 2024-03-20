@@ -23,7 +23,7 @@ import {AdminReviewsComponent} from "./component/admin-reviews/admin-reviews.com
 
 export const Approutes: Routes = [
   {
-    path: '',
+    path: 'full',
     component: FullComponent,
     children: [
 
@@ -54,7 +54,7 @@ export const Approutes: Routes = [
     component: ForbiddenComponent
   },
   {
-    path: 'home',
+    path: '',
     component: HomeComponent
   },
   {
