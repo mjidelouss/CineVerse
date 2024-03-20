@@ -46,23 +46,16 @@ export class MovieService {
   getTotalMovies() {
     return this.http.get<any>(this.apiUrl+`/count`);
   }
-  getMoviesByStatus(status: string): Observable<any> {
-    const url = `${this.apiUrl}/byStatus/${status}`;
-    return this.http.get(url);
-  }
-
   addMovie(movie: any): Observable<any> {
     return this.http.post(this.apiUrl, movie);
   }
-
 
   updateMovie(movie: any): Observable<any> {
     const updateApiUrl = `http://127.0.0.1:8080/api/competition/${movie.id}`;
     return this.http.put(updateApiUrl, movie);
   }
-
   deleteMovie(id: number): Observable<any> {
-    const url = `http://127.0.0.1:8080/api/competition/${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url);
   }
 }

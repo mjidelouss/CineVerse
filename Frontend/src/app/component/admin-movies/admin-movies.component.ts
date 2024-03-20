@@ -22,7 +22,6 @@ import {Movie} from "../../models/movie";
 export class AdminMoviesComponent {
 
   movies: Movie[] = [];
-  selectedStatus: string = '';
   pageSizeOptions: number[] = [4];
   pageSize: number = 4;
   pageIndex: number = 0;
@@ -81,27 +80,15 @@ export class AdminMoviesComponent {
     this.getMovies();
   }
 
-  getMoviesByGenre() {
-    this.movieService.getMoviesByStatus(this.selectedStatus).subscribe(
+  deleteMovie(id: number) {
+    this.movieService.deleteMovie(id).subscribe(
       (response) => {
-        this.movies = response.data;
+        console.log("Movie Deleted Successfully")
       },
       (error) => {
-        console.error('Error fetching movies:', error);
+        console.error('Error Deleting Movie:', error);
       }
-    );
-  }
-
-  viewMovie(competition: any) {
-    this.router.navigate(['/movie-detail'], { state: { competition } });
-  }
-
-  editMovie(competition: any) {
-    this.router.navigate(['/edit-movie'], { state: { competition } });
-  }
-
-  deleteMovie(id: number) {
-
+    )
   }
 
   @HostListener("window:resize", ["$event"])

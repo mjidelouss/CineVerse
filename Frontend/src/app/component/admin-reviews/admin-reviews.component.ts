@@ -80,17 +80,15 @@ export class AdminReviewsComponent {
     this.pageSize = event.pageSize;
     this.getReviews();
   }
-
-  viewReview(competition: any) {
-    this.router.navigate(['/review-detail'], { state: { competition } });
-  }
-
-  editReview(competition: any) {
-    this.router.navigate(['/edit-review'], { state: { competition } });
-  }
-
   deleteReview(id: number) {
-
+    this.reviewService.deleteReview(id).subscribe(
+      (response) => {
+        console.log("Review Deleted Successfully")
+      },
+      (error) => {
+        console.error('Error Deleting Review:', error);
+      }
+    )
   }
 
   @HostListener("window:resize", ["$event"])

@@ -17,8 +17,10 @@ export class ProfileComponent implements OnInit, OnDestroy{
 
   userId!: number
   user!: any
-  recentReviews: ProfileReview[] = []
+  recentReviews: any[] = []
   likedMovies: TrendingMovie[] = [];
+  watchCount!: number
+  likeCount!: number
 
   constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute,
               private reviewService: ReviewService, private router: Router,) {
@@ -34,6 +36,8 @@ export class ProfileComponent implements OnInit, OnDestroy{
     this.getUser()
     this.getUserLikedMovies()
     this.getUserRecentReviews()
+    this.getWatchCount()
+    this.getLikeCount()
   }
 
   getUser() {
@@ -43,6 +47,28 @@ export class ProfileComponent implements OnInit, OnDestroy{
       },
       (error) => {
         console.error('Error fetching User:', error);
+      }
+    )
+  }
+
+  getWatchCount() {
+    this.reviewService.getUserWatchedCount(this.userId).subscribe(
+      (response) => {
+        this.watchCount = response.data
+      },
+      (error) => {
+        console.error('Error fetching Watch Count:', error);
+      }
+    )
+  }
+
+  getLikeCount() {
+    this.reviewService.getUserLikedCount(this.userId).subscribe(
+      (response) => {
+        this.likeCount = response.data
+      },
+      (error) => {
+        console.error('Error fetching Like Count:', error);
       }
     )
   }
@@ -84,14 +110,15 @@ export class ProfileComponent implements OnInit, OnDestroy{
         this.recentReviews = [];
         for (const element of response.data) {
           const dbReview = element;
-          let review: ProfileReview = {
+          let review: any = {
             firstname: dbReview.appUser.firstname || 'N/A',
             lastname: dbReview.appUser.lastname || 'N/A',
             image: dbReview.appUser.image || 'N/A',
             content: dbReview.content || 'N/A',
             rating: dbReview.rating || 'N/A',
             likes: dbReview.likes,
-            timestamp: dbReview.timestamp|| 'N/A',
+            date: new Date(dbReview.timestamp).getFullYear(),
+            timestamp: this.parseTimeStamp(dbReview.timestamp),
             movie: dbReview.movie
           };
           this.recentReviews.push(review);
@@ -130,5 +157,18 @@ export class ProfileComponent implements OnInit, OnDestroy{
     );
   }
 
+  parseTimeStamp(timestamp: string):{ day: string, month: string, dayOfMonth: string}  {
+    let parsedTimeStamp = { day: '', month: '', dayOfMonth: ''};
+    const date = new Date(timestamp);
+    parsedTimeStamp.day = this.getDayOfWeek(date.getDay());
+    parsedTimeStamp.month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
+    parsedTimeStamp.dayOfMonth = date.getDate().toString();
+    return parsedTimeStamp
+  }
+
+  private getDayOfWeek(dayIndex: number): string {
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return daysOfWeek[dayIndex];
+  }
 
 }

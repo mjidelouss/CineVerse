@@ -44,6 +44,10 @@
   transition: opacity 0.3s ease; /* Add transition for opacity */
 }
 
+.watched {
+  font-family: "Malgun Gothic";
+}
+
 .movie-card:hover .movie-overlay {
   opacity: 1;
 }

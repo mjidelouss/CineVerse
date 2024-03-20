@@ -81,17 +81,15 @@ export class AdminMembersComponent {
     this.pageSize = event.pageSize;
     this.getMembers();
   }
-
-  viewMember(competition: any) {
-    this.router.navigate(['/member-detail'], { state: { competition } });
-  }
-
-  editMember(competition: any) {
-    this.router.navigate(['/edit-member'], { state: { competition } });
-  }
-
   deleteMember(id: number) {
-
+    this.userService.deleteUser(id).subscribe(
+      (response) => {
+        console.log("User Deleted Successfully")
+      },
+      (error) => {
+        console.error('Error Deleting User:', error);
+      }
+    )
   }
 
   @HostListener("window:resize", ["$event"])

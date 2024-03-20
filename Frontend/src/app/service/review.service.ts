@@ -59,6 +59,14 @@ export class ReviewService {
     return this.http.get<any>(url);
   }
 
+  getUserWatchedCount(userId: number) {
+    const url = `${this.apiUrl}/watch-count/${userId}`;
+    return this.http.get<any>(url);
+  }
+  getUserLikedCount(userId: number) {
+    const url = `${this.apiUrl}/like-count/${userId}`;
+    return this.http.get<any>(url);
+  }
   getRecentUserReviews(userId: number) {
     const url = `${this.apiUrl}/user-review/${userId}`;
     return this.http.get<any>(url);
@@ -90,6 +98,11 @@ export class ReviewService {
 
   getPopularReviews() {
     return this.http.get<any>(this.apiUrl+'/popular')
+  }
+
+  deleteReview(id: number): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete(url);
   }
 
 }
