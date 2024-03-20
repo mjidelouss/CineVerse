@@ -2,6 +2,7 @@ package com.cine.verse.controller;
 
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
+import com.cine.verse.domain.Review;
 import com.cine.verse.enums.Role;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.AppUserService;
@@ -36,6 +37,17 @@ public class AppUserController {
             return ResponseMessage.notFound("Users Not Found");
         } else {
             return ResponseMessage.ok("Success", usersPage.getContent());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        AppUser user = appUserService.getUserById(id);
+        if (user == null) {
+            return ResponseMessage.notFound("Review Not Found");
+        } else {
+            appUserService.deleteUser(id);
+            return ResponseMessage.ok("Review Deleted Successfully", user);
         }
     }
 

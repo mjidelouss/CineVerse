@@ -29,6 +29,8 @@ public interface ReviewService {
 
     long getTotalReviews();
 
+    List<Review> getPopularReviews();
+
     void deleteReview(Long id);
 
     ReviewResponse rateMovie(Long movieId, Long userId, Integer rate);
@@ -38,4 +40,9 @@ public interface ReviewService {
     Boolean likeMovie(Long movieId, Long userId, Boolean like);
 
     List<Review> getUserReviews(Long userId);
+
+    Long getWatchedMoviesCount(Long userId);
+    Long getLikedMoviesCount(Long userId);
+    Long getCountOfUsersLikedMovie(Long movieId);
+    Long getCountOfUsersWatchedMovie(Long movieId);
 }

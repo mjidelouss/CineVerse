@@ -17,4 +17,6 @@ public interface AppUserService {
 
     AppUser saveUser(AppUser user);
     long getTotalUsersByRole(Role role);
+
+    void deleteUser(Long id);
 }

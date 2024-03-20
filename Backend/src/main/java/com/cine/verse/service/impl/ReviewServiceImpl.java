@@ -73,6 +73,11 @@ public class ReviewServiceImpl implements ReviewService {
     public long getTotalReviews() {
         return reviewRepository.countReviewsWithContentNotNull();
     }
+
+    @Override
+    public List<Review> getPopularReviews() {
+        return reviewRepository.findDistinctTop6ByContentIsNotNullAndRatingIsNotNull();
+    }
     @Override
     public ReviewResponse rateMovie(Long movieId, Long userId, Integer rate) {
         Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
@@ -135,6 +140,26 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Review> getUserReviews(Long userId) {
         return reviewRepository.findByAppUserIdAndContentIsNotNull(userId);
+    }
+
+    @Override
+    public Long getWatchedMoviesCount(Long userId) {
+        return reviewRepository.countDistinctMoviesWatchedByUserId(userId);
+    }
+
+    @Override
+    public Long getLikedMoviesCount(Long userId) {
+        return reviewRepository.countDistinctMoviesLikedByUserId(userId);
+    }
+
+    @Override
+    public Long getCountOfUsersLikedMovie(Long movieId) {
+        return reviewRepository.countDistinctUsersLikedByMovieId(movieId);
+    }
+
+    @Override
+    public Long getCountOfUsersWatchedMovie(Long movieId) {
+        return reviewRepository.countDistinctUsersWatchedByMovieId(movieId);
     }
 
     @Override

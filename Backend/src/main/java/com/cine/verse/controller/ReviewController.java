@@ -103,6 +103,36 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/popular")
+    public ResponseEntity getPopularReviews() {
+        List<Review> reviews = reviewService.getPopularReviews();
+        if (reviews.isEmpty()) {
+            return ResponseMessage.notFound("Popular Reviews Not Found");
+        } else {
+            return ResponseMessage.ok("Success", reviews);
+        }
+    }
+
+    @GetMapping("/watch-count/{userId}")
+    public ResponseEntity getUsersMoviesWatchedCount(@PathVariable Long userId) {
+        Long count = reviewService.getWatchedMoviesCount(userId);
+        if (count == null) {
+            return ResponseMessage.notFound("Movies Watched Count Not Found");
+        } else {
+            return ResponseMessage.ok("Success", count);
+        }
+    }
+
+    @GetMapping("/like-count/{userId}")
+    public ResponseEntity getUsersMoviesLikedCount(@PathVariable Long userId) {
+        Long count = reviewService.getLikedMoviesCount(userId);
+        if (count == null) {
+            return ResponseMessage.notFound("Movies Watched Count Not Found");
+        } else {
+            return ResponseMessage.ok("Success", count);
+        }
+    }
+
     @GetMapping("/liked/{userId}")
     public ResponseEntity getLikedMovies(@PathVariable Long userId) {
         List<Movie> movies = reviewService.getMoviesLiked(userId);
@@ -117,6 +147,18 @@ public class ReviewController {
     public ResponseEntity getTotalReviews() {
         long totalReviews = reviewService.getTotalReviews();
         return ResponseMessage.ok("Success", totalReviews);
+    }
+
+    @GetMapping("/total-watched/{movieId}")
+    public ResponseEntity getTotalUsersWatchedMovie(@PathVariable Long movieId) {
+        long total = reviewService.getCountOfUsersWatchedMovie(movieId);
+        return ResponseMessage.ok("Success", total);
+    }
+
+    @GetMapping("/total-liked/{movieId}")
+    public ResponseEntity getTotalUsersLikedMovie(@PathVariable Long movieId) {
+        long total = reviewService.getCountOfUsersLikedMovie(movieId);
+        return ResponseMessage.ok("Success", total);
     }
 
 
@@ -264,6 +306,7 @@ public class ReviewController {
             return ResponseMessage.created("Review Updated Successfully", review1);
         }
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteReview(@PathVariable Long id) {
         Review review = reviewService.getReviewById(id);
@@ -274,19 +317,6 @@ public class ReviewController {
             return ResponseMessage.ok("Review Deleted Successfully", review);
         }
     }
-
-    private ReviewResponse reviewToReviewResponse(Review review) {
-        ReviewResponse reviewResponse = new ReviewResponse();
-        reviewResponse.setFirstname(review.getAppUser().getFirstname());
-        reviewResponse.setLastname(review.getAppUser().getLastname());
-        reviewResponse.setImage(review.getAppUser().getImage());
-
-        reviewResponse.setContent(review.getContent());
-        reviewResponse.setRating(review.getRating());
-        reviewResponse.setTimestamp(review.getTimestamp());
-        return reviewResponse;
-    }
-
     private boolean isMovieInDecade(Movie movie, String decade) {
         int year = movie.getYear();
         switch (decade.toLowerCase()) {

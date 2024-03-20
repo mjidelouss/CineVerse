@@ -37,4 +37,9 @@ public class AppUserServiceImpl implements AppUserService {
     public long getTotalUsersByRole(Role role) {
         return userRepository.countByRole(role);
     }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }

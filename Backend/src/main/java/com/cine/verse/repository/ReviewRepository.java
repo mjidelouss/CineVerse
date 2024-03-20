@@ -27,4 +27,19 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     @Query("SELECT COUNT(r) FROM Review r WHERE r.content IS NOT NULL")
     long countReviewsWithContentNotNull();
+    @Query("SELECT r FROM Review r WHERE r.id IN (SELECT MAX(r2.id) FROM Review r2 WHERE r2.content IS NOT NULL AND r2.rating IS NOT NULL GROUP BY r2.appUser) ORDER BY r.id DESC")
+    List<Review> findDistinctTop6ByContentIsNotNullAndRatingIsNotNull();
+
+    @Query("SELECT COUNT(DISTINCT r.movie) FROM Review r WHERE r.appUser.id = :userId AND r.watched = true")
+    Long countDistinctMoviesWatchedByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT COUNT(DISTINCT r.movie) FROM Review r WHERE r.appUser.id = :userId AND r.liked = true")
+    Long countDistinctMoviesLikedByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT COUNT(DISTINCT r.appUser.id) FROM Review r WHERE r.movie.id = :movieId AND r.watched = true")
+    Long countDistinctUsersWatchedByMovieId(@Param("movieId") Long movieId);
+
+    @Query("SELECT COUNT(DISTINCT r.appUser.id) FROM Review r WHERE r.movie.id = :movieId AND r.liked = true")
+    Long countDistinctUsersLikedByMovieId(@Param("movieId") Long movieId);
+
 }
