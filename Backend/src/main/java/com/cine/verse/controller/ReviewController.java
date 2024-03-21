@@ -298,8 +298,9 @@ public class ReviewController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateReview(@RequestBody @Valid ReviewRequest reviewRequest, @PathVariable Long id) {
-        Review review = reviewMapper.reviewRequestToReview(reviewRequest);
-        Review review1 = reviewService.updateReview(review, id);
+        Review review = reviewService.getReviewById(id);
+        review.setContent(reviewRequest.getContent());
+        Review review1 = reviewService.updateReview(review);
         if (review1 == null) {
             return ResponseMessage.badRequest("Review Not Updated");
         } else {

@@ -25,7 +25,7 @@ public interface ReviewService {
     Review getReviewByMovieAndUser(Long movieId, Long userId);
     Review addReview(Review review);
 
-    Review updateReview(Review review, Long id);
+    Review updateReview(Review review);
 
     long getTotalReviews();
 

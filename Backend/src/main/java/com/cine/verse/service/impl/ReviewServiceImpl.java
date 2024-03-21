@@ -60,8 +60,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review updateReview(Review review, Long id) {
-        return null;
+    public Review updateReview(Review review) {
+        return addReview(review);
     }
 
     @Override
