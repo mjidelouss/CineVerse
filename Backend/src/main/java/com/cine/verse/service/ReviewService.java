@@ -1,7 +1,5 @@
 package com.cine.verse.service;
 
-import com.cine.verse.Dto.response.ReviewResponse;
-import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 import org.springframework.data.domain.Page;
@@ -33,7 +31,7 @@ public interface ReviewService {
 
     void deleteReview(Long id);
 
-    ReviewResponse rateMovie(Long movieId, Long userId, Integer rate);
+    Boolean rateMovie(Long movieId, Long userId, Integer rate);
 
     Boolean watchListMovie(Long movieId, Long userId, Boolean watchlist);
 

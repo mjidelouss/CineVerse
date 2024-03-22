@@ -1,7 +1,6 @@
 package com.cine.verse.mappers;
 
 import com.cine.verse.Dto.request.ReviewRequest;
-import com.cine.verse.Dto.response.ReviewResponse;
 import com.cine.verse.domain.Review;
 import org.mapstruct.Mapper;
 

@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ReviewResponse {
-    private Boolean watched;
-    private Boolean liked;
-    private Boolean watchlist;
-    private Integer rating;
+public class UserResponse {
+    private Long userId;
+    private String firstname;
+    private String lastname;
+    private String location;
+    private String bio;
+    private String image;
 }

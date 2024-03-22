@@ -1,11 +1,13 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.request.UpdateProfileDTO;
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 import com.cine.verse.enums.Role;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.AppUserService;
+import com.cine.verse.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class AppUserController {
 
     private final  AppUserService appUserService;
+    private final S3Service s3Service;
 
     @GetMapping("/{id}")
     public ResponseEntity getUserById(@PathVariable Long id) {
@@ -32,7 +35,6 @@ public class AppUserController {
     @GetMapping("/all")
     public ResponseEntity getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         Page<AppUser> usersPage = appUserService.getUsers(PageRequest.of(page, size));
-
         if (usersPage.isEmpty()) {
             return ResponseMessage.notFound("Users Not Found");
         } else {
@@ -58,7 +60,7 @@ public class AppUserController {
     }
 
     @PutMapping("/profile/{userId}")
-    public ResponseEntity updateUserProfile(@PathVariable Long userId, @RequestBody AppUser updatedUser) {
+    public ResponseEntity updateUserProfile(@PathVariable Long userId, @ModelAttribute UpdateProfileDTO updateProfileDTO) {
         // Retrieve the existing user from the database
         AppUser existingUser = appUserService.getUserById(userId);
 
@@ -67,12 +69,14 @@ public class AppUserController {
             return ResponseMessage.notFound("Users Not Found");
         }
         // Update the user's profile with the new data
-        existingUser.setFirstname(updatedUser.getFirstname());
-        existingUser.setLastname(updatedUser.getLastname());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setImage(updatedUser.getImage());
-        existingUser.setBio(updatedUser.getBio());
-        existingUser.setLocation(updatedUser.getLocation());
+        existingUser.setFirstname(updateProfileDTO.getFirstname());
+        existingUser.setLastname(updateProfileDTO.getLastname());
+        existingUser.setEmail(updateProfileDTO.getEmail());
+        existingUser.setBio(updateProfileDTO.getBio());
+        existingUser.setLocation(updateProfileDTO.getLocation());
+        if (updateProfileDTO.getImage() != null) {
+            existingUser.setImage(s3Service.uploadFile("CineVerse", updateProfileDTO.getImage()));
+        }
 
         // Save the updated user to the database
         AppUser savedUser = appUserService.saveUser(existingUser);

@@ -5,13 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ReviewResponse {
-    private Boolean watched;
-    private Boolean liked;
-    private Boolean watchlist;
+public class RecentReviewResponse {
+    private Long userId;
+    private String userFirstname;
+    private String userLastname;
     private Integer rating;
+    private String content;
+    private LocalDate timestamp;
 }

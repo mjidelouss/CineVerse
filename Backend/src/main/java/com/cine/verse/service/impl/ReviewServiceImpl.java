@@ -1,19 +1,16 @@
 package com.cine.verse.service.impl;
 
-import com.cine.verse.Dto.response.ReviewResponse;
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.mappers.ReviewMapper;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 import com.cine.verse.repository.AppUserRepository;
 import com.cine.verse.repository.ReviewRepository;
-import com.cine.verse.service.AppUserService;
 import com.cine.verse.service.MovieService;
 import com.cine.verse.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -79,7 +76,7 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepository.findDistinctTop6ByContentIsNotNullAndRatingIsNotNull();
     }
     @Override
-    public ReviewResponse rateMovie(Long movieId, Long userId, Integer rate) {
+    public Boolean rateMovie(Long movieId, Long userId, Integer rate) {
         Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
 
         if (review == null) {
@@ -97,9 +94,7 @@ public class ReviewServiceImpl implements ReviewService {
             review.setWatched(true);
         }
         addReview(review);
-        // Convert the review to a response and return
-        ReviewResponse reviewResponse = reviewMapper.reviewToReviewResponse(review);
-        return reviewResponse;
+        return true;
     }
 
     @Override
