@@ -1,5 +1,6 @@
 package com.cine.verse.service;
 
+import com.cine.verse.Dto.request.UpdateProfileDTO;
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.enums.Role;
@@ -16,6 +17,8 @@ public interface AppUserService {
     Page<AppUser> getUsers(Pageable pageable);
 
     AppUser saveUser(AppUser user);
+
+    AppUser updateUser(Long userId, UpdateProfileDTO updateProfileDTO);
     long getTotalUsersByRole(Role role);
 
     void deleteUser(Long id);
