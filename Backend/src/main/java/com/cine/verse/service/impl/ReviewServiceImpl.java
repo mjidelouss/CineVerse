@@ -1,7 +1,6 @@
 package com.cine.verse.service.impl;
 
 import com.cine.verse.domain.AppUser;
-import com.cine.verse.mappers.ReviewMapper;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 import com.cine.verse.repository.AppUserRepository;

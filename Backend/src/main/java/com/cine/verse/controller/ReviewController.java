@@ -3,7 +3,6 @@ package com.cine.verse.controller;
 import com.cine.verse.Dto.request.RateRequest;
 import com.cine.verse.Dto.request.ReviewRequest;
 import com.cine.verse.domain.Movie;
-import com.cine.verse.mappers.ReviewMapper;
 import com.cine.verse.domain.Review;
 import com.cine.verse.repository.AppUserRepository;
 import com.cine.verse.response.ResponseMessage;
@@ -26,7 +25,6 @@ import java.util.stream.Collectors;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final ReviewMapper reviewMapper;
     private final AppUserRepository appUserRepository;
     private final MovieService movieService;
 

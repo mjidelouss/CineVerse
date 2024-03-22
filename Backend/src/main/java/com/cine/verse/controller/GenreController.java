@@ -1,11 +1,8 @@
 package com.cine.verse.controller;
 
-import com.cine.verse.Dto.request.GenreRequest;
-import com.cine.verse.mappers.GenreMapper;
 import com.cine.verse.domain.Genre;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.GenreService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +15,6 @@ import java.util.List;
 public class GenreController {
 
     private final GenreService genreService;
-    private final GenreMapper genreMapper;
 
     @GetMapping("")
     public ResponseEntity getGenres() {
@@ -37,38 +33,6 @@ public class GenreController {
             return ResponseMessage.notFound("Genre Not Found");
         } else {
             return ResponseMessage.ok("Success", genre);
-        }
-    }
-
-    @PostMapping("")
-    public ResponseEntity addGenre(@RequestBody @Valid GenreRequest genreRequest) {
-        Genre genre = genreMapper.genreRequestToGenre(genreRequest);
-        Genre genre1 = genreService.addGenre(genre);
-        if(genre1 == null) {
-            return ResponseMessage.badRequest("Failed To Create Genre");
-        } else {
-            return ResponseMessage.created("Genre Created Successfully", genre1);
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity updateGenre(@RequestBody @Valid GenreRequest genreRequest, @PathVariable Long id) {
-        Genre genre = genreMapper.genreRequestToGenre(genreRequest);
-        Genre genre1 = genreService.updateGenre(genre, id);
-        if (genre1 == null) {
-            return ResponseMessage.badRequest("Genre Not Updated");
-        } else {
-            return ResponseMessage.created("Genre Updated Successfully", genre1);
-        }
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteGenre(@PathVariable Long id) {
-        Genre genre = genreService.getGenreById(id);
-        if (genre == null) {
-            return ResponseMessage.notFound("Genre Not Found");
-        } else {
-            genreService.deleteGenre(id);
-            return ResponseMessage.ok("Genre Deleted Successfully", genre);
         }
     }
 }

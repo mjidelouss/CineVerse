@@ -23,4 +23,6 @@ public class PopularReviewResponse {
     private Integer rating;
     private String content;
     private LocalDate timestamp;
+
+
 }

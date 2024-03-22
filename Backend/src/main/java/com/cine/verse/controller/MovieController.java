@@ -1,17 +1,12 @@
 package com.cine.verse.controller;
 
-import com.cine.verse.Dto.request.MovieRequest;
-import com.cine.verse.enums.Role;
-import com.cine.verse.mappers.MovieMapper;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MovieService;
 import com.cine.verse.service.ReviewService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +21,6 @@ public class MovieController {
 
     private final MovieService movieService;
     private final ReviewService reviewService;
-    private final MovieMapper movieMapper;
 
     @GetMapping("/all")
     public ResponseEntity getMovies(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
@@ -128,38 +122,6 @@ public class MovieController {
             return ResponseMessage.notFound("Movie Not Found");
         } else {
             return ResponseMessage.ok("Success", movie);
-        }
-    }
-
-    @PostMapping("")
-    public ResponseEntity addMovie(@RequestBody @Valid MovieRequest movieRequest) {
-        Movie movie = movieMapper.movieRequestToMovie(movieRequest);
-        Movie movie1 = movieService.addMovie(movie);
-        if(movie1 == null) {
-            return ResponseMessage.badRequest("Failed To Create Movie");
-        } else {
-            return ResponseMessage.created("Movie Created Successfully", movie1);
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity updateMovie(@RequestBody @Valid MovieRequest movieRequest, @PathVariable Long id) {
-        Movie movie = movieMapper.movieRequestToMovie(movieRequest);
-        Movie movie1 = movieService.updateMovie(movie, id);
-        if (movie1 == null) {
-            return ResponseMessage.badRequest("Movie Not Updated");
-        } else {
-            return ResponseMessage.created("Movie Updated Successfully", movie1);
-        }
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteMovie(@PathVariable Long id) {
-        Movie movie = movieService.getMovieById(id);
-        if (movie == null) {
-            return ResponseMessage.notFound("Movie Not Found");
-        } else {
-            movieService.deleteMovie(id);
-            return ResponseMessage.ok("Movie Deleted Successfully", movie);
         }
     }
 

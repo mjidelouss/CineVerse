@@ -2,8 +2,6 @@ package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.WatchListRequest;
 import com.cine.verse.domain.Movie;
-import com.cine.verse.domain.Review;
-import com.cine.verse.mappers.WatchListMapper;
 import com.cine.verse.domain.WatchList;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.WatchListService;
@@ -101,27 +99,6 @@ public class WatchListController {
             return ResponseMessage.notFound("WatchList Not Found");
         } else {
             watchListService.deleteWatchList(watchList.getId());
-            return ResponseMessage.ok("WatchList Deleted Successfully", watchList);
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity updateWatchList(@RequestBody @Valid WatchListRequest watchListRequest, @PathVariable Long id) {
-        WatchList watchList = watchListMapper.watchListRequestToWatchList(watchListRequest);
-        WatchList watchList1 = watchListService.updateWatchList(watchList, id);
-        if (watchList1 == null) {
-            return ResponseMessage.badRequest("WatchList Not Updated");
-        } else {
-            return ResponseMessage.created("WatchList Updated Successfully", watchList1);
-        }
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteWatchList(@PathVariable Long id) {
-        WatchList watchList = watchListService.getWatchListById(id);
-        if (watchList == null) {
-            return ResponseMessage.notFound("WatchList Not Found");
-        } else {
-            watchListService.deleteWatchList(id);
             return ResponseMessage.ok("WatchList Deleted Successfully", watchList);
         }
     }
