@@ -10,14 +10,14 @@
                         class="img-fluid rounded-circle" alt="User">
                     <div class="ms-3">
                         <h1 class="text-white mt-2 fw-bold">{{ user.firstname + " " + user.lastname }}</h1>
-                        <h3 class="text-muted">I love Watching Movies day and night always.</h3>
+                        <h3 class="text-muted">{{ user.bio}}</h3>
                         <div class="d-flex">
                             <div class="d-flex"><mat-icon class="text-info">place</mat-icon>
-                                <h3 class="ms-1 text-muted">Morocco</h3>
+                                <h3 class="ms-1 text-muted">{{ user.location }}</h3>
                             </div>
-                            <div class="d-flex ms-2"><mat-icon class="text-success">bookmark</mat-icon>
-                                <h3 class="ms-1 text-muted">EloussM</h3>
-                            </div>
+<!--                            <div class="d-flex ms-2"><mat-icon class="text-success">bookmark</mat-icon>-->
+<!--                                <h3 class="ms-1 text-muted">EloussM</h3>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>

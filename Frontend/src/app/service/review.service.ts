@@ -39,6 +39,11 @@ export class ReviewService {
     return this.http.post(this.apiUrl, review);
   }
 
+  updateReview(review: any, id: number) {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put(url, review);
+  }
+
   getReviewedMoviesWithRating(userId: number) {
     const url = `${this.apiUrl}/reviewed-movies/${userId}`;
     return this.http.get<any>(url);
@@ -103,6 +108,16 @@ export class ReviewService {
   deleteReview(id: number): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url);
+  }
+
+  getTotalWatchedMovie(movieId: number) {
+    const url = `${this.apiUrl}/total-watched/${movieId}`;
+    return this.http.get<any>(url);
+  }
+
+  getTotalLikedMovie(movieId: number) {
+    const url = `${this.apiUrl}/total-liked/${movieId}`;
+    return this.http.get<any>(url);
   }
 
 }

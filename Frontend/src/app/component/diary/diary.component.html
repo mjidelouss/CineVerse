@@ -99,11 +99,46 @@
           <div [class.move-left]="i !== 0">
             <p class="text-white text-center opacity-75 fw-bold" *ngIf="i === 0">EDIT</p>
             <p class="text-white text-center opacity-75 fw-bold" *ngIf="i !== 0"></p>
-            <div class="mt-5"><mat-icon class="text-success opacity-75">edit</mat-icon></div>
+            <div class="mt-5" style="cursor: pointer"><mat-icon class="text-success opacity-75" (click)="openReview(content2, movie)">edit</mat-icon></div>
           </div>
         </div>
 
       </div>
+
+      <!-- Review Modal -->
+      <ng-template #content2 let-modal>
+        <div class="modal-body d-flex flex-column" style="background-color: #151515;">
+          <div class="d-flex justify-content-between">
+            <h4 id="modal-review" class="ms-1 modal-title text-white fw-bold">I WATCHED...</h4>
+            <button type="button" class="btn-close bg-white" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+
+          <div class="review-container">
+            <!-- Movie Poster -->
+            <div class="d-flex">
+              <img src="https://image.tmdb.org/t/p/w500/{{selectedMovie.image}}}" width="200" height="290" class="rounded" alt="Movie {{ selectedMovie.title }}">
+              <div class="ms-3">
+                <div><strong class="fs-5 text-danger opacity-75">{{ selectedMovie.title }}</strong></div>
+                <div class="mt-2"><strong class="fs-6 text-white">({{ selectedMovie.year }})</strong></div>
+                <div class="mt-2">
+                  <div class="tag-container" *ngIf="selectedMovie.language">
+                    <div class="crew 2">LANGUAGE: </div>
+                    <div class="tag">
+                      {{ selectedMovie.language }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review Textarea -->
+            <textarea [(ngModel)]="selectedMovie.content" placeholder="Edit your review..." class="form-control mb-2 mt-2"></textarea>
+
+            <!-- Save Review Button -->
+            <button class="btn btn-success" (click)="updateReview(selectedMovie.reviewId)">Update Review</button>
+          </div>
+        </div>
+      </ng-template>
 
 
     </div>

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {UserService} from "../../service/user.service";
+import {UserInfo} from "../../models/user-info";
 
 @Component({
   selector: 'app-settings',
@@ -10,6 +11,7 @@ import {UserService} from "../../service/user.service";
 })
 export class SettingsComponent implements OnInit, OnDestroy{
   userId!: number;
+  fileInputs: { [key: string]: File } = {};
   user!: any;
 
   constructor(private route: ActivatedRoute,private router: Router, public dialog: MatDialog, private userService: UserService) {
@@ -32,7 +34,6 @@ export class SettingsComponent implements OnInit, OnDestroy{
   getUserProfile() {
     this.userService.getUser(this.userId).subscribe(
       (response) => {
-        console.log(response.data)
         this.user = response.data
       },
       (error) => {
@@ -42,8 +43,16 @@ export class SettingsComponent implements OnInit, OnDestroy{
   }
 
   saveChanges() {
-    // Call the user service to update the user's profile
-    this.userService.updateUserProfile(this.userId, this.user).subscribe(
+    const formData = new FormData();
+    formData.append("firstname", this.user.firstname)
+    formData.append("lastname", this.user.lastname)
+    formData.append("email", this.user.email)
+    formData.append("bio", this.user.bio)
+    formData.append("location", this.user.location)
+    if (this.fileInputs["image"]) {
+      formData.append("image", this.fileInputs["image"]);
+    }
+    this.userService.updateUserProfile(this.userId, formData).subscribe(
       (response: any) => {
         this.user = response.data
       },
@@ -53,15 +62,10 @@ export class SettingsComponent implements OnInit, OnDestroy{
     );
   }
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      // Set the profile image data to the base64 string
-      this.user.image = reader.result as string;
-    };
-    // Read the selected file as a data URL
-    reader.readAsDataURL(file);
+  onFileChange(event: any, field: string) {
+    if (event.target.files.length > 0) {
+      this.fileInputs[field] = event.target.files[0];
+    }
   }
 
 }

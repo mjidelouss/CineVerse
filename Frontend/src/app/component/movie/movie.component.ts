@@ -26,6 +26,8 @@ export class MovieComponent implements OnInit, OnDestroy {
   private modalService = inject(NgbModal);
   AuthUserSub! : Subscription;
   closeResult = '';
+  totalWatched!: number
+  totalLiked!: number
   movieId!: number;
   movieCredits!: MovieCredits;
   movie!: Movie
@@ -70,6 +72,8 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.getReview(this.movieId);
     this.getRecentReviews(this.movieId);
     this.getSimilarMovies(this.movieId);
+    this.getTotalWatched()
+    this.getTotalLiked()
   }
 
 
@@ -153,6 +157,28 @@ export class MovieComponent implements OnInit, OnDestroy {
         console.error("Error Liking Movie:", error);
       }
     );
+  }
+
+  getTotalWatched() {
+    this.reviewService.getTotalWatchedMovie(this.movieId).subscribe(
+      (response: any) => {
+        this.totalWatched = response.data
+      },
+      (error) => {
+        console.error("Error Getting Total Users that Watched Movie:", error);
+      }
+    )
+  }
+
+  getTotalLiked() {
+    this.reviewService.getTotalLikedMovie(this.movieId).subscribe(
+      (response: any) => {
+        this.totalLiked = response.data
+      },
+      (error) => {
+        console.error("Error Getting Total Users that Liked Movie:", error);
+      }
+    )
   }
 
   onIconClick(icon: string): void {

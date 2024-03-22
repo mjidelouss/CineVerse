@@ -9,12 +9,12 @@
       <!-- Profile Image Input -->
       <div class="row justify-content-center">
         <div>
-          <img src="../../../assets/images/users/user5.jpg" height="110" width="170"
+          <img [src]="user.image" height="110" width="170"
                class="img-fluid rounded-circle mb-4" alt="User">
         </div>
         <div class="col-md-4 mb-3">
           <label for="profileImage" class="form-label text-white opacity-75 fs-4">Profile Image</label>
-          <input type="file" accept="image/*" (change)="onFileChange($event)" class="form-control bg-dark border-0 text-white" id="profileImage">
+          <input type="file" accept="image/*" (change)="onFileChange($event, 'image')" class="form-control bg-dark border-0 text-white" id="profileImage">
         </div>
       </div>
 

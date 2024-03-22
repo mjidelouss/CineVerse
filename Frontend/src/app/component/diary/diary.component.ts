@@ -1,10 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {ReviewService} from "../../service/review.service";
 import {Diary} from "../../models/diary";
 import {Genre} from "../../models/genre";
 import {GenreService} from "../../service/genre.service";
+import {RecentReview} from "../../models/recent-review";
+import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {Review} from "../../models/review";
 
 @Component({
   selector: 'app-diary',
@@ -13,11 +16,16 @@ import {GenreService} from "../../service/genre.service";
 })
 export class DiaryComponent implements OnInit, OnDestroy{
 
+  private modalService = inject(NgbModal);
   userId!: number;
+  closeResult = '';
+  selectedMovie: any
   diaryMovies: Diary[] = [];
   selectedDecade!: string;
+  review: Review = { userId: {} as number, movieId: {} as number, content: '' };
   genres: Genre[] = [];
   selectedGenre: string = '';
+  private modalRef: NgbModalRef | undefined;
   constructor(private route: ActivatedRoute,private router: Router, private genreService: GenreService
               ,public dialog: MatDialog, private reviewService: ReviewService) {
 
@@ -54,9 +62,11 @@ export class DiaryComponent implements OnInit, OnDestroy{
         for (const element of response.data) {
           const dbMovie = element;
           let movie: Diary = {
+            reviewId: dbMovie.id,
             id: dbMovie.movie.id,
             title: dbMovie.movie.title || 'N/A',
             year: dbMovie.movie.year || 'N/A',
+            content: dbMovie.content || 'N/A',
             director: dbMovie.movie.director || 'N/A',
             image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
             like: dbMovie.liked,
@@ -79,9 +89,11 @@ export class DiaryComponent implements OnInit, OnDestroy{
         for (const element of response) {
           const dbMovie = element;
           let movie: Diary = {
+            reviewId: dbMovie.id,
             id: dbMovie.movie.id,
             title: dbMovie.movie.title || 'N/A',
             year: dbMovie.movie.year || 'N/A',
+            content: dbMovie.content || 'N/A',
             director: dbMovie.movie.director || 'N/A',
             image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
             like: dbMovie.liked,
@@ -105,8 +117,10 @@ export class DiaryComponent implements OnInit, OnDestroy{
           for (const element of response) {
             const dbMovie = element;
             let movie: Diary = {
+              reviewId: dbMovie.id,
               id: dbMovie.movie.id,
               title: dbMovie.movie.title || 'N/A',
+              content: dbMovie.content || 'N/A',
               year: dbMovie.movie.year || 'N/A',
               director: dbMovie.movie.director || 'N/A',
               image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
@@ -125,6 +139,55 @@ export class DiaryComponent implements OnInit, OnDestroy{
       this.getMyReviews()
     }
 
+  }
+  openReview(content: any, movie: any): void {
+    this.selectedMovie = movie;
+    this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-review' });
+    this.modalRef.result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+  updateReview(reviewId: number) {
+    this.review.movieId = this.selectedMovie.id
+    this.review.userId = this.userId
+    this.review.content = this.selectedMovie.content
+    this.reviewService.updateReview(this.review, reviewId).subscribe(
+      (response: any) => {
+        // Search for the existing element with the same reviewId
+        const existingReviewIndex = this.diaryMovies.findIndex(movie => movie.reviewId === reviewId);
+        if (existingReviewIndex !== -1) {
+          this.diaryMovies[existingReviewIndex].content = response.data.content;
+        } else {
+          console.error("Review with reviewId", reviewId, "not found in diaryMovies array.");
+        }
+      },
+      (error) => {
+        console.error("Error updating movie review:", error);
+      }
+    );
+    this.closeReviewModal();
+  }
+
+
+  closeReviewModal(): void {
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
+  }
+  private getDismissReason(reason: any): string {
+    switch (reason) {
+      case ModalDismissReasons.ESC:
+        return 'by pressing ESC';
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'by clicking on a backdrop';
+      default:
+        return `with: ${reason}`;
+    }
   }
 
   parseTimeStamp(timestamp: string):{ day: string, month: string, dayOfMonth: string}  {
