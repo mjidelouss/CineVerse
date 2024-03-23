@@ -33,21 +33,36 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getRecentReviews(Long movieId) {
+        if (movieId == null) {
+            throw new IllegalArgumentException("movieId cannot be null");
+        }
         return reviewRepository.findByMovieIdAndContentIsNotNull(movieId);
     }
 
     @Override
     public Review getReviewById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
         return reviewRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Object[]> getReviewdMovies(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return reviewRepository.findMoviesAndRatingsByAppUserId(userId);
     }
 
     @Override
     public Review getReviewByMovieAndUser(Long movieId, Long userId) {
+        if (movieId == null) {
+            throw new IllegalArgumentException("movieId cannot be null");
+        }
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
     }
 
@@ -88,11 +103,17 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review updateReview(Review review) {
+        if (review == null) {
+            throw new IllegalArgumentException("Review cannot be null");
+        }
         return reviewRepository.save(review);
     }
 
     @Override
     public void deleteReview(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
         reviewRepository.deleteById(id);
     }
 
@@ -108,7 +129,6 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Boolean rateMovie(Long movieId, Long userId, Integer rate) {
         Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
-
         if (review == null) {
             review = new Review();
             Movie movie = movieService.getMovieById(movieId);
@@ -159,36 +179,57 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getUserRecentReviews(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return reviewRepository.findTop3ByAppUserIdAndContentIsNotNullOrderByTimestampDesc(userId);
     }
 
     @Override
     public List<Review> getUserReviews(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return reviewRepository.findByAppUserIdAndContentIsNotNull(userId);
     }
 
     @Override
     public Long getWatchedMoviesCount(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return reviewRepository.countDistinctMoviesWatchedByUserId(userId);
     }
 
     @Override
     public Long getLikedMoviesCount(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return reviewRepository.countDistinctMoviesLikedByUserId(userId);
     }
 
     @Override
     public Long getCountOfUsersLikedMovie(Long movieId) {
+        if (movieId == null) {
+            throw new IllegalArgumentException("movieId cannot be null");
+        }
         return reviewRepository.countDistinctUsersLikedByMovieId(movieId);
     }
 
     @Override
     public Long getCountOfUsersWatchedMovie(Long movieId) {
+        if (movieId == null) {
+            throw new IllegalArgumentException("movieId cannot be null");
+        }
         return reviewRepository.countDistinctUsersWatchedByMovieId(movieId);
     }
 
     @Override
     public List<Movie> getMoviesLiked(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return reviewRepository.findMoviesByAppUserIdAndLikedTrue(userId);
     }
 }
