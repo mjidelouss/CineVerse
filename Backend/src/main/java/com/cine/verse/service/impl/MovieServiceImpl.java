@@ -33,42 +33,18 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie getMovieById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
         return movieRepository.findById(id).orElse(null);
     }
-
-    @Override
-    public Page<Movie> getMovies(Pageable pageable) {
-        return movieRepository.findAll(pageable);
-    }
-
-    @Override
-    public List<Movie> getLastSixMovies() {
-        return movieRepository.findTop6ByOrderByIdDesc();
-    }
-    @Override
-    public List<Movie> searchMovies(String searchTerm) {
-        return movieRepository.findByTitleContainingIgnoreCase(searchTerm);
-    }
-
-    @Override
-    public long getTotalMovies() {
-        return movieRepository.count();
-    }
-    @Override
-    public Movie addMovie(Movie movie) {
-        return movieRepository.save(movie);
-    }
-
-    @Override
-    public Movie updateMovie(Movie movie, Long id) {
-        return null;
-    }
-
     @Override
     public void deleteMovie(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
         movieRepository.deleteById(id);
     }
-
     @Override
     public int syncMovies() {
         int currentPage = 1;
@@ -77,19 +53,14 @@ public class MovieServiceImpl implements MovieService {
 
         do {
             String apiUrl = "https://api.themoviedb.org/3/discover/movie?api_key=" + tmdbApiKey + "&page=" + currentPage;
-
             ResponseEntity<TmdbApiResponse> responseEntity = restTemplate.getForEntity(apiUrl, TmdbApiResponse.class);
-
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 TmdbApiResponse tmdbApiResponse = responseEntity.getBody();
-
                 System.out.println("Processing page: " + currentPage);
-
                 if (tmdbApiResponse != null && tmdbApiResponse.getResults() != null) {
                     for (TmdbMovie tmdbMovie : tmdbApiResponse.getResults()) {
                         Movie movie = new Movie();
                         movie.setId(tmdbMovie.getId());
-
                         // Check if the movie already exists in the database
                         Optional<Movie> existingMovie = movieRepository.findByTitleAndYear(movie.getTitle(), movie.getYear());
                         if (!existingMovie.isPresent()) {
@@ -110,7 +81,6 @@ public class MovieServiceImpl implements MovieService {
                             moviesSavedCount++;
                         }
                     }
-
                     // Increment the page number for the next iteration
                     currentPage++;
                 } else {
@@ -118,14 +88,10 @@ public class MovieServiceImpl implements MovieService {
                     break;
                 }
             } else {
-                // Handle non-OK response, e.g., log an error
                 System.err.println("Error fetching page " + currentPage);
                 break;
             }
-
         } while (currentPage <= MAX_PAGES);
-
-        // Log the last page number
         System.out.println("Last processed page: " + (currentPage - 1));
 
         return moviesSavedCount;
@@ -137,12 +103,10 @@ public class MovieServiceImpl implements MovieService {
         int moviesToFetch = 6;
 
         String apiUrl = "https://api.themoviedb.org/3/discover/movie?api_key=" + tmdbApiKey + "&page=1";
-
         ResponseEntity<TmdbApiResponse> responseEntity = restTemplate.getForEntity(apiUrl, TmdbApiResponse.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             TmdbApiResponse tmdbApiResponse = responseEntity.getBody();
-
             if (tmdbApiResponse != null && tmdbApiResponse.getResults() != null) {
                 for (int i = 0; i < Math.min(moviesToFetch, tmdbApiResponse.getResults().size()); i++) {
                     TmdbMovie tmdbMovie = tmdbApiResponse.getResults().get(i);
@@ -313,7 +277,6 @@ public class MovieServiceImpl implements MovieService {
         int moviesToFetch = 6;
 
         String apiUrl = "https://api.themoviedb.org/3/movie/" + movieId + "/recommendations?api_key=" + tmdbApiKey;
-
         ResponseEntity<TmdbApiResponse> responseEntity = restTemplate.getForEntity(apiUrl, TmdbApiResponse.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
@@ -353,6 +316,27 @@ public class MovieServiceImpl implements MovieService {
         }
         return similarMoviesList;
     }
+
+    @Override
+    public Page<Movie> getMovies(Pageable pageable) {
+        return movieRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Movie> getLastSixMovies() {
+        return movieRepository.findTop6ByOrderByIdDesc();
+    }
+
+    @Override
+    public List<Movie> searchMovies(String searchTerm) {
+        return movieRepository.findByTitleContainingIgnoreCase(searchTerm);
+    }
+
+    @Override
+    public long getTotalMovies() {
+        return movieRepository.count();
+    }
+
 
     private Integer parseYear(String releaseDate) {
             if (releaseDate != null && releaseDate.length() >= 4) {

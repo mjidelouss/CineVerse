@@ -12,13 +12,7 @@ import java.util.List;
 public interface MovieService {
 
     Movie getMovieById(Long id);
-
-    Movie addMovie(Movie movie);
-
     List<Movie> getLastSixMovies();
-
-    Movie updateMovie(Movie movie, Long id);
-
     void deleteMovie(Long id);
     List<Movie> searchMovies(String searchTerm);
     int syncMovies();
