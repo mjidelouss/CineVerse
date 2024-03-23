@@ -18,49 +18,30 @@ import java.util.List;
 public class WatchListServiceImpl implements WatchListService {
 
     private final WatchListRepository watchListRepository;
-    private final AppUserService appUserService;
-    private final MovieService movieService;
-
-
-    @Override
-    public List<WatchList> getWatchLists() {
-        return watchListRepository.findAll();
-    }
-
-    @Override
-    public WatchList getWatchListById(Long id) {
-        return watchListRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public WatchList addWatchList(Long userId, Long movieId) {
-        Movie movie = movieService.getMovieById(movieId);
-        AppUser user = appUserService.getUserById(userId);
-        WatchList watchList = WatchList.builder()
-                .movie(movie)
-                .appUser(user)
-                .timestamp(LocalDate.now())
-                .build();
-        return watchListRepository.save(watchList);
-    }
-
     @Override
     public List<WatchList> getWatchListByUser(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return watchListRepository.findByAppUserId(userId);
     }
 
     @Override
     public WatchList getWatchListByMovieIdAndUserId(Long movieId, Long userId) {
+        if (movieId == null) {
+            throw new IllegalArgumentException("movieId cannot be null");
+        }
+        if (userId == null) {
+            throw new IllegalArgumentException("userId cannot be null");
+        }
         return watchListRepository.findByMovieIdAndAppUserId(movieId, userId);
     }
 
     @Override
-    public WatchList updateWatchList(WatchList watchList, Long id) {
-        return null;
-    }
-
-    @Override
     public void deleteWatchList(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id cannot be null");
+        }
         watchListRepository.deleteById(id);
     }
 }
