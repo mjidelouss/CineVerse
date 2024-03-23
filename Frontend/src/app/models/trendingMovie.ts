@@ -1,8 +1,7 @@
 export interface TrendingMovie {
   image: string,
-  overview: string,
   year: string,
-  director: string,
+  language: string,
   id: number,
   title: string,
 }

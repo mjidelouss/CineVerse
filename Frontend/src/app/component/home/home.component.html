@@ -27,12 +27,12 @@
     <div *ngIf="searchResults.length > 0" class="searchBar position-absolute justify-content-center bg-black">
       <div class="">
         <div class="">
-          <div *ngFor="let movie of searchResults" class="mb-2 searchElement" (click)="onMovieClick(movie.id)">
+          <div *ngFor="let movie of searchResults" class="mb-2 searchElement" (click)="onMovieClick(movie.movieId)">
             <div class="d-flex movieSearch p-1">
-              <img class="rounded ms-1 mt-1" src="https://image.tmdb.org/t/p/w500/{{ movie.image }}" height="70" width="55" alt="{{ movie.title }}">
+              <img class="rounded ms-1 mt-1" src="https://image.tmdb.org/t/p/w500/{{ movie.movieImage }}" height="70" width="55" alt="{{ movie.movieTitle }}">
               <div>
-                <p class="text-white ms-3">{{ movie.title }}</p>
-                <p class="ms-3 text-danger">({{ movie.year }})</p>
+                <p class="text-white ms-3">{{ movie.movieTitle }}</p>
+                <p class="ms-3 text-danger">({{ movie.movieYear }})</p>
               </div>
             </div>
           </div>
@@ -152,194 +152,27 @@
     <div class="row">
       <h1 class="fw-bolder text-white">Popular Reviews This Week</h1>
       <hr class="text-white">
-      <div class="movie-card col-md-2">
-        <img src="../../../assets/images/img/oppen.png" class="movie-poster img-fluid bg-white" alt="Movie Poster">
-        <div class="movie-overlay">
-          <mat-icon class="text-light">visibility</mat-icon>
-          <mat-icon class="text-light">favorite_border</mat-icon>
-          <mat-icon class="text-light">more_vert</mat-icon>
-        </div>
-      </div>
-      <div class="col-md-10 bag">
-        <div class="card mb-3 bag">
-          <div class="card-body">
-            <h2 class="card-title text-white">Oppenheimer (2023)</h2>
-            <div class="d-flex">
-                <img src="../../../assets/images/users/user5.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
-                <p class="text-white ms-2 mt-2">vasili</p>
-            </div>
-            <div class="rating mt-2 d-flex">
-              <input type="radio" class="star5" name="rate" value="1" />
-              <label title="text"></label>
-              <input type="radio" class="star4" name="rate" value="2" />
-              <label title="text"></label>
-              <input type="radio" class="star3" name="rate" value="3" />
-              <label title="text"></label>
-              <input type="radio" class="star2" name="rate" value="4" />
-              <label title="text"></label>
-              <input type="radio" class="star1" name="rate" value="5" />
-              <label title="text"></label>
-            </div>
-            <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
-            <div class="d-flex">
-                <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
-                <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
-            </div>
+      <div>
+        <div class="row mt-2" *ngFor="let review of reviews">
+          <div class="col-md-2 movie-card" (click)="onMovieClick(review.id)">
+            <img [src]="review.image" class="img-fluid bg-white movie-poster" alt="Movie Poster">
           </div>
-        </div>
-      </div>
-    </div>
-<br>
-    <div class="row">
-      <div class="movie-card col-md-2">
-        <img src="../../../assets/images/img/potter.jpg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
-        <div class="movie-overlay">
-          <mat-icon class="text-light">visibility</mat-icon>
-          <mat-icon class="text-light">favorite_border</mat-icon>
-          <mat-icon class="text-light">more_vert</mat-icon>
-        </div>
-      </div>
-      <div class="col-md-10 bag">
-        <div class="card mb-3 bag">
-          <div class="card-body">
-            <h2 class="card-title text-white">Harry Potter (2001)</h2>
-            <div class="d-flex">
-                <img src="../../../assets/images/users/user4.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
-                <p class="text-white ms-2 mt-2">vasili</p>
-            </div>
-            <div class="rating mt-2 d-flex">
-              <input type="radio" class="star5" name="rate" value="1" />
-              <label title="text"></label>
-              <input type="radio" class="star4" name="rate" value="2" />
-              <label title="text"></label>
-              <input type="radio" class="star3" name="rate" value="3" />
-              <label title="text"></label>
-              <input type="radio" class="star2" name="rate" value="4" />
-              <label title="text"></label>
-              <input type="radio" class="star1" name="rate" value="5" />
-              <label title="text"></label>
-            </div>
-            <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
-            <div class="d-flex">
-                <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
-                <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-<br>
-    <div class="row">
-      <div class="movie-card col-md-2">
-        <img src="../../../assets/images/img/moonlight.jpeg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
-        <div class="movie-overlay">
-          <mat-icon class="text-light">visibility</mat-icon>
-          <mat-icon class="text-light">favorite_border</mat-icon>
-          <mat-icon class="text-light">more_vert</mat-icon>
-        </div>
-      </div>
-      <div class="col-md-10 bag">
-        <div class="card mb-3 bag">
-          <div class="card-body">
-            <h2 class="card-title text-white">Moonlight (2019)</h2>
-            <div class="d-flex">
-                <img src="../../../assets/images/users/user1.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
-                <p class="ms-1 mt-2 text-white">vasili</p>
-            </div>
-            <div class="rating mt-2 d-flex">
-              <input type="radio" class="star5" name="rate" value="1" />
-              <label title="text"></label>
-              <input type="radio" class="star4" name="rate" value="2" />
-              <label title="text"></label>
-              <input type="radio" class="star3" name="rate" value="3" />
-              <label title="text"></label>
-              <input type="radio" class="star2" name="rate" value="4" />
-              <label title="text"></label>
-              <input type="radio" class="star1" name="rate" value="5" />
-              <label title="text"></label>
-            </div>
-            <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
-            <div class="d-flex">
-                <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
-                <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="movie-card col-md-2">
-        <img src="../../../assets/images/img/star-wars-poster.jpg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
-        <div class="movie-overlay">
-          <mat-icon class="text-light">visibility</mat-icon>
-          <mat-icon class="text-light">favorite_border</mat-icon>
-          <mat-icon class="text-light">more_vert</mat-icon>
-        </div>
-      </div>
-      <div class="col-md-10 bag">
-        <div class="card mb-3 bag">
-          <div class="card-body">
-            <h2 class="card-title text-white">Star Wars (2020)</h2>
-            <div class="d-flex">
-                <img src="../../../assets/images/users/user2.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
-                <p class="ms-2 mt-2 text-white">vasili</p>
-            </div>
-            <div class="rating mt-2 d-flex">
-              <input type="radio" class="star5" name="rate" value="1" />
-              <label title="text"></label>
-              <input type="radio" class="star4" name="rate" value="2" />
-              <label title="text"></label>
-              <input type="radio" class="star3" name="rate" value="3" />
-              <label title="text"></label>
-              <input type="radio" class="star2" name="rate" value="4" />
-              <label title="text"></label>
-              <input type="radio" class="star1" name="rate" value="5" />
-              <label title="text"></label>
-            </div>
-            <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
-            <div class="d-flex">
-                <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
-                <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="movie-card col-md-2">
-        <img src="../../../assets/images/img/us.jpeg" class="movie-poster img-fluid bg-white" alt="Movie Poster">
-        <div class="movie-overlay">
-          <mat-icon class="text-light">visibility</mat-icon>
-          <mat-icon class="text-light">favorite_border</mat-icon>
-          <mat-icon class="text-light">more_vert</mat-icon>
-        </div>
-      </div>
-      <div class="col-md-10 bag">
-        <div class="card mb-3 bag">
-          <div class="card-body">
-            <h2 class="card-title text-white">Us (2018)</h2>
-            <div class="d-flex">
-                <img src="../../../assets/images/users/user3.jpg" height="15" width="39" class="img-fluid rounded-circle" alt="User">
-                <p class="ms-2 mt-2 text-white">vasili</p>
-            </div>
-            <div class="rating mt-2 d-flex">
-              <input type="radio" class="star5" name="rate" value="1" />
-              <label title="text"></label>
-              <input type="radio" class="star4" name="rate" value="2" />
-              <label title="text"></label>
-              <input type="radio" class="star3" name="rate" value="3" />
-              <label title="text"></label>
-              <input type="radio" class="star2" name="rate" value="4" />
-              <label title="text"></label>
-              <input type="radio" class="star1" name="rate" value="5" />
-              <label title="text"></label>
-            </div>
-            <p class="card-text mt-2 text-white">felix showing saltburn around as if he's in 73 questions with vogue..</p>
-            <div class="d-flex">
-                <div class="d-flex"><mat-icon class="text-danger">favorite</mat-icon><span class="ms-2 mt-1 text-white">5,201 likes</span></div>
-                <div class="d-flex ms-3 mt-1"><mat-icon class="text-info">comment</mat-icon><span class="ms-2 text-white">20</span></div>
+          <div class="col-md-10 bg-dark">
+            <div class="card mb-3 bg-dark">
+              <div class="card-body">
+                <h2 class="card-title text-white">{{review.title}} <span class="text-danger">({{ review.year }})</span></h2>
+                <div class="d-flex" (click)="onUserProfileClick(review.userId)" style="cursor: pointer">
+                  <img [src]="review.userImage" height="15" width="39" class="img-fluid rounded-circle" alt="User">
+                  <p class="text-white ms-2 mt-2">{{ review.name }}</p>
+                </div>
+                <div class="col mt-2">
+                  <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                    <mat-icon class="star" [ngClass]="{ 'star-hover': i < review.rate }">star</mat-icon>
+                  </ng-container>
+                </div>
+                <p class="card-text mt-2 text-white">{{ review.content }}</p>
+                <p class="text-white-50 watched">{{review.timestamp.dayOfMonth}} {{review.timestamp.day}} {{review.date}}</p>
+              </div>
             </div>
           </div>
         </div>

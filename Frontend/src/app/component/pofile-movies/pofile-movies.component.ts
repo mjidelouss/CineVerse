@@ -7,7 +7,6 @@ import {ProfileMovie} from "../../models/profile-movie";
 import {Genre} from "../../models/genre";
 import {MovieService} from "../../service/movie.service";
 import {GenreService} from "../../service/genre.service";
-
 @Component({
   selector: 'app-pofile-movies',
   templateUrl: './pofile-movies.component.html',
@@ -44,19 +43,16 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
   filterMoviesByGenre() {
     this.movieService.filterMoviesByGenre(this.userId, this.selectedGenre).subscribe(
       (response) => {
-        console.log(response)
-        this.movies = response.map((element: any[]) => {
+        this.movies = []
+        for (const element of response.data) {
           const dbMovie = element;
-          return {
-            id: dbMovie[0].movieId,
-            title: dbMovie[0].title || 'N/A',
-            year: dbMovie[0].year || 'N/A',
-            director: dbMovie[0].director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + (dbMovie[0].image || 'N/A'),
-            overview: dbMovie[0].overview || 'N/A',
-            rate: dbMovie[1]
+          let movie: ProfileMovie = {
+            image: "https://image.tmdb.org/t/p/w500/" + (dbMovie.movieImage || 'N/A'),
+            id: dbMovie.movieId,
+            rate: dbMovie.rating
           };
-        });
+          this.movies.push(movie);
+        }
       },
       (error) => {
         console.error('Error fetching Movies By Genre:', error);
@@ -69,19 +65,16 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
     if (this.selectedDecade) {
       this.movieService.filterMoviesByDecade(this.userId, this.selectedDecade).subscribe(
         (response) => {
-          console.log(response)
-          this.movies = response.map((element: any[]) => {
+          this.movies = []
+          for (const element of response.data) {
             const dbMovie = element;
-            return {
-              id: dbMovie[0].movieId,
-              title: dbMovie[0].title || 'N/A',
-              year: dbMovie[0].year || 'N/A',
-              director: dbMovie[0].director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + (dbMovie[0].image || 'N/A'),
-              overview: dbMovie[0].overview || 'N/A',
-              rate: dbMovie[1]
+            let movie: ProfileMovie = {
+              image: "https://image.tmdb.org/t/p/w500/" + (dbMovie.movieImage || 'N/A'),
+              id: dbMovie.movieId,
+              rate: dbMovie.rating
             };
-          });
+            this.movies.push(movie);
+          }
         },
         (error) => {
           console.error('Error filtering movies by decade:', error);
@@ -105,18 +98,16 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
   getReviewedMoviesWithRating() {
     this.reviewService.getReviewedMoviesWithRating(this.userId).subscribe(
       (response) => {
-        this.movies = response.data.map((element: any[]) => {
+        this.movies = []
+        for (const element of response.data) {
           const dbMovie = element;
-          return {
-            id: dbMovie[0].movieId,
-            title: dbMovie[0].title || 'N/A',
-            year: dbMovie[0].year || 'N/A',
-            director: dbMovie[0].director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + (dbMovie[0].image || 'N/A'),
-            overview: dbMovie[0].overview || 'N/A',
-            rate: dbMovie[1]
+          let movie: ProfileMovie = {
+            image: "https://image.tmdb.org/t/p/w500/" + (dbMovie.movieImage || 'N/A'),
+            id: dbMovie.movieId,
+            rate: dbMovie.rating
           };
-        });
+          this.movies.push(movie);
+        }
       },
       (error) => {
         console.error('Error fetching Trending Movies:', error);

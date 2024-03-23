@@ -35,9 +35,6 @@
                 <li class="nav-item mt-1">
                     <a class="nav-link text-white" routerLink="/movies">Movies</a>
                 </li>
-                <li class="nav-item mt-1">
-                    <a class="nav-link text-white" routerLink="/members">Members</a>
-                </li>
             </ul>
         </div>
         <!-- Search Bar -->
@@ -54,12 +51,12 @@
 <div *ngIf="searchResults.length > 0" class="searchBar position-absolute justify-content-center bg-black">
   <div class="">
     <div class="">
-      <div *ngFor="let movie of searchResults" class="mb-2 searchElement" (click)="onMovieClick(movie.id)">
+      <div *ngFor="let movie of searchResults" class="mb-2 searchElement" (click)="onMovieClick(movie.movieId)">
         <div class="d-flex movieSearch p-1">
-          <img class="rounded ms-1 mt-1" src="https://image.tmdb.org/t/p/w500/{{ movie.image }}" height="70" width="55" alt="{{ movie.title }}">
+          <img class="rounded ms-1 mt-1" src="https://image.tmdb.org/t/p/w500/{{ movie.movieImage }}" height="70" width="55" alt="{{ movie.movieTitle }}">
           <div>
-            <p class="text-white ms-3">{{ movie.title }}</p>
-            <p class="ms-3 text-danger">({{ movie.year }})</p>
+            <p class="text-white ms-3">{{ movie.movieTitle }}</p>
+            <p class="ms-3 text-danger">({{ movie.movieYear }})</p>
           </div>
         </div>
       </div>

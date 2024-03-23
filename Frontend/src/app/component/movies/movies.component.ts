@@ -47,12 +47,11 @@ export class MoviesComponent implements OnInit{
           for (const element of response.data) {
             const dbMovie = element;
             let movie: TrendingMovie = {
-              id: dbMovie.id,
-              title: dbMovie.title || 'N/A',
-              year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
+              id: dbMovie.movieId,
+              title: dbMovie.movieTitle || 'N/A',
+              year: dbMovie.movieYear || 'N/A',
+              language: dbMovie.movieLanguage || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             };
             this.trendingMovies.push(movie);
           }
@@ -68,12 +67,11 @@ export class MoviesComponent implements OnInit{
       .subscribe(
         (response) => {
           this.movies = response.data.map((dbMovie: any) => ({
-            id: dbMovie.id,
-            title: dbMovie.title || 'N/A',
-            year: dbMovie.year || 'N/A',
-            director: dbMovie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-            overview: dbMovie.overview || 'N/A',
+            id: dbMovie.movieId,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.movieYear || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A',
           }));
         },
         (error) => {

@@ -40,16 +40,16 @@ export class PofileReviewsComponent implements OnInit, OnDestroy{
   getMyReviews() {
     this.reviewService.getUserReviews(this.userId).subscribe(
       (response) => {
-        console.log(response.data)
         this.reviews = [];
         for (const element of response.data) {
           const dbMovie = element;
           let movie: any = {
-            id: dbMovie.movie.id,
-            title: dbMovie.movie.title || 'N/A',
-            year: dbMovie.movie.year || 'N/A',
-            director: dbMovie.movie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+            id: dbMovie.movieId,
+            reviewId: dbMovie.reviewId,
+            language: dbMovie.movieLanguage,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.year || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             like: dbMovie.liked,
             rate: dbMovie.rating,
             content: dbMovie.content,
@@ -69,14 +69,15 @@ export class PofileReviewsComponent implements OnInit, OnDestroy{
     this.reviewService.filterDiaryMoviesByGenre(this.userId, this.selectedGenre).subscribe(
       (response) => {
         this.reviews = [];
-        for (const element of response) {
+        for (const element of response.data) {
           const dbMovie = element;
           let movie: any = {
-            id: dbMovie.movie.id,
-            title: dbMovie.movie.title || 'N/A',
-            year: dbMovie.movie.year || 'N/A',
-            director: dbMovie.movie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+            id: dbMovie.movieId,
+            reviewId: dbMovie.reviewId,
+            language: dbMovie.movieLanguage,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.year || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             like: dbMovie.liked,
             rate: dbMovie.rating,
             content: dbMovie.content,
@@ -97,14 +98,15 @@ export class PofileReviewsComponent implements OnInit, OnDestroy{
       this.reviewService.filterDiaryMoviesByDecade(this.userId, this.selectedDecade).subscribe(
         (response) => {
           this.reviews = [];
-          for (const element of response) {
+          for (const element of response.data) {
             const dbMovie = element;
             let movie: any = {
-              id: dbMovie.movie.id,
-              title: dbMovie.movie.title || 'N/A',
-              year: dbMovie.movie.year || 'N/A',
-              director: dbMovie.movie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+              id: dbMovie.movieId,
+              reviewId: dbMovie.reviewId,
+              language: dbMovie.movieLanguage,
+              title: dbMovie.movieTitle || 'N/A',
+              year: dbMovie.year || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
               like: dbMovie.liked,
               rate: dbMovie.rating,
               content: dbMovie.content,

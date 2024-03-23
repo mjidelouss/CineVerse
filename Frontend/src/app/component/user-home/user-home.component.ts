@@ -4,8 +4,6 @@ import {MovieService} from "../../service/movie.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {debounceTime, Subscription} from "rxjs";
-import {FormControl} from "@angular/forms";
-import {User} from "../../models/user";
 import {ReviewService} from "../../service/review.service";
 
 @Component({
@@ -15,7 +13,7 @@ import {ReviewService} from "../../service/review.service";
 })
 export class UserHomeComponent implements OnInit, OnDestroy {
 
-  trendingMovies: TrendingMovie[] = [];
+  trendingMovies: any[] = [];
   movies: TrendingMovie[] = [];
   reviews: any[] = []
   AuthUserSub! : Subscription;
@@ -50,12 +48,11 @@ export class UserHomeComponent implements OnInit, OnDestroy {
           for (const element of response.data) {
             const dbMovie = element;
             let movie: TrendingMovie = {
-              id: dbMovie.id,
-              title: dbMovie.title || 'N/A',
-              year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
+              id: dbMovie.movieId,
+              title: dbMovie.movieTitle || 'N/A',
+              year: dbMovie.movieYear || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
+              language: dbMovie.movieLanguage || 'N/A'
             };
             this.trendingMovies.push(movie);
           }
@@ -73,14 +70,15 @@ export class UserHomeComponent implements OnInit, OnDestroy {
         (response) => {
           this.movies = [];
           for (const element of response.data) {
+            console.log("Last Movies :")
+            console.log(response.data)
             const dbMovie = element;
             let movie: TrendingMovie = {
-              id: dbMovie.id,
-              title: dbMovie.title || 'N/A',
-              year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
+              id: dbMovie.movieId,
+              language: dbMovie.movieLanguage || 'N/A',
+              title: dbMovie.movieTitle || 'N/A',
+              year: dbMovie.movieYear || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             };
             this.movies.push(movie);
           }
@@ -94,18 +92,17 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   getPopularReviews() {
     this.reviewService.getPopularReviews().subscribe(
       (response) => {
-        console.log(response.data)
         this.reviews = [];
         for (const element of response.data) {
           const dbMovie = element;
           let movie: any = {
-            id: dbMovie.movie.id,
-            name: dbMovie.appUser.firstname + ' ' + dbMovie.appUser.lastname,
-            title: dbMovie.movie.title || 'N/A',
-            year: dbMovie.movie.year || 'N/A',
-            director: dbMovie.movie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
-            like: dbMovie.liked,
+            id: dbMovie.movieId,
+            userId: dbMovie.userId,
+            userImage: dbMovie.userImage,
+            name: dbMovie.userFirstname + ' ' + dbMovie.userLastname,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.movieYear || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             rate: dbMovie.rating,
             content: dbMovie.content,
             date: new Date(dbMovie.timestamp).getFullYear(),
@@ -124,6 +121,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/movie', movieId]);
   }
 
+  onUserProfileClick(userId: number): void {
+    this.router.navigate(['/profile', userId]);
+  }
   parseTimeStamp(timestamp: string):{ day: string, month: string, dayOfMonth: string}  {
     let parsedTimeStamp = { day: '', month: '', dayOfMonth: ''};
     const date = new Date(timestamp);

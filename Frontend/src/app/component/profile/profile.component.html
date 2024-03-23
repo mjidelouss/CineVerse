@@ -6,7 +6,7 @@
         <div class="row mb-4">
             <div class="d-flex justify-content-between">
                 <div class="d-flex mt-4">
-                    <img src="../../../assets/images/users/user5.jpg" height="100" width="150"
+                    <img [src]="user.image" height="100" width="150"
                         class="img-fluid rounded-circle" alt="User">
                     <div class="ms-3">
                         <h1 class="text-white mt-2 fw-bold">{{ user.firstname + " " + user.lastname }}</h1>
@@ -71,14 +71,14 @@
   </div>
   <hr class="text-white">
     <div *ngFor="let review of recentReviews">
-      <div class="row" (click)="onMovieClick(review.movie.id)">
+      <div class="row" (click)="onMovieClick(review.movieId)">
         <div class="col-md-2">
-          <img src="https://image.tmdb.org/t/p/w500/{{review.movie.image}}" class="img-fluid bg-white movie-poster" hei alt="Movie Poster">
+          <img src="https://image.tmdb.org/t/p/w500/{{review.movieImage}}" class="img-fluid bg-white movie-poster" hei alt="Movie Poster">
         </div>
         <div class="col-md-10 bg-dark">
           <div class="card mb-3 bg-dark">
             <div class="card-body">
-              <h2 class="card-title text-white">{{review.movie.title }} <span class="text-danger">({{review.movie.year}})</span></h2>
+              <h2 class="card-title text-white">{{review.movieTitle }} <span class="text-danger">({{review.movieYear}})</span></h2>
               <div class="mt-1">
                 <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
                   <mat-icon class="star" [ngClass]="{ 'star-hover': i < review.rating }">star</mat-icon>

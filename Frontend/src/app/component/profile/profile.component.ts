@@ -106,20 +106,19 @@ export class ProfileComponent implements OnInit, OnDestroy{
   getUserRecentReviews() {
     this.reviewService.getRecentUserReviews(this.userId).subscribe(
       (response) => {
-        console.log(response.data)
         this.recentReviews = [];
         for (const element of response.data) {
           const dbReview = element;
           let review: any = {
-            firstname: dbReview.appUser.firstname || 'N/A',
-            lastname: dbReview.appUser.lastname || 'N/A',
-            image: dbReview.appUser.image || 'N/A',
+            image: dbReview.movieImage || 'N/A',
             content: dbReview.content || 'N/A',
             rating: dbReview.rating || 'N/A',
-            likes: dbReview.likes,
             date: new Date(dbReview.timestamp).getFullYear(),
             timestamp: this.parseTimeStamp(dbReview.timestamp),
-            movie: dbReview.movie
+            movieTitle: dbReview.movieTitle,
+            movieYear: dbReview.movieYear,
+            movieImage: dbReview.movieImage,
+            movieId: dbReview.movieId,
           };
           this.recentReviews.push(review);
         }
@@ -138,16 +137,15 @@ export class ProfileComponent implements OnInit, OnDestroy{
           if (this.likedMovies.length < 5) {
             const dbMovie = element;
             let movie: TrendingMovie = {
-              id: dbMovie.id,
+              id: dbMovie.movieId,
               title: dbMovie.title || 'N/A',
               year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
+              language: dbMovie.movieLanguage || 'N/A',
               image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
             };
             this.likedMovies.push(movie);
           } else {
-            break;  // Exit the loop if 5 movies have been added
+            break;
           }
         }
       },

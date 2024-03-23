@@ -67,16 +67,14 @@
       <div>
         <div class="row mt-2" *ngFor="let review of reviews">
           <div class="col-md-2">
-            <img [src]="review.image" class="img-fluid bg-white review-poster"
-                 alt="Movie Poster">
+            <img [src]="review.image" class="img-fluid bg-white review-poster" alt="Movie Poster">
           </div>
           <div class="col-md-10 bg-dark">
             <div class="card mb-3 bg-dark">
               <div class="card-body">
                 <h2 class="card-title text-white">{{review.title}} <span class="text-danger">({{ review.year }})</span></h2>
-                <div class="d-flex">
-                  <img src="../../../assets/images/users/user5.jpg" height="15" width="39"
-                       class="img-fluid rounded-circle" alt="User">
+                <div class="d-flex" (click)="onUserProfileClick(review.userId)" style="cursor: pointer">
+                  <img [src]="review.userImage" height="15" width="39" class="img-fluid rounded-circle" alt="User">
                   <p class="text-white ms-2 mt-2">{{ review.name }}</p>
                 </div>
                 <div class="col mt-2">

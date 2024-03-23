@@ -1,12 +1,12 @@
 export interface Diary {
+  content: string
+  like: boolean
+  id: number
+  image: string
+  language: string
+  title: string
+  rating: number
   reviewId: number
-  image: string,
-  year: string,
-  director: string,
-  id: number,
-  content: string,
-  title: string,
-  like: boolean,
-  rate: number
   timestamp: { day: string, month: string, dayOfMonth: string}
+  year: number
 }

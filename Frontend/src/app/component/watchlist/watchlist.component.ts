@@ -57,12 +57,11 @@ export class WatchlistComponent implements OnInit, OnDestroy{
         for (const element of response.data) {
           const dbMovie = element;
           let movie: TrendingMovie = {
-            id: dbMovie.movie.id,
-            title: dbMovie.movie.title || 'N/A',
-            year: dbMovie.movie.year || 'N/A',
-            director: dbMovie.movie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
-            overview: dbMovie.movie.overview || 'N/A',
+            id: dbMovie.movieId,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.movieYear || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
           };
           this.movies.push(movie);
         }
@@ -76,17 +75,15 @@ export class WatchlistComponent implements OnInit, OnDestroy{
   filterWatchedMoviesByGenre() {
     this.watchlistService.filterWatchedMoviesByGenre(this.userId, this.selectedGenre).subscribe(
       (response) => {
-        console.log(response)
         this.movies = [];
-        for (const element of response) {
+        for (const element of response.data) {
           const dbMovie = element;
           let movie: TrendingMovie = {
-            id: dbMovie.movie.id,
-            title: dbMovie.movie.title || 'N/A',
-            year: dbMovie.movie.year || 'N/A',
-            director: dbMovie.movie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
-            overview: dbMovie.movie.overview || 'N/A',
+            id: dbMovie.movieId,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.movieYear || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
           };
           this.movies.push(movie);
         }
@@ -102,15 +99,14 @@ export class WatchlistComponent implements OnInit, OnDestroy{
       this.watchlistService.filterWatchedMoviesByDecade(this.userId, this.selectedDecade).subscribe(
         (response) => {
           this.movies = [];
-          for (const element of response) {
+          for (const element of response.data) {
             const dbMovie = element;
             let movie: TrendingMovie = {
-              id: dbMovie.movie.id,
-              title: dbMovie.movie.title || 'N/A',
-              year: dbMovie.movie.year || 'N/A',
-              director: dbMovie.movie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
-              overview: dbMovie.movie.overview || 'N/A',
+              id: dbMovie.movieId,
+              title: dbMovie.movieTitle || 'N/A',
+              year: dbMovie.movieYear || 'N/A',
+              language: dbMovie.movieLanguage || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             };
             this.movies.push(movie);
           }

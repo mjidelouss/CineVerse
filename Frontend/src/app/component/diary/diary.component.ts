@@ -62,15 +62,15 @@ export class DiaryComponent implements OnInit, OnDestroy{
         for (const element of response.data) {
           const dbMovie = element;
           let movie: Diary = {
-            reviewId: dbMovie.id,
-            id: dbMovie.movie.id,
-            title: dbMovie.movie.title || 'N/A',
-            year: dbMovie.movie.year || 'N/A',
+            reviewId: dbMovie.reviewId,
+            id: dbMovie.movieId,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.year || 'N/A',
             content: dbMovie.content || 'N/A',
-            director: dbMovie.movie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             like: dbMovie.liked,
-            rate: dbMovie.rating,
+            rating: dbMovie.rating,
             timestamp: this.parseTimeStamp(dbMovie.timestamp)
           };
           this.diaryMovies.push(movie);
@@ -86,18 +86,18 @@ export class DiaryComponent implements OnInit, OnDestroy{
     this.reviewService.filterDiaryMoviesByGenre(this.userId, this.selectedGenre).subscribe(
       (response) => {
         this.diaryMovies = [];
-        for (const element of response) {
+        for (const element of response.data) {
           const dbMovie = element;
           let movie: Diary = {
-            reviewId: dbMovie.id,
-            id: dbMovie.movie.id,
-            title: dbMovie.movie.title || 'N/A',
-            year: dbMovie.movie.year || 'N/A',
+            reviewId: dbMovie.reviewId,
+            id: dbMovie.movieId,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.year || 'N/A',
             content: dbMovie.content || 'N/A',
-            director: dbMovie.movie.director || 'N/A',
-            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
             like: dbMovie.liked,
-            rate: dbMovie.rating,
+            rating: dbMovie.rating,
             timestamp: this.parseTimeStamp(dbMovie.timestamp)
           };
           this.diaryMovies.push(movie);
@@ -114,18 +114,18 @@ export class DiaryComponent implements OnInit, OnDestroy{
       this.reviewService.filterDiaryMoviesByDecade(this.userId, this.selectedDecade).subscribe(
         (response) => {
           this.diaryMovies = [];
-          for (const element of response) {
+          for (const element of response.data) {
             const dbMovie = element;
             let movie: Diary = {
-              reviewId: dbMovie.id,
-              id: dbMovie.movie.id,
-              title: dbMovie.movie.title || 'N/A',
+              reviewId: dbMovie.reviewId,
+              id: dbMovie.movieId,
+              title: dbMovie.movieTitle || 'N/A',
+              year: dbMovie.year || 'N/A',
               content: dbMovie.content || 'N/A',
-              year: dbMovie.movie.year || 'N/A',
-              director: dbMovie.movie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movie.image || 'N/A',
+              language: dbMovie.movieLanguage || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
               like: dbMovie.liked,
-              rate: dbMovie.rating,
+              rating: dbMovie.rating,
               timestamp: this.parseTimeStamp(dbMovie.timestamp)
             };
             this.diaryMovies.push(movie);
@@ -158,7 +158,6 @@ export class DiaryComponent implements OnInit, OnDestroy{
     this.review.content = this.selectedMovie.content
     this.reviewService.updateReview(this.review, reviewId).subscribe(
       (response: any) => {
-        // Search for the existing element with the same reviewId
         const existingReviewIndex = this.diaryMovies.findIndex(movie => movie.reviewId === reviewId);
         if (existingReviewIndex !== -1) {
           this.diaryMovies[existingReviewIndex].content = response.data.content;
@@ -220,6 +219,9 @@ export class DiaryComponent implements OnInit, OnDestroy{
     this.router.navigate(['/likes', this.userId]);
   }
 
+  onReviewsClick(): void {
+    this.router.navigate(['/profile-reviews', this.userId]);
+  }
   onWatchListClick(): void {
     this.router.navigate(['/watchlist', this.userId]);
   }

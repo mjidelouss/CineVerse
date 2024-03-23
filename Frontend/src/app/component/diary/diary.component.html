@@ -8,6 +8,7 @@
             <p class=""><a class="text-white opacity-75 fs-5 crum" (click)="onProfileClick()">Profile</a></p>
             <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onProfileMoviesClick()">Movies</a></p>
             <p class="ms-3"><a class="text-danger fs-5 crum" (click)="onDiaryClick()">Diary</a></p>
+            <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onReviewsClick()">Reviews</a></p>
             <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onWatchListClick()">Watchlist</a></p>
             <p class="ms-3"><a class="text-white opacity-75 fs-5 crum" (click)="onLikesClick()">Likes</a></p>
           </div>
@@ -86,7 +87,7 @@
               <p class="text-white text-center opacity-75 fw-bold" *ngIf="i !== 0"></p>
               <div class="mt-5" [class.move-left]="i !== 0">
                 <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
-                  <mat-icon class="star" [ngClass]="{ 'star-hover': i < movie.rate }">star</mat-icon>
+                  <mat-icon class="star" [ngClass]="{ 'star-hover': i < movie.rating }">star</mat-icon>
                 </ng-container>
               </div>
             </div>
@@ -118,8 +119,8 @@
             <div class="d-flex">
               <img src="https://image.tmdb.org/t/p/w500/{{selectedMovie.image}}}" width="200" height="290" class="rounded" alt="Movie {{ selectedMovie.title }}">
               <div class="ms-3">
-                <div><strong class="fs-5 text-danger opacity-75">{{ selectedMovie.title }}</strong></div>
-                <div class="mt-2"><strong class="fs-6 text-white">({{ selectedMovie.year }})</strong></div>
+                <div><strong class="fs-5 text-white">{{ selectedMovie.title }}</strong></div>
+                <div class="mt-2"><strong class="fs-6 text-danger opacity-75">({{ selectedMovie.year }})</strong></div>
                 <div class="mt-2">
                   <div class="tag-container" *ngIf="selectedMovie.language">
                     <div class="crew 2">LANGUAGE: </div>

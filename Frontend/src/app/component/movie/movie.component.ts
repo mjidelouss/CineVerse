@@ -86,12 +86,12 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.reviewService.addReview(this.review).subscribe(
       (response: any) => {
         let review: RecentReview = {
-          firstname: response.data.appUser.firstname || 'N/A',
-          lastname: response.data.appUser.lastname || 'N/A',
-          image: response.data.appUser.image || 'N/A',
+          firstname: response.data.userFirstname || 'N/A',
+          lastname: response.data.userLastname || 'N/A',
+          image: response.data.userImage || 'N/A',
           content: response.data.content || 'N/A',
           rating: response.data.rating || 'N/A',
-          likes: response.data.likes,
+          userId: response.data.userId,
           timestamp: response.data.timestamp|| 'N/A'
         };
         this.recentReviews.push(review);
@@ -244,10 +244,6 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.resetShowAllContent();
   }
 
-  toggleShowAllContent(tab: 'cast' | 'crew' | 'genre' | 'details'): void {
-    this.showAllContent[tab] = !this.showAllContent[tab];
-  }
-
   resetShowAllContent(): void {
     this.showAllContent = {
       cast: false,
@@ -282,7 +278,7 @@ export class MovieComponent implements OnInit, OnDestroy {
         this.watchlist = response.data.watchlist;
       },
       (error) => {
-        console.error("Error fetching Movie Details & Credits:", error);
+        console.error("Error fetching Review:", error);
       }
     );
   }
@@ -290,16 +286,18 @@ export class MovieComponent implements OnInit, OnDestroy {
   getRecentReviews(movieId: number) {
     this.reviewService.getRecentReviews(movieId).subscribe(
       (response) => {
+        console.log("Recent Reviews :")
+        console.log(response.data)
         this.recentReviews = [];
         for (const element of response.data) {
           const dbReview = element;
           let review: RecentReview = {
-            firstname: dbReview.appUser.firstname || 'N/A',
-            lastname: dbReview.appUser.lastname || 'N/A',
-            image: dbReview.appUser.image || 'N/A',
+            firstname: dbReview.userFirstname || 'N/A',
+            lastname: dbReview.userLastname || 'N/A',
+            image: dbReview.userImage || 'N/A',
+            userId: dbReview.userId,
             content: dbReview.content || 'N/A',
             rating: dbReview.rating || 'N/A',
-            likes: dbReview.likes,
             timestamp: dbReview.timestamp|| 'N/A'
           };
           this.recentReviews.push(review);
@@ -320,12 +318,11 @@ export class MovieComponent implements OnInit, OnDestroy {
           for (const element of response.data) {
             const dbMovie = element;
             let movie: SimilarMovie = {
-              id: dbMovie.id,
-              title: dbMovie.title || 'N/A',
-              year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
-              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
+              id: dbMovie.movieId,
+              title: dbMovie.movieTitle || 'N/A',
+              year: dbMovie.movieYear || 'N/A',
+              image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
+              language: dbMovie.movieLanguage || 'N/A',
             };
             this.similarMovies.push(movie);
           }

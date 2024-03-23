@@ -53,15 +53,14 @@ export class LikesComponent implements OnInit, OnDestroy{
     this.reviewService.filterLikedMoviesByGenre(this.userId, this.selectedGenre).subscribe(
       (response) => {
         this.movies = [];
-        for (const element of response) {
+        for (const element of response.data) {
           const dbMovie = element;
           let movie: TrendingMovie = {
-            id: dbMovie.id,
+            id: dbMovie.movieId,
             title: dbMovie.title || 'N/A',
             year: dbMovie.year || 'N/A',
-            director: dbMovie.director || 'N/A',
             image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-            overview: dbMovie.overview || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A'
           };
           this.movies.push(movie);
         }
@@ -77,15 +76,14 @@ export class LikesComponent implements OnInit, OnDestroy{
       this.reviewService.filterLikedMoviesByDecade(this.userId, this.selectedDecade).subscribe(
         (response) => {
           this.movies = [];
-          for (const element of response) {
+          for (const element of response.data) {
             const dbMovie = element;
             let movie: TrendingMovie = {
-              id: dbMovie.id,
+              id: dbMovie.movieId,
               title: dbMovie.title || 'N/A',
               year: dbMovie.year || 'N/A',
-              director: dbMovie.director || 'N/A',
               image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-              overview: dbMovie.overview || 'N/A',
+              language: dbMovie.movieLanguage || 'N/A'
             };
             this.movies.push(movie);
           }
@@ -102,17 +100,15 @@ export class LikesComponent implements OnInit, OnDestroy{
   getUserLikedMovies() {
     this.reviewService.getUserLikedMovies(this.userId).subscribe(
       (response) => {
-        console.log(response.data)
         this.movies = [];
         for (const element of response.data) {
           const dbMovie = element;
           let movie: TrendingMovie = {
-            id: dbMovie.id,
+            id: dbMovie.movieId,
             title: dbMovie.title || 'N/A',
             year: dbMovie.year || 'N/A',
-            director: dbMovie.director || 'N/A',
             image: "https://image.tmdb.org/t/p/w500/" + dbMovie.image || 'N/A',
-            overview: dbMovie.overview || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A'
           };
           this.movies.push(movie);
         }

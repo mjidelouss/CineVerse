@@ -12,6 +12,20 @@
   padding: 100px 0;
 }
 
+.review-poster {
+  cursor: pointer;
+  height: 255px;
+  width: 180px;
+  object-fit: cover;
+  border: 3px solid rgb(46, 38, 61);
+  transition: transform 0.3s ease;
+}
+
+.review-poster:hover {
+  transform: scale(1.05); /* Increase scale on hover */
+}
+
+
 .movie-card {
   cursor: pointer;
   height: 280px;
@@ -38,6 +52,10 @@
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.7);
   transition: opacity 0.3s ease; /* Add transition for opacity */
+}
+
+.star-hover {
+  color: #c7c72f;
 }
 
 .movie-card:hover .movie-overlay {
