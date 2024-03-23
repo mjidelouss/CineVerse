@@ -1,5 +1,6 @@
 package com.cine.verse.service;
 
+import com.cine.verse.Dto.request.ReviewRequest;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 import org.springframework.data.domain.Page;
@@ -21,12 +22,11 @@ public interface ReviewService {
     List<Object[]> getReviewdMovies(Long userId);
 
     Review getReviewByMovieAndUser(Long movieId, Long userId);
-    Review addReview(Review review);
+    Review addReview(ReviewRequest reviewRequest);
 
     Review updateReview(Review review);
 
     long getTotalReviews();
-
     List<Review> getPopularReviews();
 
     void deleteReview(Long id);

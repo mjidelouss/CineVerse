@@ -1,6 +1,7 @@
 package com.cine.verse.mappers;
 
 import com.cine.verse.Dto.response.*;
+import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 
 public class ReviewMapper {
@@ -44,12 +45,15 @@ public class ReviewMapper {
                  .build();
     }
 
-    public static ReviewedMovieResponse convertReviewToReviewedMovie(Review review) {
-         return ReviewedMovieResponse.builder()
-                 .movieId(review.getMovie().getId())
-                 .rating(review.getRating())
-                 .movieImage(review.getMovie().getImage())
-                 .build();
+    public static ReviewedMovieResponse convertObjectArrayToReviewedMovieResponse(Object[] objectArray) {
+        Movie movie = (Movie) objectArray[0];
+        Integer rating = (Integer) objectArray[1];
+
+        return ReviewedMovieResponse.builder()
+                .movieId(movie.getId())
+                .rating(rating)
+                .movieImage(movie.getImage())
+                .build();
     }
 
     public static ReviewResponse convertReviewToReviewResponse(Review review) {

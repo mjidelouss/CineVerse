@@ -1,17 +1,18 @@
 package com.cine.verse.service.impl;
 
+import com.cine.verse.Dto.request.ReviewRequest;
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 import com.cine.verse.repository.AppUserRepository;
 import com.cine.verse.repository.ReviewRepository;
+import com.cine.verse.service.AppUserService;
 import com.cine.verse.service.MovieService;
 import com.cine.verse.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,9 +21,9 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final ReviewMapper reviewMapper;
     private final AppUserRepository userRepository;
     private final MovieService movieService;
+    private final AppUserService appUserService;
 
 
     @Override
@@ -51,13 +52,43 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review addReview(Review review) {
-        return reviewRepository.save(review);
+    public Review addReview(ReviewRequest reviewRequest) {
+        Review review1;
+        Review review = getReviewByMovieAndUser(reviewRequest.getMovieId(), reviewRequest.getUserId());
+
+        if (review == null) {
+            // If the review doesn't exist, create a new one
+            review = new Review();
+            review.setAppUser(appUserService.getUserById(reviewRequest.getUserId()));
+            review.setMovie(movieService.getMovieById(reviewRequest.getMovieId()));
+            review.setContent(reviewRequest.getContent());
+            review.setTimestamp(LocalDate.now());
+            review1 = reviewRepository.save(review);
+        } else {
+            if (review.getContent() == null) {
+                // If the existing review has no content, update it
+                review.setContent(reviewRequest.getContent());
+                review.setTimestamp(LocalDate.now());
+                review1 = reviewRepository.save(review);
+            } else {
+                // If the existing review has content, create a new one based on it
+                Review review2 = new Review();
+                review2.setRating(review.getRating());
+                review2.setWatched(review.getWatched());
+                review2.setLiked(review.getLiked());
+                review2.setAppUser(review.getAppUser());
+                review2.setMovie(review.getMovie());
+                review2.setContent(reviewRequest.getContent());
+                review2.setTimestamp(LocalDate.now());
+                review1 = reviewRepository.save(review2);
+            }
+        }
+        return review1;
     }
 
     @Override
     public Review updateReview(Review review) {
-        return addReview(review);
+        return reviewRepository.save(review);
     }
 
     @Override
@@ -92,7 +123,7 @@ public class ReviewServiceImpl implements ReviewService {
         } else {
             review.setWatched(true);
         }
-        addReview(review);
+        reviewRepository.save(review);
         return true;
     }
 
@@ -107,7 +138,7 @@ public class ReviewServiceImpl implements ReviewService {
             review.setAppUser(user1);
         }
         review.setLiked(like);
-        addReview(review);
+        reviewRepository.save(review);
         return like;
     }
 
@@ -122,7 +153,7 @@ public class ReviewServiceImpl implements ReviewService {
             review.setAppUser(user1);
         }
         review.setWatchlist(watchlist);
-        addReview(review);
+        reviewRepository.save(review);
         return watchlist;
     }
 

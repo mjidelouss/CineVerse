@@ -4,6 +4,7 @@ import com.cine.verse.Dto.response.UserLikedMovieResponse;
 import com.cine.verse.Dto.response.UserResponse;
 import com.cine.verse.Dto.response.UserReviewResponse;
 import com.cine.verse.domain.AppUser;
+import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
 
 public class UserMapper {
@@ -19,16 +20,16 @@ public class UserMapper {
                 .build();
     }
 
-    public static UserLikedMovieResponse convertReviewToUserLikedMovie(Review review) {
+    public static UserLikedMovieResponse convertMovieToUserLikedMovie(Movie movie) {
         return UserLikedMovieResponse.builder()
-                .movieId(review.getMovie().getId())
-                .year(review.getMovie().getYear())
-                .title(review.getMovie().getTitle())
-                .image(review.getMovie().getImage())
+                .movieId(movie.getId())
+                .year(movie.getYear())
+                .title(movie.getTitle())
+                .image(movie.getImage())
                 .build();
     }
 
-    public UserReviewResponse convertReviewToUserReview(Review review) {
+    public static UserReviewResponse convertReviewToUserReview(Review review) {
         return UserReviewResponse.builder()
                 .reviewId(review.getId())
                 .content(review.getContent())
