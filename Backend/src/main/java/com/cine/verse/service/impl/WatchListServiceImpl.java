@@ -1,16 +1,10 @@
 package com.cine.verse.service.impl;
 
-import com.cine.verse.domain.AppUser;
-import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.WatchList;
 import com.cine.verse.repository.WatchListRepository;
-import com.cine.verse.service.AppUserService;
-import com.cine.verse.service.MovieService;
 import com.cine.verse.service.WatchListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Service

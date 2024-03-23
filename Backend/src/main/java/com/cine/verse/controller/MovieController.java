@@ -1,6 +1,13 @@
 package com.cine.verse.controller;
 
+import com.cine.verse.Dto.response.MoviesResponse;
+import com.cine.verse.Dto.response.ReviewedMovieResponse;
+import com.cine.verse.Dto.response.SearchedMovieResponse;
+import com.cine.verse.Dto.response.UserResponse;
 import com.cine.verse.domain.Movie;
+import com.cine.verse.mappers.MovieMapper;
+import com.cine.verse.mappers.ReviewMapper;
+import com.cine.verse.mappers.UserMapper;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.MovieService;
 import com.cine.verse.service.ReviewService;
@@ -25,47 +32,58 @@ public class MovieController {
     @GetMapping("/all")
     public ResponseEntity getMovies(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         Page<Movie> moviesPage = movieService.getMovies(PageRequest.of(page, size));
-
         if (moviesPage.isEmpty()) {
             return ResponseMessage.notFound("Movies Not Found");
         } else {
-            return ResponseMessage.ok("Success", moviesPage.getContent());
+            Page<MoviesResponse> moviesResponses = moviesPage.map(MovieMapper::convertMovieToMoviesResponse);
+            return ResponseMessage.ok("Success", moviesResponses);
         }
     }
 
     @GetMapping("/filterByGenre/{userId}")
-    public List<Object[]> getMoviesByGenre(@RequestParam(name = "genre", required = false) String genreName, @PathVariable Long userId) {
-        // Retrieve movies by genre from the service layer
+    public ResponseEntity getMoviesByGenre(@RequestParam(name = "genre", required = false) String genreName, @PathVariable Long userId) {
         List<Object[]> allMovies = reviewService.getReviewdMovies(userId);
-        // Check if genreName is empty or null
+        List<ReviewedMovieResponse> reviewedMovieResponses = allMovies.stream()
+                .map(ReviewMapper::convertObjectArrayToReviewedMovieResponse)
+                .collect(Collectors.toList());
         if (genreName == null || genreName.isEmpty()) {
-            return allMovies;
+            return ResponseMessage.ok("No Genre Specified", reviewedMovieResponses);
         }
-        // Filter movies by the specified genre
-        return allMovies.stream()
+        List<Object[]> objects = allMovies.stream()
                 .filter(movie -> {
-                    Movie dbMovie = (Movie) movie[0]; // Cast to Movie object
+                    Movie dbMovie = (Movie) movie[0];
                     return dbMovie.getGenres().stream()
                             .anyMatch(genre -> genre.getName().equalsIgnoreCase(genreName));
-                })
-                .collect(Collectors.toList()); // Collect the filtered movies into a list
+                }).collect(Collectors.toList());
+        if (objects.isEmpty()) {
+            return ResponseMessage.notFound("No Movie Found");
+        } else {
+            List<ReviewedMovieResponse> movieResponses = objects.stream().map(ReviewMapper::convertObjectArrayToReviewedMovieResponse)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Success", movieResponses);
+        }
     }
 
     @GetMapping("/filterByDecade/{userId}")
-    public List<Object[]> getMoviesByDecade(@RequestParam("decade") String decade, @PathVariable Long userId) {
-        // Retrieve movies from the service layer
+    public ResponseEntity getMoviesByDecade(@RequestParam("decade") String decade, @PathVariable Long userId) {
         List<Object[]> allMovies = reviewService.getReviewdMovies(userId);
-
-        if (decade == null || decade.isEmpty()) {
-            return allMovies;
-        }
-        // Filter movies by the specified decade
-        return allMovies.stream()
-                .filter(movie -> {
-                    Movie dbMovie = (Movie) movie[0]; // Cast to Movie object
-                    return isMovieInDecade(dbMovie, decade);
-                })
+        List<ReviewedMovieResponse> reviewedMovieResponses = allMovies.stream()
+                .map(ReviewMapper::convertObjectArrayToReviewedMovieResponse)
                 .collect(Collectors.toList());
+        if (decade == null || decade.isEmpty()) {
+            return ResponseMessage.ok("No Decade Specified", reviewedMovieResponses);
+        }
+        List<Object[]> objects = allMovies.stream().filter(movie -> {
+                    Movie dbMovie = (Movie) movie[0];
+                    return isMovieInDecade(dbMovie, decade);
+                }).collect(Collectors.toList());
+        if (objects.isEmpty()) {
+            return ResponseMessage.notFound("No Movie Found");
+        } else {
+            List<ReviewedMovieResponse> movieResponses = objects.stream().map(ReviewMapper::convertObjectArrayToReviewedMovieResponse)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Success", movieResponses);
+        }
     }
 
     @GetMapping("/search")
@@ -74,7 +92,9 @@ public class MovieController {
         if (searchMovies.isEmpty()) {
             return ResponseMessage.ok("No Result Found", searchMovies);
         } else {
-            return ResponseMessage.ok("Success", searchMovies);
+            List<SearchedMovieResponse> searchedMovieResponses = searchMovies.stream().map(MovieMapper::convertMovieToSearchedMovie)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Success", searchedMovieResponses);
         }
     }
 
@@ -84,7 +104,9 @@ public class MovieController {
         if (lastSixMovies.isEmpty()) {
             return ResponseMessage.notFound("Movies Not Found");
         } else {
-            return ResponseMessage.ok("Success", lastSixMovies);
+            List<MoviesResponse> moviesResponses = lastSixMovies.stream().map(MovieMapper::convertMovieToMoviesResponse)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Success", moviesResponses);
         }
     }
 
@@ -95,7 +117,9 @@ public class MovieController {
         if (movies.isEmpty()) {
             return ResponseMessage.notFound("Trending Movies Not Found");
         } else {
-            return ResponseMessage.ok("Successfully gotten Trending Movies", movies);
+            List<MoviesResponse> moviesResponses = movies.stream().map(MovieMapper::convertMovieToMoviesResponse)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Successfully gotten Trending Movies", moviesResponses);
         }
     }
 
@@ -111,7 +135,9 @@ public class MovieController {
         if (movies.isEmpty()) {
             return ResponseMessage.notFound("Similar Movies Not Found");
         } else {
-            return ResponseMessage.ok("Successfully gotten Similar Movies", movies);
+            List<MoviesResponse> moviesResponses = movies.stream().map(MovieMapper::convertMovieToMoviesResponse)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Successfully gotten Similar Movies", moviesResponses);
         }
     }
 
@@ -165,15 +191,5 @@ public class MovieController {
             default:
                 return false;
         }
-    }
-
-    public List<Movie> extractMovies(List<Object[]> data) {
-        List<Movie> movies = new ArrayList<>();
-        for (Object[] objects : data) {
-            if (objects.length > 0 && objects[0] instanceof Movie) {
-                movies.add((Movie) objects[0]);
-            }
-        }
-        return movies;
     }
 }
