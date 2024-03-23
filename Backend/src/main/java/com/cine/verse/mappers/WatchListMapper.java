@@ -1,15 +1,15 @@
 package com.cine.verse.mappers;
 
 import com.cine.verse.Dto.response.UserWatchListResponse;
-import com.cine.verse.domain.Review;
+import com.cine.verse.domain.WatchList;
 
 public class WatchListMapper {
-    public static UserWatchListResponse convertReviewToUserWatchList(Review review) {
+    public static UserWatchListResponse convertWatchListToUserWatchList(WatchList watchList) {
         return UserWatchListResponse.builder()
-                .movieId(review.getMovie().getId())
-                .movieImage(review.getMovie().getImage())
-                .movieTitle(review.getMovie().getTitle())
-                .movieYear(review.getMovie().getYear())
+                .movieId(watchList.getMovie().getId())
+                .movieImage(watchList.getMovie().getImage())
+                .movieTitle(watchList.getMovie().getTitle())
+                .movieYear(watchList.getMovie().getYear())
                 .build();
     }
 }

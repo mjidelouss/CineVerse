@@ -1,8 +1,10 @@
 package com.cine.verse.controller;
 
 import com.cine.verse.Dto.request.WatchListRequest;
+import com.cine.verse.Dto.response.UserWatchListResponse;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.WatchList;
+import com.cine.verse.mappers.WatchListMapper;
 import com.cine.verse.response.ResponseMessage;
 import com.cine.verse.service.WatchListService;
 import jakarta.validation.Valid;
@@ -19,17 +21,6 @@ import java.util.stream.Collectors;
 public class WatchListController {
 
     private final WatchListService watchListService;
-    private final WatchListMapper watchListMapper;
-
-    @GetMapping("/all")
-    public ResponseEntity getWatchLists() {
-        List<WatchList> watchLists = watchListService.getWatchLists();
-        if (watchLists.isEmpty()) {
-            return ResponseMessage.notFound("WatchLists Not Found");
-        } else {
-            return ResponseMessage.ok("Success", watchLists);
-        }
-    }
 
     @GetMapping("/user/{id}")
     public ResponseEntity getWatchListByUser(@PathVariable Long id) {
@@ -37,58 +28,51 @@ public class WatchListController {
         if (watchLists.isEmpty()) {
             return ResponseMessage.notFound("WatchList Not Found");
         } else {
-            return ResponseMessage.ok("Success", watchLists);
+            List<UserWatchListResponse> userWatchListResponses = watchLists.stream()
+                    .map(WatchListMapper::convertWatchListToUserWatchList).collect(Collectors.toList());
+            return ResponseMessage.ok("Success", userWatchListResponses);
         }
     }
 
     @GetMapping("/filterWatchedMoviesByGenre/{userId}")
-    public List<WatchList> getWatchedMoviesByGenre(@RequestParam(name = "genre", required = false) String genreName, @PathVariable Long userId) {
-        // Retrieve movies by genre from the service layer
+    public ResponseEntity getWatchedMoviesByGenre(@RequestParam(name = "genre", required = false) String genreName, @PathVariable Long userId) {
         List<WatchList> allWacthList = watchListService.getWatchListByUser(userId);
-        // Check if genreName is empty or null
+        List<UserWatchListResponse> userWatchListResponses = allWacthList.stream().map(WatchListMapper::convertWatchListToUserWatchList)
+                .collect(Collectors.toList());
         if (genreName == null || genreName.isEmpty()) {
-            return allWacthList;
+            return ResponseMessage.ok("No Genre Specified", userWatchListResponses);
         }
-        // Filter movies by the specified genre
-        return allWacthList.stream()
+        List<WatchList> filteredWatchList = allWacthList.stream()
                 .filter(watchList -> {
                     return watchList.getMovie().getGenres().stream()
                             .anyMatch(genre -> genre.getName().equalsIgnoreCase(genreName));
-                })
-                .collect(Collectors.toList()); // Collect the filtered movies into a list
+                }).collect(Collectors.toList());
+        if (filteredWatchList.isEmpty()) {
+            return ResponseMessage.notFound("Filtred WatchList Not Found");
+        } else {
+            List<UserWatchListResponse> result = filteredWatchList.stream().map(WatchListMapper::convertWatchListToUserWatchList)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Success", result);
+        }
     }
 
     @GetMapping("/filterWatchedMoviesByDecade/{userId}")
-    public List<WatchList> getWatchedMoviesByDecade(@RequestParam("decade") String decade, @PathVariable Long userId) {
-        // Retrieve movies from the service layer
+    public ResponseEntity getWatchedMoviesByDecade(@RequestParam("decade") String decade, @PathVariable Long userId) {
         List<WatchList> allWatchList = watchListService.getWatchListByUser(userId);
-
+        List<UserWatchListResponse> userWatchListResponses = allWatchList.stream().map(WatchListMapper::convertWatchListToUserWatchList)
+                .collect(Collectors.toList());
         if (decade == null || decade.isEmpty()) {
-            return allWatchList;
+            return ResponseMessage.ok("Decade was not Specified", userWatchListResponses);
         }
-        // Filter movies by the specified decade
-        return allWatchList.stream()
+        List<WatchList> filteredWatchList = allWatchList.stream()
                 .filter(watchList -> isMovieInDecade(watchList.getMovie(), decade))
                 .collect(Collectors.toList());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity getWatchListById(@PathVariable Long id) {
-        WatchList watchList = watchListService.getWatchListById(id);
-        if (watchList == null) {
-            return ResponseMessage.notFound("WatchList Not Found");
+        if (filteredWatchList.isEmpty()) {
+            return ResponseMessage.notFound("Filtred WatchList Not Found");
         } else {
-            return ResponseMessage.ok("Success", watchList);
-        }
-    }
-
-    @PostMapping("")
-    public ResponseEntity addWatchList(@RequestBody @Valid WatchListRequest watchListRequest) {
-        WatchList watchList1 = watchListService.addWatchList(watchListRequest.getUserId(), watchListRequest.getMovieId());
-        if(watchList1 == null) {
-            return ResponseMessage.badRequest("Failed To Create WatchList");
-        } else {
-            return ResponseMessage.created("WatchList Created Successfully", watchList1);
+            List<UserWatchListResponse> result = filteredWatchList.stream().map(WatchListMapper::convertWatchListToUserWatchList)
+                    .collect(Collectors.toList());
+            return ResponseMessage.ok("Success", result);
         }
     }
 
