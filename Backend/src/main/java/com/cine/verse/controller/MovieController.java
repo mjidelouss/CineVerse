@@ -36,7 +36,7 @@ public class MovieController {
             return ResponseMessage.notFound("Movies Not Found");
         } else {
             Page<MoviesResponse> moviesResponses = moviesPage.map(MovieMapper::convertMovieToMoviesResponse);
-            return ResponseMessage.ok("Success", moviesResponses);
+            return ResponseMessage.ok("Success", moviesResponses.getContent());
         }
     }
 

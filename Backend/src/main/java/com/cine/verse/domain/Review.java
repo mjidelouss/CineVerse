@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Data
@@ -46,17 +45,4 @@ public class Review {
 
     @Column()
     private LocalDate timestamp;
-
-    @Column(columnDefinition = "integer default 0")
-    private Integer totalLikes;
-
-    public void incrementTotalLikes() {
-        this.totalLikes++;
-    }
-
-    public void decrementTotalLikes() {
-        if (this.totalLikes > 0) {
-            this.totalLikes--;
-        }
-    }
 }

@@ -15,6 +15,7 @@ public class UserMapper {
                 .bio(user.getBio())
                 .firstname(user.getFirstname())
                 .image(user.getImage())
+                .email(user.getEmail())
                 .lastname(user.getLastname())
                 .location(user.getLocation())
                 .build();

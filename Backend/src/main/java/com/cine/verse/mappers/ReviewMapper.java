@@ -30,6 +30,7 @@ public class ReviewMapper {
                  .content(review.getContent())
                  .rating(review.getRating())
                  .timestamp(review.getTimestamp())
+                 .userImage(review.getAppUser().getImage())
                  .build();
     }
 

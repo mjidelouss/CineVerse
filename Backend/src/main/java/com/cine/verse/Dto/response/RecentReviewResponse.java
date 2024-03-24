@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class RecentReviewResponse {
     private Long userId;
     private String userFirstname;
+    private String userImage;
     private String userLastname;
     private Integer rating;
     private String content;

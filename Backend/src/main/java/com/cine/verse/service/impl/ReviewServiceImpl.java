@@ -24,8 +24,6 @@ public class ReviewServiceImpl implements ReviewService {
     private final AppUserRepository userRepository;
     private final MovieService movieService;
     private final AppUserService appUserService;
-
-
     @Override
     public Page<Review> getReviews(Pageable pageable) {
         return reviewRepository.findAll(pageable);

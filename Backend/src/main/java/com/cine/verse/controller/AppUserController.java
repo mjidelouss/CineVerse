@@ -38,7 +38,7 @@ public class AppUserController {
             return ResponseMessage.notFound("Users Not Found");
         } else {
             Page<UserResponse> userResponsesPage = usersPage.map(UserMapper::convertAppUserToUserResponse);
-            return ResponseMessage.ok("Success", userResponsesPage);
+            return ResponseMessage.ok("Success", userResponsesPage.getContent());
         }
     }
 

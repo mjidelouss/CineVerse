@@ -34,7 +34,7 @@ public class ReviewController {
             return ResponseMessage.notFound("Reviews Not Found");
         } else {
             Page<ReviewsResponse> reviewsResponses = reviewsPage.map(ReviewMapper::convertReviewToReviewsResponse);
-            return ResponseMessage.ok("Success", reviewsResponses);
+            return ResponseMessage.ok("Success", reviewsResponses.getContent());
         }
     }
 
@@ -108,7 +108,7 @@ public class ReviewController {
             List<UserReviewResponse> userReviewResponses = reviews.stream()
                     .map(UserMapper::convertReviewToUserReview)
                     .collect(Collectors.toList());
-            return ResponseMessage.ok("Success", reviews);
+            return ResponseMessage.ok("Success", userReviewResponses);
         }
     }
 
@@ -121,7 +121,7 @@ public class ReviewController {
             List<PopularReviewResponse> popularReviewResponses = reviews.stream()
                     .map(ReviewMapper::convertReviewToPopularReview)
                     .collect(Collectors.toList());
-            return ResponseMessage.ok("Success", reviews);
+            return ResponseMessage.ok("Success", popularReviewResponses);
         }
     }
 
@@ -270,7 +270,8 @@ public class ReviewController {
         if (review1 == null) {
             return ResponseMessage.badRequest("Failed To Create Review");
         } else {
-            return ResponseMessage.created("Review Created Successfully", review1);
+            RecentReviewResponse reviewResponse = ReviewMapper.convertReviewToRecentReview(review1);
+            return ResponseMessage.created("Review Created Successfully", reviewResponse);
         }
     }
 
