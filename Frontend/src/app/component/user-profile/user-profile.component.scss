@@ -1,0 +1,61 @@
+.item {
+  border: 2px solid rgb(46, 38, 61);
+  padding-top: 1%;
+}
+
+.movie-card {
+  cursor: pointer;
+  height: 270px;
+  width: 210px;
+  position: relative;
+  overflow: hidden;
+}
+
+.crum {
+  cursor: pointer;
+}
+
+.movie-poster {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border: 3px solid black;
+  transition: transform 0.3s ease; /* Add transition for smoother animation */
+}
+
+.star-hover {
+  color: #c7c72f;
+}
+
+.movie-poster:hover {
+  border: 3px solid #4a029e;
+}
+
+.movie-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 22%;
+  text-align: center;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s ease; /* Add transition for opacity */
+}
+
+.watched {
+  font-family: "Malgun Gothic";
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+}
+
+.movie-card:hover .movie-poster {
+  transform: scale(1.05); /* Increase scale on hover */
+}
+
+.review {
+  background: #283038;
+}

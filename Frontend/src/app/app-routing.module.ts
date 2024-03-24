@@ -20,6 +20,7 @@ import {MembersComponent} from "./component/members/members.component";
 import {AdminMoviesComponent} from "./component/admin-movies/admin-movies.component";
 import {AdminMembersComponent} from "./component/admin-members/admin-members.component";
 import {AdminReviewsComponent} from "./component/admin-reviews/admin-reviews.component";
+import {UserProfileComponent} from "./component/user-profile/user-profile.component";
 
 export const Approutes: Routes = [
   {
@@ -92,6 +93,10 @@ export const Approutes: Routes = [
   {
     path: 'likes/:id',
     component: LikesComponent
+  },
+  {
+    path: 'user-profile/:id',
+    component: UserProfileComponent
   },
   {
     path: 'profile-reviews/:id',

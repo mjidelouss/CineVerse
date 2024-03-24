@@ -122,7 +122,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   }
 
   onUserProfileClick(userId: number): void {
-    this.router.navigate(['/profile', userId]);
+    this.router.navigate(['/user-profile', userId]);
   }
   parseTimeStamp(timestamp: string):{ day: string, month: string, dayOfMonth: string}  {
     let parsedTimeStamp = { day: '', month: '', dayOfMonth: ''};

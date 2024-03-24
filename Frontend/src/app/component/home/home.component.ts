@@ -131,7 +131,7 @@ export class HomeComponent implements OnInit{
     return daysOfWeek[dayIndex];
   }
   onUserProfileClick(userId: number): void {
-    this.router.navigate(['/profile', userId]);
+    this.router.navigate(['/user-profile', userId]);
   }
 
 }

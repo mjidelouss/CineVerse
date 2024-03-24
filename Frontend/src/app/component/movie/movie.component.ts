@@ -351,6 +351,10 @@ export class MovieComponent implements OnInit, OnDestroy {
       return {} as MovieCredits;
     }
   }
+
+  onUserProfileClick(userId: number): void {
+    this.router.navigate(['/user-profile', userId]);
+  }
   onMovieClick(movieId: number): void {
     this.router.navigate(['/movie', movieId]);
   }
