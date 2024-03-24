@@ -68,7 +68,15 @@ export class AdminMembersComponent {
       .getUsers(this.pageIndex, this.pageSize)
       .subscribe(
         (response) => {
-          this.members = response.data;
+          this.members = response.data.map((member: any) => ({
+            id: member.userId,
+            firstname: member.firstname || 'N/A',
+            lastname: member.lastname || 'N/A',
+            bio: member.bio || 'N/A',
+            email: member.email,
+            location: member.location || 'N/A',
+            image: member.image
+          }));
         },
         (error) => {
           console.error('Error fetching Members:', error);

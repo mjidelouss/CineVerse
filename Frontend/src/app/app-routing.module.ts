@@ -21,6 +21,7 @@ import {AdminMoviesComponent} from "./component/admin-movies/admin-movies.compon
 import {AdminMembersComponent} from "./component/admin-members/admin-members.component";
 import {AdminReviewsComponent} from "./component/admin-reviews/admin-reviews.component";
 import {UserProfileComponent} from "./component/user-profile/user-profile.component";
+import {authGuard} from "./helpers/auth.guard";
 
 export const Approutes: Routes = [
   {
@@ -37,18 +38,26 @@ export const Approutes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_ADMIN']},
   },
   {
     path: 'dashboard-movies',
     component: AdminMoviesComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_ADMIN']},
   },
   {
     path: 'dashboard-members',
     component: AdminMembersComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_ADMIN']},
   },
   {
     path: 'dashboard-reviews',
     component: AdminReviewsComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_ADMIN']},
   },
   {
     path: 'forbidden',
@@ -68,51 +77,75 @@ export const Approutes: Routes = [
   },
   {
     path: 'user-home',
-    component: UserHomeComponent
+    component: UserHomeComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'members',
-    component: MembersComponent
+    component: MembersComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'movies',
-    component: MoviesComponent
+    component: MoviesComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'profile/:id',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'watchlist/:id',
-    component: WatchlistComponent
+    component: WatchlistComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'movie/:id',
-    component: MovieComponent
+    component: MovieComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'likes/:id',
-    component: LikesComponent
+    component: LikesComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'user-profile/:id',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'profile-reviews/:id',
-    component: PofileReviewsComponent
+    component: PofileReviewsComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'profile-movies/:id',
-    component: PofileMoviesComponent
+    component: PofileMoviesComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'diary/:id',
-    component: DiaryComponent
+    component: DiaryComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: 'settings/:id',
-    component: SettingsComponent
+    component: SettingsComponent,
+    canActivate: [authGuard],
+    data: {roles: ['ROLE_USER']},
   },
   {
     path: '**',

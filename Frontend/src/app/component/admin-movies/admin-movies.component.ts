@@ -66,7 +66,13 @@ export class AdminMoviesComponent {
       .getMovies(this.pageIndex, this.pageSize)
       .subscribe(
         (response) => {
-          this.movies = response.data;
+          this.movies = response.data.map((dbMovie: any) => ({
+            id: dbMovie.movieId,
+            title: dbMovie.movieTitle || 'N/A',
+            year: dbMovie.movieYear || 'N/A',
+            image: "https://image.tmdb.org/t/p/w500/" + dbMovie.movieImage || 'N/A',
+            language: dbMovie.movieLanguage || 'N/A',
+          }));
         },
         (error) => {
           console.error('Error fetching Movies:', error);

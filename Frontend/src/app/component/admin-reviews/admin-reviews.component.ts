@@ -67,7 +67,13 @@ export class AdminReviewsComponent {
       .getReviews(this.pageIndex, this.pageSize)
       .subscribe(
         (response) => {
-          this.reviews = response.data;
+          this.reviews = response.data.map((review: any) => ({
+            id: review.reviewId,
+            title: review.movieTitle || 'N/A',
+            rating: review.rating || 'N/A',
+            timestamp: review.timestamp || 'N/A',
+            firstname: review.userFirstname,
+          }));
         },
         (error) => {
           console.error('Error fetching Reviews:', error);
