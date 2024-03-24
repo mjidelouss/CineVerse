@@ -29,6 +29,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {NavigationComponent} from "../shared/header/navigation.component";
 import {SidebarComponent} from "../shared/sidebar/sidebar.component";
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { VaderComponent } from './vader/vader.component';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ForbiddenComponent,
     MoviesComponent,
     UserProfileComponent,
+    VaderComponent,
   ],
 })
 export class ComponentsModule { }

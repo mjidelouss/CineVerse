@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {UserService} from "../../service/user.service";
-import {UserInfo} from "../../models/user-info";
 
 @Component({
   selector: 'app-settings',
@@ -13,6 +12,8 @@ export class SettingsComponent implements OnInit, OnDestroy{
   userId!: number;
   fileInputs: { [key: string]: File } = {};
   user!: any;
+  loader = true;
+  showAlert: boolean = false;
 
   constructor(private route: ActivatedRoute,private router: Router, public dialog: MatDialog, private userService: UserService) {
 
@@ -29,6 +30,9 @@ export class SettingsComponent implements OnInit, OnDestroy{
       this.userId = +params['id'];
     });
     this.getUserProfile();
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   getUserProfile() {
@@ -54,6 +58,8 @@ export class SettingsComponent implements OnInit, OnDestroy{
     }
     this.userService.updateUserProfile(this.userId, formData).subscribe(
       (response: any) => {
+        this.showAlert = true;
+        setTimeout(() => this.showAlert = false, 5000);
         this.user = response.data
       },
       (error) => {

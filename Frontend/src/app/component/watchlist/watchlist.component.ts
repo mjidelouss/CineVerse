@@ -19,6 +19,7 @@ export class WatchlistComponent implements OnInit, OnDestroy{
   genres: Genre[] = [];
   selectedGenre: string = '';
   movies: TrendingMovie[] = [];
+  loader = true;
 
   constructor(private route: ActivatedRoute,private router: Router, public dialog: MatDialog,
               private authService: AuthService, private watchlistService: WatchlistService, private genreService: GenreService) {
@@ -37,6 +38,9 @@ export class WatchlistComponent implements OnInit, OnDestroy{
     });
     this.getUserWatchList()
     this.getGenres()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   getGenres() {

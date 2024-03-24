@@ -1,11 +1,11 @@
-import {Component, inject, OnDestroy, OnInit, TemplateRef} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MovieService} from "../../service/movie.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Movie} from "../../models/movie";
 import {MovieCredits} from "../../models/movie-credits";
 import {DomSanitizer, SafeResourceUrl, SafeStyle} from "@angular/platform-browser";
 import {MatDialog} from "@angular/material/dialog";
-import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {ModalDismissReasons, NgbAlert, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {SimilarMovie} from "../../models/similarMovie";
 import {ReviewService} from "../../service/review.service";
 import {Subscription} from "rxjs";
@@ -21,10 +21,11 @@ import {Genre} from "../../models/genre";
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.scss']
 })
-export class MovieComponent implements OnInit, OnDestroy {
-
+export class MovieComponent implements OnInit {
+  showAlert: boolean = false;
   private modalService = inject(NgbModal);
   AuthUserSub! : Subscription;
+  loader = true
   closeResult = '';
   totalWatched!: number
   totalLiked!: number
@@ -74,6 +75,9 @@ export class MovieComponent implements OnInit, OnDestroy {
     this.getSimilarMovies(this.movieId);
     this.getTotalWatched()
     this.getTotalLiked()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
 
@@ -85,13 +89,15 @@ export class MovieComponent implements OnInit, OnDestroy {
   saveReview() {
     this.reviewService.addReview(this.review).subscribe(
       (response: any) => {
+        this.showAlert = true;
+        setTimeout(() => this.showAlert = false, 5000);
         let review: RecentReview = {
           firstname: response.data.userFirstname || 'N/A',
           lastname: response.data.userLastname || 'N/A',
           image: response.data.userImage || 'N/A',
+          userId: response.data.userId,
           content: response.data.content || 'N/A',
           rating: response.data.rating || 'N/A',
-          userId: response.data.userId,
           timestamp: response.data.timestamp|| 'N/A'
         };
         this.recentReviews.push(review);
@@ -257,7 +263,6 @@ export class MovieComponent implements OnInit, OnDestroy {
       .getMovieById(movieId)
       .subscribe(
         (response: any) => {
-          console.log(response.data)
           this.movie = response.data;
           this.movieCredits = this.parseMovieData(this.movie.movieData);
           this.rate.movieId = this.movie.id;
@@ -286,8 +291,6 @@ export class MovieComponent implements OnInit, OnDestroy {
   getRecentReviews(movieId: number) {
     this.reviewService.getRecentReviews(movieId).subscribe(
       (response) => {
-        console.log("Recent Reviews :")
-        console.log(response.data)
         this.recentReviews = [];
         for (const element of response.data) {
           const dbReview = element;
@@ -355,8 +358,8 @@ export class MovieComponent implements OnInit, OnDestroy {
   onUserProfileClick(userId: number): void {
     this.router.navigate(['/user-profile', userId]);
   }
-  onMovieClick(movieId: number): void {
-    this.router.navigate(['/movie', movieId]);
+  onMovieeClick(movieId: number): void {
+    this.router.navigate(['/movie', movieId]).then(page => { window.location.reload(); });
   }
   open(content: TemplateRef<any>) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -394,12 +397,6 @@ export class MovieComponent implements OnInit, OnDestroy {
         return 'by clicking on a backdrop';
       default:
         return `with: ${reason}`;
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.AuthUserSub) {
-      this.AuthUserSub.unsubscribe();
     }
   }
 

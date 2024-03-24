@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit{
   searchResults: any[] = [];
   reviews: any[] = []
   searchTermControl: FormControl = new FormControl();
+  loader = true
 
   constructor(private movieService: MovieService, private router: Router, private reviewService: ReviewService,
               private authService : AuthService, private formBuilder: FormBuilder) {}
@@ -43,6 +44,9 @@ export class HomeComponent implements OnInit{
     });
     this.getTrendingMovies();
     this.getPopularReviews()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   onMovieClick(movieId: number): void {

@@ -1,4 +1,7 @@
-<div class="bg-black">
+<div *ngIf="loader">
+  <app-vader></app-vader>
+</div>
+<div class="bg-black" *ngIf="!loader">
     <!-- Navbar -->
     <app-navbar></app-navbar>
     <!-- WatchList -->
@@ -50,8 +53,9 @@
               </select>
             </div>
         </div>
+      <ngb-alert class="mt-2" *ngIf="showAlert" [type]="'success'" [dismissible]="false" (closed)="showAlert = false">Review Updated Successfully</ngb-alert>
 
-        <!-- Diary -->
+      <!-- Diary -->
         <div class="mt-5">
             <p class=""><a class="text-white opacity-75 fs-5 fw-bold" href="#">Diary</a></p>
             <hr class="text-white">

@@ -17,6 +17,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   movies: TrendingMovie[] = [];
   reviews: any[] = []
   AuthUserSub! : Subscription;
+  loader: boolean = true
 
   constructor(private authService : AuthService, private movieService: MovieService,
               private router: Router, private reviewService: ReviewService) {}
@@ -38,6 +39,9 @@ export class UserHomeComponent implements OnInit, OnDestroy {
     this.getTrendingMovies();
     this.getMovies()
     this.getPopularReviews()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
   getTrendingMovies() {
     this.movieService

@@ -17,6 +17,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   likedMovies: TrendingMovie[] = [];
   watchCount!: number
   likeCount!: number
+  loader = true;
 
   constructor(private authService: AuthService, private userService: UserService, private route: ActivatedRoute,
               private reviewService: ReviewService, private router: Router,) {
@@ -34,6 +35,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.getUserRecentReviews()
     this.getWatchCount()
     this.getLikeCount()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   getUser() {

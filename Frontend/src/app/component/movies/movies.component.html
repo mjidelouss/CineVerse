@@ -1,4 +1,7 @@
-<div class="bg-black">
+<div *ngIf="loader">
+  <app-vader></app-vader>
+</div>
+<div class="bg-black" *ngIf="!loader">
   <!-- Navbar -->
   <app-navbar></app-navbar>
 

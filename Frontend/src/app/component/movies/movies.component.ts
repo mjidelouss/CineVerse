@@ -19,6 +19,7 @@ export class MoviesComponent implements OnInit{
   pageIndex: number = 1
   pageSize: number = 48
   totalMovies: number = 1000
+  loader = true
 
   constructor(private authService : AuthService, private movieService: MovieService, private router: Router) {}
 
@@ -36,6 +37,9 @@ export class MoviesComponent implements OnInit{
     })
     this.getTrendingMovies();
     this.getMovies()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   getTrendingMovies() {

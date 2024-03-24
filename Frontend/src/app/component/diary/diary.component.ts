@@ -5,7 +5,6 @@ import {ReviewService} from "../../service/review.service";
 import {Diary} from "../../models/diary";
 import {Genre} from "../../models/genre";
 import {GenreService} from "../../service/genre.service";
-import {RecentReview} from "../../models/recent-review";
 import {ModalDismissReasons, NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Review} from "../../models/review";
 
@@ -18,6 +17,7 @@ export class DiaryComponent implements OnInit, OnDestroy{
 
   private modalService = inject(NgbModal);
   userId!: number;
+  showAlert: boolean = false;
   closeResult = '';
   selectedMovie: any
   diaryMovies: Diary[] = [];
@@ -25,6 +25,7 @@ export class DiaryComponent implements OnInit, OnDestroy{
   review: Review = { userId: {} as number, movieId: {} as number, content: '' };
   genres: Genre[] = [];
   selectedGenre: string = '';
+  loader = true
   private modalRef: NgbModalRef | undefined;
   constructor(private route: ActivatedRoute,private router: Router, private genreService: GenreService
               ,public dialog: MatDialog, private reviewService: ReviewService) {
@@ -43,6 +44,9 @@ export class DiaryComponent implements OnInit, OnDestroy{
     });
     this.getMyReviews()
     this.getGenres()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   getGenres() {
@@ -158,6 +162,8 @@ export class DiaryComponent implements OnInit, OnDestroy{
     this.review.content = this.selectedMovie.content
     this.reviewService.updateReview(this.review, reviewId).subscribe(
       (response: any) => {
+        this.showAlert = true;
+        setTimeout(() => this.showAlert = false, 5000);
         const existingReviewIndex = this.diaryMovies.findIndex(movie => movie.reviewId === reviewId);
         if (existingReviewIndex !== -1) {
           this.diaryMovies[existingReviewIndex].content = response.data.content;

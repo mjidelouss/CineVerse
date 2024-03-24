@@ -20,6 +20,7 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
   selectedDecade!: string;
   movies: ProfileMovie[] = [];
   genres: Genre[] = [];
+  loader = true
   selectedGenre: string = '';
   constructor(private reviewService: ReviewService, private router: Router,
               private route: ActivatedRoute, private authService: AuthService,
@@ -37,6 +38,9 @@ export class PofileMoviesComponent implements OnInit, OnDestroy {
     });
     this.getReviewedMoviesWithRating()
     this.getGenres()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   filterMoviesByGenre() {

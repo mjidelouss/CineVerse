@@ -1,4 +1,7 @@
-<div class="bg-black">
+<div *ngIf="loader">
+  <app-vader></app-vader>
+</div>
+<div class="bg-black" *ngIf="!loader">
   <!-- Navbar -->
   <app-navbar></app-navbar>
   <!-- Movie Poster -->
@@ -157,6 +160,9 @@
                   Trailer</span></a>
             </div>
           </div>
+
+          <ngb-alert class="mt-2" *ngIf="showAlert" [type]="'outline-success'" [dismissible]="false" (closed)="showAlert = false">Review Saved Successfully</ngb-alert>
+
           <!-- Latest Reviews -->
           <div class="container rounded mt-4">
             <h1 class="fw-bolder text-white">Recent Reviews</h1>
@@ -219,7 +225,7 @@
           <div class="row">
             <!-- Loop through similarMovies array -->
             <div *ngFor="let movie of similarMovies" class="col-lg-2 col-md-4 card bg-black film-card">
-              <div (click)="onMovieClick(movie.id)">
+              <div (click)="onMovieeClick(movie.id)">
                 <img [src]="movie.image" class="card-img-top film-poster rounded" alt="Movie {{ movie.title }}">
                 <div class="film-overlay">
                   <p class="text-white fs-2">{{ movie.title}}</p>
@@ -248,7 +254,6 @@
         <h4 id="modal-review" class="ms-1 modal-title text-white fw-bold">I WATCHED...</h4>
         <button type="button" class="btn-close bg-white" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
-
       <div class="review-container">
         <!-- Movie Poster -->
         <div class="d-flex">
@@ -293,9 +298,6 @@
       </div>
     </div>
   </ng-template>
-
-
-
 
   <!-- Footer Section -->
   <hr class="text-muted">

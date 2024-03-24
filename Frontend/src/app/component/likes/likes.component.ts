@@ -19,6 +19,7 @@ export class LikesComponent implements OnInit, OnDestroy{
   selectedDecade!: string;
   genres: Genre[] = [];
   selectedGenre: string = '';
+  loader = true
 
   constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog,
               private reviewService: ReviewService, private genreService: GenreService) {
@@ -37,6 +38,9 @@ export class LikesComponent implements OnInit, OnDestroy{
     });
     this.getUserLikedMovies()
     this.getGenres()
+    setTimeout(() => {
+      this.loader = false;
+    }, 2000);
   }
 
   getGenres() {

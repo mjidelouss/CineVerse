@@ -1,10 +1,15 @@
-<div class="bg-black">
+<div *ngIf="loader">
+  <app-vader></app-vader>
+</div>
+<div class="bg-black" *ngIf="!loader">
   <!-- Navbar -->
   <app-navbar></app-navbar>
   <!-- Profile Settings -->
   <div class="container mt-5 text-center">
     <h1 class="fw-bolder text-white">Account Settings</h1>
     <hr class="text-white">
+    <ngb-alert class="mt-2" *ngIf="showAlert" [type]="'success'" [dismissible]="false" (closed)="showAlert = false">Profile Updated Successfully</ngb-alert>
+
     <div class="row justify-content-center">
       <!-- Profile Image Input -->
       <div class="row justify-content-center">
