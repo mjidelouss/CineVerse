@@ -8,12 +8,3 @@ services:
       - 'MYSQL_ALLOW_EMPTY_PASSWORD=yes'
     ports:
       - '3306:3306'
-
-  sonar:
-    container_name: sonarqube_cineverse
-    image: sonarqube:10.3.0-community
-    environment:
-      - SONAR_FORCEAUTHENTICATION=false
-    ports:
-      - 127.0.0.1:9001:9000
-      - 127.0.0.1:9000:9000

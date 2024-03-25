@@ -39,7 +39,7 @@ export class SignUpComponent implements OnInit, OnDestroy{
 
     this.authService.register(firstname, lastname, email, password, role).subscribe({
       next : userData => {
-        this.router.navigate(['home']);
+        this.router.navigate(['']);
       },
       error : err => {
         this.errorMessage = err;

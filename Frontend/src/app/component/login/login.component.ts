@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit,OnDestroy{
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next : user => {
         if(user) {
-          this.router.navigate(['user-home']);
+          this.router.navigate(['']);
         }
       }
     })
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit,OnDestroy{
 
     this.authService.login(email, password).subscribe({
       next : userData => {
-        this.router.navigate(['user-home']);
+        this.router.navigate(['']);
       },
       error : err => {
         this.errorMessage = err;

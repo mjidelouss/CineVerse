@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: mysql-db
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=cineverse'
+      - 'MYSQL_ALLOW_EMPTY_PASSWORD=yes'
+    ports:
+      - '3306:3306'
+
+  spring-app:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cineverse?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 
+
+  spring-app-angular:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - spring-app

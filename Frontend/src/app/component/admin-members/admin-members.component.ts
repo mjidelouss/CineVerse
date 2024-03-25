@@ -7,23 +7,21 @@ import {MatPaginatorModule, PageEvent} from "@angular/material/paginator";
 import {SidebarComponent} from "../../shared/sidebar/sidebar.component";
 import {NavigationComponent} from "../../shared/header/navigation.component";
 import {CommonModule} from "@angular/common";
-import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlert, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import {DataTablesModule} from "angular-datatables";
 import {FormsModule} from "@angular/forms";
 import {UserService} from "../../service/user.service";
-import {UserInfo} from "../../models/user-info";
 
 @Component({
   selector: 'app-admin-members',
   standalone: true,
   templateUrl: './admin-members.component.html',
-  imports: [RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule, DataTablesModule, MatPaginatorModule, FormsModule],
+  imports: [RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule, DataTablesModule, MatPaginatorModule, FormsModule, NgbAlert],
   styleUrls: ['./admin-members.component.scss']
 })
 export class AdminMembersComponent {
-
+  showAlert: boolean = false;
   members: any[] = [];
-  selectedStatus: string = '';
   pageSizeOptions: number[] = [4];
   pageSize: number = 4;
   pageIndex: number = 0;
@@ -92,7 +90,8 @@ export class AdminMembersComponent {
   deleteMember(id: number) {
     this.userService.deleteUser(id).subscribe(
       (response) => {
-        console.log("User Deleted Successfully")
+        this.showAlert = true;
+        setTimeout(() => this.showAlert = false, 5000);
       },
       (error) => {
         console.error('Error Deleting User:', error);

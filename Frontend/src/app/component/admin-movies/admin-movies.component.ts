@@ -7,7 +7,7 @@ import {MatPaginatorModule, PageEvent} from "@angular/material/paginator";
 import {SidebarComponent} from "../../shared/sidebar/sidebar.component";
 import {NavigationComponent} from "../../shared/header/navigation.component";
 import {CommonModule} from "@angular/common";
-import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlert, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import {DataTablesModule} from "angular-datatables";
 import {FormsModule} from "@angular/forms";
 import {Movie} from "../../models/movie";
@@ -16,12 +16,13 @@ import {Movie} from "../../models/movie";
   selector: 'app-admin-movies',
   standalone: true,
   templateUrl: './admin-movies.component.html',
-  imports: [RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule, DataTablesModule, MatPaginatorModule, FormsModule],
+    imports: [RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule, DataTablesModule, MatPaginatorModule, FormsModule, NgbAlert],
   styleUrls: ['./admin-movies.component.scss']
 })
 export class AdminMoviesComponent {
 
   movies: Movie[] = [];
+  showAlert: boolean = false;
   pageSizeOptions: number[] = [4];
   pageSize: number = 4;
   pageIndex: number = 0;
@@ -89,7 +90,8 @@ export class AdminMoviesComponent {
   deleteMovie(id: number) {
     this.movieService.deleteMovie(id).subscribe(
       (response) => {
-        console.log("Movie Deleted Successfully")
+        this.showAlert = true;
+        setTimeout(() => this.showAlert = false, 5000);
       },
       (error) => {
         console.error('Error Deleting Movie:', error);

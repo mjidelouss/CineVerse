@@ -121,6 +121,7 @@
                   </div>
                 </div>
               </div>
+              <ngb-alert class="mt-2" *ngIf="showAlert" [type]="'danger'" [dismissible]="false" (closed)="showAlert = false">Movie Deleted Successfully</ngb-alert>
               <div class="table-responsive">
                 <table class="table align-middle text-nowrap" id="competitionsTable">
                   <thead>

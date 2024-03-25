@@ -1,13 +1,12 @@
 import {Component, HostListener} from '@angular/core';
 import {Subscription} from "rxjs";
-import {MovieService} from "../../service/movie.service";
 import {Router, RouterModule} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {MatPaginatorModule, PageEvent} from "@angular/material/paginator";
 import {SidebarComponent} from "../../shared/sidebar/sidebar.component";
 import {NavigationComponent} from "../../shared/header/navigation.component";
 import {CommonModule} from "@angular/common";
-import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlert, NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 import {DataTablesModule} from "angular-datatables";
 import {FormsModule} from "@angular/forms";
 import {ReviewService} from "../../service/review.service";
@@ -16,13 +15,13 @@ import {ReviewService} from "../../service/review.service";
   selector: 'app-admin-reviews',
   standalone: true,
   templateUrl: './admin-reviews.component.html',
-  imports: [RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule, DataTablesModule, MatPaginatorModule, FormsModule],
+    imports: [RouterModule, SidebarComponent, NavigationComponent, CommonModule, NgbCollapseModule, DataTablesModule, MatPaginatorModule, FormsModule, NgbAlert],
   styleUrls: ['./admin-reviews.component.scss']
 })
 export class AdminReviewsComponent {
 
   reviews: any[] = [];
-  selectedStatus: string = '';
+  showAlert: boolean = false;
   pageSizeOptions: number[] = [4];
   pageSize: number = 4;
   pageIndex: number = 0;
@@ -89,7 +88,8 @@ export class AdminReviewsComponent {
   deleteReview(id: number) {
     this.reviewService.deleteReview(id).subscribe(
       (response) => {
-        console.log("Review Deleted Successfully")
+        this.showAlert = true;
+        setTimeout(() => this.showAlert = false, 5000);
       },
       (error) => {
         console.error('Error Deleting Review:', error);

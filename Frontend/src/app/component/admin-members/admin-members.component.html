@@ -115,6 +115,7 @@
                   <h5 class="card-subtitle text-success">Overview of the members</h5>
                 </div>
               </div>
+              <ngb-alert class="mt-2" *ngIf="showAlert" [type]="'danger'" [dismissible]="false" (closed)="showAlert = false">Member Deleted Successfully</ngb-alert>
               <div class="table-responsive">
                 <table class="table align-middle text-nowrap" id="competitionsTable">
                   <thead>

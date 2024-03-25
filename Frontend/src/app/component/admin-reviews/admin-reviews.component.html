@@ -115,6 +115,7 @@
                   <h5 class="card-subtitle text-success">Overview of the Reviews</h5>
                 </div>
               </div>
+              <ngb-alert class="mt-2" *ngIf="showAlert" [type]="'danger'" [dismissible]="false" (closed)="showAlert = false">Review Deleted Successfully</ngb-alert>
               <div class="table-responsive">
                 <table class="table align-middle text-nowrap" id="competitionsTable">
                   <thead>

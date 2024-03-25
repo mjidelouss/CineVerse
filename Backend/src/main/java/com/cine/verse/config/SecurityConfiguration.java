@@ -26,10 +26,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfiguration {
-    /* * At the application startup, during configuration, spring security will try to look for a bean of type SecurityFilterChain
-     * this bean is responsible for configuring all the HTTP security of our application
-     */
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
     private final Http401UnauthorizedEntryPoint unauthorizedEntryPoint;
@@ -46,9 +42,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request ->
                         request
                                 .requestMatchers(
-                                        "/api/v1/**"
+                                        "/api/v1/auth/**",
+                                        "/api/v1/movie/trending"
                                 ).permitAll()
-                                .anyRequest().permitAll())
+                                .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider).addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

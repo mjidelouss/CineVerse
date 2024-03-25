@@ -4,6 +4,7 @@ import com.cine.verse.Dto.response.MoviesResponse;
 import com.cine.verse.Dto.response.ReviewedMovieResponse;
 import com.cine.verse.Dto.response.SearchedMovieResponse;
 import com.cine.verse.Dto.response.UserResponse;
+import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.mappers.MovieMapper;
 import com.cine.verse.mappers.ReviewMapper;
@@ -148,6 +149,17 @@ public class MovieController {
             return ResponseMessage.notFound("Movie Not Found");
         } else {
             return ResponseMessage.ok("Success", movie);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteMovie(@PathVariable Long id) {
+        Movie movie = movieService.getMovieById(id);
+        if (movie == null) {
+            return ResponseMessage.notFound("Review Not Found");
+        } else {
+            movieService.deleteMovie(id);
+            return ResponseMessage.ok("Review Deleted Successfully", movie);
         }
     }
 

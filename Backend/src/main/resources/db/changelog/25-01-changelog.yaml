@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1711372177476-1
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: likes
+            constraintName: FK_LIKES_ON_REVIEW
+  - changeSet:
+      id: 1711372177476-2
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: likes
+            constraintName: FK_LIKES_ON_USER
+  - changeSet:
+      id: 1711372177476-3
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: movie-lists
+            constraintName: fk_mov_on_list
+  - changeSet:
+      id: 1711372177476-4
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: movie-lists
+            constraintName: fk_mov_on_movie
+  - changeSet:
+      id: 1711372177476-5
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            tableName: likes
+  - changeSet:
+      id: 1711372177476-6
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            tableName: movie-lists
+  - changeSet:
+      id: 1711372177476-7
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            tableName: movie_lists
+  - changeSet:
+      id: 1711372177476-8
+      author: lordo (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: total_likes
+            tableName: reviews
+

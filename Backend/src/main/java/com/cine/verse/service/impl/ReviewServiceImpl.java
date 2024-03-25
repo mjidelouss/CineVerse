@@ -4,8 +4,10 @@ import com.cine.verse.Dto.request.ReviewRequest;
 import com.cine.verse.domain.AppUser;
 import com.cine.verse.domain.Movie;
 import com.cine.verse.domain.Review;
+import com.cine.verse.domain.WatchList;
 import com.cine.verse.repository.AppUserRepository;
 import com.cine.verse.repository.ReviewRepository;
+import com.cine.verse.repository.WatchListRepository;
 import com.cine.verse.service.AppUserService;
 import com.cine.verse.service.MovieService;
 import com.cine.verse.service.ReviewService;
@@ -24,6 +26,8 @@ public class ReviewServiceImpl implements ReviewService {
     private final AppUserRepository userRepository;
     private final MovieService movieService;
     private final AppUserService appUserService;
+    private final WatchListRepository watchListRepository;
+
     @Override
     public Page<Review> getReviews(Pageable pageable) {
         return reviewRepository.findAll(pageable);
@@ -163,15 +167,23 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Boolean watchListMovie(Long movieId, Long userId, Boolean watchlist) {
         Review review = reviewRepository.findByMovieIdAppUserId(movieId, userId).orElse(null);
+        WatchList watchList = new WatchList();
         if (review == null) {
             review = new Review();
             Movie movie = movieService.getMovieById(movieId);
             AppUser user1 = userRepository.findById(userId).orElse(null);
             review.setMovie(movie);
             review.setAppUser(user1);
+            watchList.setMovie(movie);
+            watchList.setAppUser(user1);
+            watchList.setTimestamp(LocalDate.now());
         }
         review.setWatchlist(watchlist);
         reviewRepository.save(review);
+        watchList.setMovie(review.getMovie());
+        watchList.setAppUser(review.getAppUser());
+        watchList.setTimestamp(LocalDate.now());
+        watchListRepository.save(watchList);
         return watchlist;
     }
 

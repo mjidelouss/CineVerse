@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit{
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next : user => {
         if(user) {
-          if (user.role.name == "ROLE_MANAGER") {
+          if (user.role.name == "ROLE_ADMIN") {
             this.router.navigate(['dashboard']);
           } else if (user.role.name == "ROLE_USER") {
             this.router.navigate(['user-home']);
